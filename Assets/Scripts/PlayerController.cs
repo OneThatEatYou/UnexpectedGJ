@@ -7,11 +7,16 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public float jumpVel;
 
-    [Space]
+    [Space(2)]
 
     public Vector2 offset;
     public Vector2 groundBox;
     public LayerMask groundLayer;
+
+    [Space(2)]
+
+    public float shootCooldown = 1f;
+    float lastShootTime = 0f;
 
     Rigidbody2D rb;
 
@@ -22,19 +27,23 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        
+        lastShootTime = -shootCooldown;
     }
 
     void Update()
     {
         float movement = Input.GetAxis("Horizontal");
+        Move(movement);
 
         if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
         {
             Jump();
         }
 
-        Move(movement);
+        if (Input.GetMouseButtonDown(0))
+        {
+            Shoot();
+        }
     }
 
     private void Move(float movement)
@@ -52,6 +61,15 @@ public class PlayerController : MonoBehaviour
             rb.velocity = targetVel;
         }
     }
+
+    private void Shoot()
+    {
+        if (Time.time - lastShootTime < shootCooldown)
+        { return; }
+
+        lastShootTime = Time.time;
+        CameraAimController.instance.Shoot();
+    }    
 
     private void OnDrawGizmosSelected()
     {

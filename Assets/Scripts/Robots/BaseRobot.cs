@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class BaseRobot
 {
-    [HideInInspector] public Head head;
-    [HideInInspector] public Body body;
-    [HideInInspector] public Hand[] hands;
-    [HideInInspector] public Leg[] legs;
+    public Head head;
+    public Body body;
+    public Hand[] hands;
+    public Leg[] legs;
 
     public BaseRobot(Head _head, Body _body, Hand[] _hands, Leg[] _legs)
     {
@@ -17,13 +17,17 @@ public class BaseRobot
         legs = _legs;
     }
 
-    void Start()
+    public int GetMaxHealth()
     {
-        
-    }
+        int maxHp = 0;
 
-    void Update()
-    {
-        
+        List<BasePart> parts = RobotBuilder.Instance.GetAllParts(this);
+
+        foreach (BasePart part  in parts)
+        {
+            maxHp += part.health;
+        }
+
+        return maxHp;
     }
 }

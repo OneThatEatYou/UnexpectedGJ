@@ -72,7 +72,7 @@ public class RobotBuilder : MonoBehaviour
         BaseRobot newBaseRobot = new BaseRobot(newHead, newBody, newHands, newLegs);
         GameObject newRobot = new GameObject("NewRobot");
         RobotController newController = newRobot.AddComponent<RobotController>();
-        newController.baseRobot = newBaseRobot;
+        newController.Base = newBaseRobot;
 
         //get ground height
         RaycastHit2D hit = Physics2D.Raycast(spawnPos, Vector2.down);
@@ -98,7 +98,7 @@ public class RobotBuilder : MonoBehaviour
             if (leg.sprite.bounds.size.y + groundHeight > lowestLegPos)
             {
                 lowestLegPos = leg.sprite.bounds.extents.y + groundHeight;
-                Debug.Log($"Top of lowest leg found at {lowestLegPos}.");
+                //Debug.Log($"Top of lowest leg found at {lowestLegPos}.");
             }
         }
 

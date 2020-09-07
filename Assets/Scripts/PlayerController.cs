@@ -44,6 +44,11 @@ public class PlayerController : MonoBehaviour
         {
             Shoot();
         }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            Slap();
+        }
     }
 
     private void Move(float movement)
@@ -69,7 +74,12 @@ public class PlayerController : MonoBehaviour
 
         lastShootTime = Time.time;
         CameraAimController.instance.Shoot();
-    }    
+    }   
+    
+    private void Slap()
+    {
+        
+    }
 
     private void OnDrawGizmosSelected()
     {

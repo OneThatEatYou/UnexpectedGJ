@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RobotController : MonoBehaviour
 {
+    //stores all parts
     private BaseRobot baseRobot;
 
     public BaseRobot Base

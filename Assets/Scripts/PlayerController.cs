@@ -22,14 +22,20 @@ public class PlayerController : MonoBehaviour
     public Vector2 slapBoxSize;
     public LayerMask slappableLayer;
 
+    [Header("Animation Param")]
+    public string movementParam;
+    public string slapParam;
+
     bool isFacingLeft = false;
     Rigidbody2D rb;
     SpriteRenderer rend;
+    Animator anim;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         rend = GetComponentInChildren<SpriteRenderer>();
+        anim = GetComponent<Animator>();
     }
 
     void Start()
@@ -56,12 +62,12 @@ public class PlayerController : MonoBehaviour
             Jump();
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(1))
         {
             Shoot();
         }
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(0))
         {
             Slap();
         }
@@ -71,12 +77,25 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 targetVel = new Vector2(movement * speed, rb.velocity.y);
         rb.velocity = targetVel;
+
+        anim.SetFloat(movementParam, movement);
     }
 
     private void Jump()
     {
         //check if there is ground
-        if (Physics2D.OverlapBox((Vector2)transform.position + groundBoxOffset, groundBox, 0f, groundLayer))
+        bool isGrounded;
+
+        if (isFacingLeft)
+        {
+            isGrounded = Physics2D.OverlapBox((Vector2)transform.position + new Vector2(-groundBoxOffset.x, groundBoxOffset.y), groundBox, 0f, groundLayer);
+        }
+        else
+        {
+            isGrounded = Physics2D.OverlapBox((Vector2)transform.position + groundBoxOffset, groundBox, 0f, groundLayer);
+        }
+
+        if (isGrounded)
         {
             Vector2 targetVel = new Vector2(rb.velocity.x, jumpVel);
             rb.velocity = targetVel;
@@ -98,7 +117,6 @@ public class PlayerController : MonoBehaviour
 
         if (isFacingLeft)
         {
-            //Debug.Log("Slapping to the left");
             col = Physics2D.OverlapBox((Vector2)transform.position + new Vector2(-slapBoxOffset.x, slapBoxOffset.y), slapBoxSize, 0f, slappableLayer);
         }
         else
@@ -110,6 +128,8 @@ public class PlayerController : MonoBehaviour
         {
             col.GetComponent<Screw>().Unscrew();
         }
+
+        anim.SetTrigger(slapParam);
     }
 
     private void Flip()

@@ -5,8 +5,14 @@ using UnityEngine;
 public class BasePart : ScriptableObject
 {
     public string partName;
-    public Sprite sprite;
     public int health;
+
+    private PartController partController;
+    public PartController PartController 
+    {
+        get { return partController; }
+        set { partController = value; }
+    }
 
     public virtual void Action()
     {

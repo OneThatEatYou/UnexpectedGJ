@@ -5,5 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewHead", menuName = "Parts/Head", order = 1)]
 public class Head : BasePart
 {
-    
+    public Sprite sprite;
 }

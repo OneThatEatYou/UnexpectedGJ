@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: TestLeg
   m_EditorClassIdentifier: 
   partName: test leg
-  sprite: {fileID: 21300000, guid: 46360872e01174b4e8d0a2d59bca50a1, type: 3}
+  sprite: {fileID: 6865416417979594198, guid: 6ccb71e26546cc747805463e6a4515a9, type: 3}
   health: 1

@@ -3355,14 +3355,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 586f9ca4b1c71134bb15f231534a5e51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  screwPrefab: {fileID: 8946565423971825514, guid: d8d7eb9640882a84ba86aa6983804e9f,
+    type: 3}
   heads:
   - {fileID: 11400000, guid: fb7ab0671f4087b469fea137cb626b42, type: 2}
   bodies:
   - {fileID: 11400000, guid: 8d23e9ffbaa7f3549acdf903459ab0a1, type: 2}
   hands:
-  - {fileID: 11400000, guid: dcb17ce35569ad243add6c45da4b7925, type: 2}
+  - {fileID: 11400000, guid: 0b3396e498253e84d8a6ad486084b99a, type: 2}
   legs:
   - {fileID: 11400000, guid: 0c66ab13539fd764ebd700fa083080bb, type: 2}
+  slappableLayerName: Slappable
+  robotSortingLayer: Middleground
+  robotLayerOrder: 0
   spawnPos: {x: 0, y: 0}
 --- !u!4 &1531065524
 Transform:
@@ -3939,72 +3944,3 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2127109982}
   m_CullTransparentMesh: 0
---- !u!1001 &8946565423533857946
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 8946565423971825512, guid: d8d7eb9640882a84ba86aa6983804e9f,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -5.54
-      objectReference: {fileID: 0}
-    - target: {fileID: 8946565423971825512, guid: d8d7eb9640882a84ba86aa6983804e9f,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -5.04
-      objectReference: {fileID: 0}
-    - target: {fileID: 8946565423971825512, guid: d8d7eb9640882a84ba86aa6983804e9f,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8946565423971825512, guid: d8d7eb9640882a84ba86aa6983804e9f,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8946565423971825512, guid: d8d7eb9640882a84ba86aa6983804e9f,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8946565423971825512, guid: d8d7eb9640882a84ba86aa6983804e9f,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8946565423971825512, guid: d8d7eb9640882a84ba86aa6983804e9f,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8946565423971825512, guid: d8d7eb9640882a84ba86aa6983804e9f,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8946565423971825512, guid: d8d7eb9640882a84ba86aa6983804e9f,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8946565423971825512, guid: d8d7eb9640882a84ba86aa6983804e9f,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8946565423971825512, guid: d8d7eb9640882a84ba86aa6983804e9f,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8946565423971825514, guid: d8d7eb9640882a84ba86aa6983804e9f,
-        type: 3}
-      propertyPath: m_Name
-      value: Screw
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d8d7eb9640882a84ba86aa6983804e9f, type: 3}

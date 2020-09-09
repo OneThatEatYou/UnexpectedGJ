@@ -5,10 +5,19 @@ using UnityEngine;
 //stores parts
 public class RobotBuilder : MonoBehaviour
 {
+    public GameObject screwPrefab;
+
+    [Space]
+
     public Head[] heads;
     public Body[] bodies;
     public Hand[] hands;
     public Leg[] legs;
+
+    [Space]
+    public string slappableLayerName = "Slappable";
+    public string robotSortingLayer;
+    public int robotLayerOrder;
 
     [Space]
     
@@ -27,9 +36,12 @@ public class RobotBuilder : MonoBehaviour
                 //if no parts manager present in scene
                 if (instance == null)
                 {
-                    GameObject obj = new GameObject("RobotBuilder");
-                    instance = obj.AddComponent<RobotBuilder>();
-                    Debug.Log("Spawning a new RobotBuilder.");
+                    //GameObject obj = new GameObject("RobotBuilder");
+                    //instance = obj.AddComponent<RobotBuilder>();
+                    //Debug.Log("Spawning a new RobotBuilder.");
+
+                    Debug.LogError("RobotBuilder not found.");
+                    Debug.Break();
                 }
             }
 
@@ -55,17 +67,17 @@ public class RobotBuilder : MonoBehaviour
         Leg[] newLegs = new Leg[2];
 
         //generate parts
-        newHead = heads[Random.Range(0, heads.Length)];
-        newBody = bodies[Random.Range(0, bodies.Length)];
+        newHead = Instantiate(heads[Random.Range(0, heads.Length)]);
+        newBody = Instantiate(bodies[Random.Range(0, bodies.Length)]);
 
         for (int i = 0; i < newHands.Length; i++)
         {
-            newHands[i] = hands[Random.Range(0, hands.Length)];
+            newHands[i] = Instantiate(hands[Random.Range(0, hands.Length)]);
         }
 
         for (int i = 0; i < newLegs.Length; i++)
         {
-            newLegs[i] = legs[Random.Range(0, legs.Length)];
+            newLegs[i] = Instantiate(legs[Random.Range(0, legs.Length)]);
         }
 
         //spawn base and assign parts
@@ -85,10 +97,10 @@ public class RobotBuilder : MonoBehaviour
         for (int i = 0; i < newLegs.Length; i++)
         {
             Vector2 legPos;
-            legPos.x = Random.Range(spawnPos.x + bodyXRange, spawnPos.x - bodyXRange);
-            legPos.y = groundHeight;
+            legPos.x = Random.Range(spawnPos.x + bodyXRange - newLegs[i].sprite.bounds.extents.x, spawnPos.x - bodyXRange + newLegs[i].sprite.bounds.extents.x);
+            legPos.y = groundHeight + newLegs[i].sprite.bounds.size.y;
 
-            SpawnPart(newLegs[i], newRobot.transform, legPos);
+            SpawnPart(newController, newLegs[i], newLegs[i].sprite, newRobot.transform, legPos);
         }
 
         //get the lowest leg
@@ -97,7 +109,7 @@ public class RobotBuilder : MonoBehaviour
         {
             if (leg.sprite.bounds.size.y + groundHeight > lowestLegPos)
             {
-                lowestLegPos = leg.sprite.bounds.extents.y + groundHeight;
+                lowestLegPos = leg.sprite.bounds.size.y + groundHeight;
                 //Debug.Log($"Top of lowest leg found at {lowestLegPos}.");
             }
         }
@@ -106,13 +118,13 @@ public class RobotBuilder : MonoBehaviour
         Vector2 bodyPos;
         bodyPos.x = spawnPos.x;
         bodyPos.y = lowestLegPos + newBody.sprite.bounds.extents.y;
-        GameObject body = SpawnPart(newBody, newRobot.transform, bodyPos);
+        GameObject body = SpawnPart(newController, newBody, newBody.sprite, newRobot.transform, bodyPos);
 
         //place head based on position and width of body
         Vector2 headPos;
         headPos.x = Random.Range(spawnPos.x + bodyXRange, spawnPos.x - bodyXRange);
         headPos.y = newBody.sprite.bounds.extents.y + newHead.sprite.bounds.extents.y + bodyPos.y;
-        SpawnPart(newHead, newRobot.transform, headPos);
+        SpawnPart(newController, newHead, newHead.sprite, newRobot.transform, headPos);
 
         //place hands based on position of body
         int flip = Random.Range(0, 1);
@@ -121,29 +133,44 @@ public class RobotBuilder : MonoBehaviour
             Vector2 handPos;
             flip = 1 - flip;
 
-            //spawn on left
             if (flip == 0)
             {
-                handPos.x = spawnPos.x - newBody.sprite.bounds.extents.x - hand.sprite.bounds.extents.x;
+                //spawn on left
+                handPos.x = spawnPos.x - newBody.sprite.bounds.extents.x - hand.leftHandSprite.bounds.extents.x;
+                handPos.y = Random.Range(bodyPos.y - newBody.sprite.bounds.extents.y, bodyPos.y + newBody.sprite.bounds.extents.y);
+                SpawnPart(newController, hand, hand.leftHandSprite, newRobot.transform, handPos);
             }
             else
             {
-                handPos.x = spawnPos.x + newBody.sprite.bounds.extents.x + hand.sprite.bounds.extents.x;
+                //spawn on right
+                handPos.x = spawnPos.x + newBody.sprite.bounds.extents.x + hand.rightHandSprite.bounds.extents.x;
+                handPos.y = Random.Range(bodyPos.y - newBody.sprite.bounds.extents.y, bodyPos.y + newBody.sprite.bounds.extents.y);
+                SpawnPart(newController, hand, hand.rightHandSprite, newRobot.transform, handPos);
             }
-
-            handPos.y = Random.Range(bodyPos.y - newBody.sprite.bounds.extents.y, bodyPos.y + newBody.sprite.bounds.extents.y);
-            SpawnPart(hand, newRobot.transform, handPos);
         }
     }
 
-    public GameObject SpawnPart(BasePart part, Transform parent, Vector2 pos)
+    public GameObject SpawnPart(RobotController robotCon, BasePart part, Sprite sprite, Transform parent, Vector2 pos)
     {
         GameObject obj = new GameObject(part.partName);
+        obj.layer = LayerMask.NameToLayer(slappableLayerName);
         obj.transform.SetParent(parent);
         obj.transform.localScale = Vector3.one;
-        SpriteRenderer rend = obj.AddComponent<SpriteRenderer>();
-        rend.sprite = part.sprite;
         obj.transform.position = pos;
+
+        SpriteRenderer rend = obj.AddComponent<SpriteRenderer>();
+        rend.sprite = sprite;
+        rend.sortingLayerName = robotSortingLayer;
+        rend.sortingOrder = robotLayerOrder;
+
+        PartController pCon = obj.AddComponent<PartController>();
+        pCon.part = part;
+        part.PartController = pCon;
+        pCon.robotController = robotCon;
+
+        obj.AddComponent<PolygonCollider2D>();
+        Rigidbody2D rb = obj.AddComponent<Rigidbody2D>();
+        rb.bodyType = RigidbodyType2D.Kinematic;
 
         return obj;
     }

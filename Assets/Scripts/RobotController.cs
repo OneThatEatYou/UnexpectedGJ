@@ -13,6 +13,8 @@ public class RobotController : MonoBehaviour
         set { baseRobot = value; }
     }
 
+    Transform player;
+
     int maxHealth;
     int currentHealth;
 
@@ -26,6 +28,8 @@ public class RobotController : MonoBehaviour
 
         maxHealth = Base.GetMaxHealth();
         currentHealth = maxHealth;
+
+        player = FindObjectOfType<PlayerController>().transform;
     }
 
     // Update is called once per frame

@@ -126,7 +126,11 @@ public class PlayerController : MonoBehaviour
 
         if (col)
         {
-            col.GetComponent<Screw>().Unscrew();
+            Screw screw;
+            if (col.TryGetComponent(out screw))
+            {
+                screw.Unscrew();
+            }
         }
 
         anim.SetTrigger(slapParam);

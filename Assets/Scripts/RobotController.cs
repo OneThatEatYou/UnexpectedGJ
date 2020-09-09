@@ -4,15 +4,6 @@ using UnityEngine;
 
 public class RobotController : MonoBehaviour
 {
-    //stores all parts
-    private BaseRobot baseRobot;
-
-    public BaseRobot Base
-    {
-        get { return baseRobot; }
-        set { baseRobot = value; }
-    }
-
     Transform player;
 
     int maxHealth;
@@ -26,7 +17,7 @@ public class RobotController : MonoBehaviour
         //    Debug.Log(item.name);
         //}
 
-        maxHealth = Base.GetMaxHealth();
+        maxHealth = GetMaxHealth();
         currentHealth = maxHealth;
 
         player = FindObjectOfType<PlayerController>().transform;
@@ -41,5 +32,22 @@ public class RobotController : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
+    }
+
+    private int GetMaxHealth()
+    {
+        int maxHp = 0;
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            BasePart part;
+            transform.GetChild(i).TryGetComponent(out part);
+            if (part != null)
+            {
+                maxHp += part.maxHealth;
+            }
+        }
+
+        return maxHp;
     }
 }

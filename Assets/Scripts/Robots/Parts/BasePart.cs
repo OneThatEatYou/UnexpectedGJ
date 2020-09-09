@@ -2,20 +2,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasePart : ScriptableObject
+public class BasePart : MonoBehaviour
 {
-    public string partName;
-    public int health;
+    public int maxHealth;
+    int currentHealth;
 
-    private PartController partController;
-    public PartController PartController 
+    private RobotController controller;
+    public RobotController Controller
     {
-        get { return partController; }
-        set { partController = value; }
+        get { return controller; }
+        set { controller = value; }
     }
 
     public virtual void Action()
     {
         
+    }
+
+    public virtual void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+
+        if (currentHealth <= 0)
+        {
+            Detach();
+        }
+    }
+
+    public virtual void Detach()
+    {
+        controller.TakeDamage(maxHealth);
     }
 }

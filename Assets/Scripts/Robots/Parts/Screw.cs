@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Screw : MonoBehaviour
 {
-    [HideInInspector] public PartController controller;
+    [HideInInspector] public RobotController controller;
 
     [Tooltip("Time taken to move screw to target pos")]
     public float unscrewTime;

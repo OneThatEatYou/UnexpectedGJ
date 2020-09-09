@@ -5,15 +5,20 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewHand", menuName = "Parts/Hand/ProjectileHand", order = 3)]
 public class Hand_Projectile : Hand
 {
-    public Vector2 bulletSpawnOffset;
+    public Transform bulletSpawnOffset;
     public GameObject bulletPrefab;
+
+    private void Update()
+    {
+        Action();
+    }
 
     public override void Action()
     {
         base.Action();
 
         //aim
-        PartController.transform.Rotate(new Vector3(0, 0, 100f*Time.deltaTime));
+        transform.Rotate(new Vector3(0, 0, 100f*Time.deltaTime));
 
         //shoot
     }

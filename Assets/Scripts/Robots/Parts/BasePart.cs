@@ -7,11 +7,23 @@ public class BasePart : MonoBehaviour
     public int maxHealth;
     int currentHealth;
 
+    public Vector2 screwStartRange;
+    public Vector2 screwEndRange;
+
     private RobotController controller;
     public RobotController Controller
     {
         get { return controller; }
-        set { controller = value; }
+    }
+
+    public virtual void Awake()
+    {
+        controller = GetComponentInParent<RobotController>();
+    }
+
+    public virtual void Start()
+    {
+        currentHealth = maxHealth;
     }
 
     public virtual void Action()
@@ -32,5 +44,17 @@ public class BasePart : MonoBehaviour
     public virtual void Detach()
     {
         controller.TakeDamage(maxHealth);
+
+        //explosion
+
+        //screen shake
+
+        Destroy(gameObject);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(screwStartRange, screwEndRange);
     }
 }

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class RobotController : MonoBehaviour
 {
-    Transform player;
+    Transform playerPos;
+    public Transform PlayerPos { get { return playerPos; } }
 
     int maxHealth;
     int currentHealth;
@@ -20,7 +21,7 @@ public class RobotController : MonoBehaviour
         maxHealth = GetMaxHealth();
         currentHealth = maxHealth;
 
-        player = FindObjectOfType<PlayerController>().transform;
+        playerPos = FindObjectOfType<PlayerController>().transform;
     }
 
     // Update is called once per frame

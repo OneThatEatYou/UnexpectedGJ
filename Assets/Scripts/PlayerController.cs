@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("General settings")]
+    public int maxHealth;
+    int currentHealth;
     public float speed;
     public float flipTime = 1f;
+    public float inviTime = 1f;
+    bool isInvi = false;
+    bool isStunned = false;
 
     [Header("Jump settings")]
     public float jumpVel;
@@ -41,10 +47,14 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         lastShootTime = -shootCooldown;
+        currentHealth = maxHealth;
     }
 
     void Update()
     {
+        if (isStunned)
+        { return; }
+
         float movement = Input.GetAxis("Horizontal");
         Move(movement);
 
@@ -199,6 +209,64 @@ public class PlayerController : MonoBehaviour
             rend.transform.rotation = Quaternion.Euler(0, currentAngle, 0);
             t += Time.deltaTime;
             yield return null;
+        }
+    }
+
+    public void TakeDamage(int dmg)
+    {
+        if (isInvi)
+        { return; }
+
+        TriggerInvisibility(inviTime);
+
+        Debug.Log("Player took " + dmg + " damage!");
+        //play sfx
+
+        currentHealth -= dmg;
+
+        //update health ui
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        Debug.Log("Player is dead");
+    }
+
+    public void TriggerInvisibility(float recoverTime)
+    {
+        if (isInvi)
+        { return; }
+
+        StartCoroutine(InviTimer(recoverTime));
+
+        IEnumerator InviTimer(float time)
+        {
+            isInvi = true;
+            yield return new WaitForSeconds(inviTime);
+            isInvi = false;
+        }
+    }
+
+    public void TriggerStun(float recoverTime)
+    {
+        if (isStunned)
+        { return; }
+
+        StartCoroutine(StunTimer(recoverTime));
+
+        IEnumerator StunTimer(float time)
+        {
+            isStunned = true;
+            rb.velocity = new Vector2(0, rb.velocity.y);
+
+            yield return new WaitForSeconds(time);
+
+            isStunned = false;
         }
     }
 

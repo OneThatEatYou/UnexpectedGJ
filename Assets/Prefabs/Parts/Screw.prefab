@@ -150,7 +150,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.5, y: -0.06}
+  m_Offset: {x: -1, y: -0.06}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -175,8 +175,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d27723917291b143b4cb22bffe76cdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 0}
+  connectedPart: {fileID: 0}
   unscrewTime: 0.2
-  threadLength: 1.4
+  threadLength: 1.5
   unscrewDir: 0
+  startXPos: 0
+  unscrewedLayer: Ground
   maxHealth: 3

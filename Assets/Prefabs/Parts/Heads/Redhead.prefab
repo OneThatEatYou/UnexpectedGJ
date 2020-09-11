@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4926432408327764333}
   - component: {fileID: 7383204954670903544}
   - component: {fileID: 7661932350249065971}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Redhead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,7 +51,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: e184d507391aabf43a85374cce99b1de, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -123,3 +123,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 15
+  screwStartRange: {x: 0, y: 0}
+  screwEndRange: {x: 0, y: 0}

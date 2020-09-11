@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Screw : MonoBehaviour
 {
-    [HideInInspector] public RobotController controller;
+    [HideInInspector] public BasePart connectedPart;
 
     [Tooltip("Time taken to move screw to target pos")]
     public float unscrewTime;
     public float threadLength;
     public UnscrewDirection unscrewDir;
-    float startXPos;
+    [HideInInspector] public float startXPos;
+    public string unscrewedLayer;
 
     public int maxHealth;
     int currentHealth;
@@ -25,7 +26,11 @@ public class Screw : MonoBehaviour
     private void Start()
     {
         currentHealth = maxHealth;
-        startXPos = transform.position.x;
+
+        if (!connectedPart)
+        {
+            startXPos = transform.localPosition.x;
+        }
     }
 
     public void Unscrew()
@@ -33,7 +38,7 @@ public class Screw : MonoBehaviour
         if (currentHealth <= 0)
         { return; }
 
-        Debug.Log($"Unscrewing {name}.");
+        //Debug.Log($"Unscrewing {name}.");
 
         currentHealth--;
 
@@ -42,11 +47,6 @@ public class Screw : MonoBehaviour
         //movement
         StopAllCoroutines();
         StartCoroutine(MoveScrew());
-
-        if (currentHealth <= 0)
-        {
-            Detach();
-        }
     }
 
     IEnumerator MoveScrew()
@@ -63,24 +63,29 @@ public class Screw : MonoBehaviour
             targetPos = startXPos + moveDistance;
         }
 
-        Vector2 startPos = transform.position;
+        Vector2 startPos = transform.localPosition;
         Vector2 currentPos = startPos;
         float t = 0;
 
         //Debug.Log($"healthPrecent: {damagePercent}, startPos: {startPos}, targetPos: {targetPos}");
         //Debug.Log($"transform.position.x: {transform.position.x}, startXPos: {startXPos}, moveDistance: {moveDistance}");
         //lerp to target
-        while (Mathf.Abs(transform.position.x - startXPos) <= moveDistance)
+        while (transform.localPosition.x != targetPos)
         {
             currentPos.x = Mathf.Lerp(startPos.x, targetPos, Mathf.Sin((Mathf.PI / 2) * (t / unscrewTime)));
-            transform.position = currentPos;
+            transform.localPosition = currentPos;
 
             t += Time.deltaTime;
             t = Mathf.Clamp(t, 0, unscrewTime);
             yield return null;
         }
 
-        Debug.Log("Finished moving screw");
+        if (currentHealth <= 0)
+        {
+            Detach();
+        }
+
+        //Debug.Log("Finished moving screw");
     }
 
     private void Detach()
@@ -89,10 +94,12 @@ public class Screw : MonoBehaviour
 
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        gameObject.layer = LayerMask.NameToLayer(unscrewedLayer);
 
-        if (controller)
+        if (connectedPart)
         {
-            controller.TakeDamage(maxHealth);
+            transform.parent = null;
+            connectedPart.TakeDamage(maxHealth);
         }
         else
         {
@@ -103,7 +110,7 @@ public class Screw : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.black;
-        Gizmos.DrawLine(transform.position, transform.position + new Vector3(threadLength, 0));
+        Gizmos.DrawLine(transform.position, transform.position - new Vector3(threadLength, 0));
     }
 
     public enum UnscrewDirection

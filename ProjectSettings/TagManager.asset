@@ -17,8 +17,8 @@ TagManager:
   - SSCamOnly
   - MainCamOnly
   - Slappable
-  - 
-  - 
+  - Robot
+  - Player
   - 
   - 
   - 
@@ -46,4 +46,7 @@ TagManager:
     locked: 0
   - name: Middleground
     uniqueID: 4244367407
+    locked: 0
+  - name: Foreground
+    uniqueID: 3495607485
     locked: 0

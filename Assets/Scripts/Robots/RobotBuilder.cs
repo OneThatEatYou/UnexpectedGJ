@@ -5,6 +5,10 @@ using UnityEngine;
 //stores parts
 public class RobotBuilder : MonoBehaviour
 {
+    public LayerMask groundLayer;
+
+    [Space]
+
     public GameObject screwPrefab;
 
     [Space]
@@ -14,11 +18,6 @@ public class RobotBuilder : MonoBehaviour
     public GameObject[] hands_L;
     public GameObject[] hands_R;
     public GameObject[] legs;
-
-    [Space]
-    public string slappableLayerName = "Slappable";
-    public string robotSortingLayer;
-    public int robotLayerOrder;
 
     [Space]
     
@@ -62,7 +61,7 @@ public class RobotBuilder : MonoBehaviour
         Debug.Log("Generating a robot.");
 
         //get ground height
-        RaycastHit2D hit = Physics2D.Raycast(spawnPos, Vector2.down);
+        RaycastHit2D hit = Physics2D.Raycast(spawnPos, Vector2.down, 100, groundLayer);
         float groundHeight = hit.point.y;
 
         //declare what to generate
@@ -121,7 +120,8 @@ public class RobotBuilder : MonoBehaviour
         {
             Vector2 legPos;
             legPos.x = Random.Range(spawnPos.x + bodyXRange - newLegSprites[i].bounds.extents.x, spawnPos.x - bodyXRange + newLegSprites[i].bounds.extents.x);
-            legPos.y = groundHeight + newLegSprites[i].bounds.size.y;
+            //legPos.y = groundHeight + newLegSprites[i].bounds.size.y;
+            legPos.y = groundHeight + newLegSprites[i].pivot.y / newLegSprites[i].pixelsPerUnit;
             newLegs[i].transform.position = legPos;
         }
 
@@ -129,9 +129,9 @@ public class RobotBuilder : MonoBehaviour
         float lowestLegPos = groundHeight;
         for (int i = 0; i < newLegs.Length; i++)
         {
-            if (newLegSprites[i].bounds.size.y + groundHeight > lowestLegPos)
+            if (newLegs[i].transform.position.y > lowestLegPos)
             {
-                lowestLegPos = newLegSprites[i].bounds.size.y + groundHeight;
+                lowestLegPos = newLegs[i].transform.position.y;
             }
         }
 
@@ -154,12 +154,36 @@ public class RobotBuilder : MonoBehaviour
             handPos.x = spawnPos.x - newBodySprite.bounds.extents.x - newHand_LSprites[i].bounds.extents.x;
             handPos.y = Random.Range(bodyPos.y - newBodySprite.bounds.extents.y, bodyPos.y + newBodySprite.bounds.extents.y);
             newHands_L[i].transform.position = handPos;
+
+            SpawnScrews(newHands_L[i].GetComponent<BasePart>());
         }
         for (int i = 0; i < newHands_L.Length; i++)
         {
             handPos.x = spawnPos.x + newBodySprite.bounds.extents.x + newHand_LSprites[i].bounds.extents.x;
             handPos.y = Random.Range(bodyPos.y - newBodySprite.bounds.extents.y, bodyPos.y + newBodySprite.bounds.extents.y);
             newHands_R[i].transform.position = handPos;
+        }
+    }
+
+    void SpawnScrews(BasePart part)
+    {
+        //spawn screws based on max hp of each parts
+
+        Screw screwScript = screwPrefab.GetComponent<Screw>();
+
+        for (int i = 0; i < part.maxHealth / screwScript.maxHealth; i++)
+        {
+            GameObject screw = Instantiate(screwPrefab, part.transform);
+            Screw thisScrew = screw.GetComponent<Screw>();
+
+            //generate a position
+            Vector2 localPos;
+            localPos.x = Random.Range(part.screwStartRange.x, part.screwEndRange.x);
+            localPos.x += thisScrew.threadLength;
+            localPos.y = Random.Range(part.screwStartRange.y, part.screwEndRange.y);
+            screw.transform.localPosition = localPos;
+            thisScrew.startXPos = localPos.x;
+            thisScrew.connectedPart = part;
         }
     }
 }

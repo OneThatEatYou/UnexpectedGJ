@@ -144,8 +144,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10b8d9e8615b8f843bdf3844204ec3a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 6
+  maxHealth: 3
   cooldownRange: {x: 15, y: 20}
+  deathParticle: {fileID: 4917040865964609858, guid: 682b2b53a2a58e7429554084ec1cdccb,
+    type: 3}
   screwSpawnPos:
   - unscrewDir: 0
     screwStartRange: {x: -2, y: 1.29}

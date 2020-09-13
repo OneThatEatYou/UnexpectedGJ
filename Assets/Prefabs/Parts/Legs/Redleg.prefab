@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8021234898818700204}
   - component: {fileID: 2127232922799878479}
   - component: {fileID: 8683714332842078178}
+  - component: {fileID: 4168073638366412887}
   - component: {fileID: 6534402634382541888}
   m_Layer: 12
   m_Name: Redleg
@@ -110,6 +111,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3, y: 4}
   m_EdgeRadius: 0
+--- !u!50 &4168073638366412887
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7044498576880928698}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!114 &6534402634382541888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,4 +146,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 0
   cooldownRange: {x: 10, y: 15}
+  deathParticle: {fileID: 4917040865964609858, guid: 682b2b53a2a58e7429554084ec1cdccb,
+    type: 3}
   screwSpawnPos: []

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour
     [Header("Shoot settings")]
     public float shootCooldown = 1f;
     float lastShootTime = 0f;
+    public Image cooldownImage;
 
     [Header("Slap settings")]
     public Vector2 slapBoxOffset;
@@ -127,6 +129,22 @@ public class PlayerController : MonoBehaviour
 
         lastShootTime = Time.time;
         CameraAimController.instance.Shoot();
+
+        StartCoroutine(DisplayShootCooldown());
+
+        IEnumerator DisplayShootCooldown()
+        {
+            float t = 0;
+            cooldownImage.fillAmount = 1;
+
+            while (cooldownImage.fillAmount != 0)
+            {
+                cooldownImage.fillAmount = Mathf.Lerp(1, 0, t / shootCooldown);
+                t += Time.deltaTime;
+
+                yield return null;
+            }
+        }
     }   
     
     private void Slap()

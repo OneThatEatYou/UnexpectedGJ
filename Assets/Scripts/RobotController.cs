@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class RobotController : MonoBehaviour
@@ -8,6 +9,7 @@ public class RobotController : MonoBehaviour
     public Transform PlayerPos { get { return playerPos; } }
 
     public List<BasePart> parts = new List<BasePart>();
+    public List<BasePart> detachables = new List<BasePart>();
 
     int maxHealth;
     int currentHealth;
@@ -57,43 +59,82 @@ public class RobotController : MonoBehaviour
         //spawn new robot
     }
 
-    public bool CanDetach(BasePart partToDetach)
-    {
-        BasePart thisPart = null;
+    //this part is still buggy
+    //public bool CanDetach(BasePart partToDetach)
+    //{
+    //    BasePart thisPart = null;
 
-        foreach (BasePart part in parts)
-        {
-            if (partToDetach == part)
-            {
-                thisPart = part;
-                break;
-            }
-        }
+    //    foreach (BasePart part in parts)
+    //    {
+    //        if (partToDetach == part)
+    //        {
+    //            thisPart = part;
+    //            break;
+    //        }
+    //    }
 
-        if (thisPart == null)
-        {
-            Debug.LogError("Part to detach not found!");
-            return false;
-        }
+    //    if (thisPart == null)
+    //    {
+    //        Debug.LogError("Part to detach not found!");
+    //        return false;
+    //    }
 
-        if (thisPart is Body)
-        {
-            foreach (BasePart part in parts)
-            {
-                if (!(part is Leg))
-                {
-                    Debug.Log("Cannot detach body before other parts");
-                    return false;
-                }
-            }
+    //    if (thisPart is Body || thisPart is Leg)
+    //    {
+    //        foreach (BasePart part in parts)
+    //        {
+    //            if (!(part is Leg) && !(part is Body))
+    //            {
+    //                Debug.Log("Cannot detach body before other parts");
 
-            return true;
-        }
-        else
-        {
-            return true;
-        }
-    }
+    //                foreach (BasePart detachable in detachables)
+    //                {
+    //                    //check if part is already in detachables list
+    //                    if (thisPart == detachable)
+    //                    {
+    //                        return false;
+    //                    }
+    //                }
+
+    //                Debug.Log($"Added {thisPart.name} to detachables");
+    //                detachables.Add(partToDetach);
+    //                return false;
+    //            }
+    //        }
+
+    //        parts.Remove(partToDetach);
+    //        return true;
+    //    }
+    //    else
+    //    {
+    //        parts.Remove(partToDetach);
+    //        return true;
+    //    }
+    //}
+
+    //public void CheckDetachables()
+    //{
+    //    Debug.Log("detachables.Count: " + detachables.Count);
+
+    //    foreach (BasePart part in detachables.ToList())
+    //    {
+    //        Debug.Log("Trying to detach " + part.name);
+
+    //        if (CanDetach(part))
+    //        {
+    //            part.Detach();
+    //        }
+    //        else
+    //        {
+    //            Debug.Log("Still cannot detach");
+    //        }
+    //    }
+
+    //    if (parts.Count == 0)
+    //    {
+    //        RobotBuilder.Instance.GenerateRobot();
+    //    }
+    //}
 
     private int GetMaxHealth()
     {

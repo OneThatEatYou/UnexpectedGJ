@@ -9,6 +9,7 @@ public class BasePart : MonoBehaviour
     public Vector2 cooldownRange;
     float cooldown;
     float lastShootTime = 0f;
+    public GameObject deathParticle;
 
     [System.Serializable]
     public struct ScrewSpawnPos
@@ -70,11 +71,11 @@ public class BasePart : MonoBehaviour
 
     public virtual void Detach()
     {
-        Controller.parts.Remove(this);
-
         controller.TakeDamage(maxHealth);
         rb.bodyType = RigidbodyType2D.Dynamic;
-        rb.gravityScale = 2;
+        rb.gravityScale = 1;
+
+        Controller.CheckDetachables();
 
         isDead = true;
     }
@@ -82,6 +83,7 @@ public class BasePart : MonoBehaviour
     public virtual void Explode()
     {
         //explosion
+        Instantiate(deathParticle, rb.worldCenterOfMass, Quaternion.identity);
 
         //screen shake
 

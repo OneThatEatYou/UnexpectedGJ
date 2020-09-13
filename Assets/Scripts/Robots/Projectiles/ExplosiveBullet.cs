@@ -5,7 +5,7 @@ using UnityEngine;
 public class ExplosiveBullet : BulletController
 {
     public float explosionRad;
-    public override void OnCollide()
+    public override void OnCollide(Collision2D collision)
     {
         Collider2D col = Physics2D.OverlapCircle(rb.position, explosionRad, effectLayer);
 
@@ -15,7 +15,7 @@ public class ExplosiveBullet : BulletController
             player.TakeDamage(1);
         }
 
-        base.OnCollide();
+        base.OnCollide(collision);
     }
 
     private void OnDrawGizmosSelected()

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Screw : MonoBehaviour
 {
     [HideInInspector] public BasePart connectedPart;
+    public bool isFake = false;
 
     [Tooltip("Time taken to move screw to target pos")]
     public float unscrewTime;
@@ -90,7 +91,7 @@ public class Screw : MonoBehaviour
 
     private void Detach()
     {
-        Debug.Log("Detached a screw");
+        //Debug.Log("Detached a screw");
 
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
@@ -99,7 +100,11 @@ public class Screw : MonoBehaviour
         if (connectedPart)
         {
             transform.parent = null;
-            connectedPart.TakeDamage(maxHealth);
+
+            if (!isFake)
+            {
+                connectedPart.TakeDamage(maxHealth);
+            }
         }
         else
         {
@@ -112,10 +117,9 @@ public class Screw : MonoBehaviour
         Gizmos.color = Color.black;
         Gizmos.DrawLine(transform.position, transform.position - new Vector3(threadLength, 0));
     }
-
-    public enum UnscrewDirection
-    {
-        Left,
-        Right
-    }
+}
+public enum UnscrewDirection
+{
+    Left,
+    Right
 }

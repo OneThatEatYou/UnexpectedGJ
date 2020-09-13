@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class DeathPlane : MonoBehaviour
 {
+    public int damage;
+    public Vector2 time = new Vector2(3f, 1f);
+    public float noInputTime = 0.5f;
+    public float stunRecoverTime = 1f;
+    public float xVelMultiplier = 1.5f;
+    public float yVelMultiplier = 1f;
+
     PlayerController player;
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -20,12 +27,11 @@ public class DeathPlane : MonoBehaviour
 
     public void LaunchPlayerBack()
     {
-        if (!player)
-        { player = FindObjectOfType<PlayerController>(); }
+        player.TakeDamage(damage);
 
         Vector2 target = RobotBuilder.Instance.spawnPos;
-        Vector2 time = new Vector2(3f, 1f);
-        player.TriggerStun(time.y);
+        Vector2 t = time;
+        player.TriggerStun(noInputTime, stunRecoverTime);
 
         Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
         Vector2 displacement = target - (Vector2)player.transform.position;
@@ -34,13 +40,15 @@ public class DeathPlane : MonoBehaviour
         Vector2 v = Vector2.zero;
         Vector2 a = new Vector2(0, Physics2D.gravity.y * rb.gravityScale);
 
-        u.y = (displacement.y / time.y) - (a.y * time.y);
-        u.x = displacement.x / time.x;
+        u.y = (displacement.y / t.y) - (a.y * t.y);
+        u.x = displacement.x / t.x * xVelMultiplier;
 
-        rb.velocity = u;
+        //directly add to y velocity
+        //smooths x velocity
+        rb.velocity = u * yVelMultiplier;
+        player.envVel = u;
 
-        Debug.Log($"displacement: {displacement}, a: {a}, u: {u}");
-        //Debug.Break();
+        //Debug.Log($"displacement: {displacement}, a: {a}, u: {u}");
     }
 
     /*

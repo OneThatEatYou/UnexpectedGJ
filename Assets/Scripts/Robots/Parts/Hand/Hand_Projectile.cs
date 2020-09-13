@@ -9,19 +9,8 @@ public class Hand_Projectile : Hand
 
     public float angleOffset;
     public float aimTime = 3f;
+    public float shootWait = 0.5f;
     bool isAiming = false;
-
-    public override void Start()
-    {
-        base.Start();
-
-        InvokeRepeating("Action", 5, 5);
-    }
-
-    private void Update()
-    {
-        
-    }
 
     public override void Action()
     {
@@ -32,8 +21,6 @@ public class Hand_Projectile : Hand
 
         //aim
         StartCoroutine(AimTowardsPlayer());
-
-        //shoot
     }
 
     IEnumerator AimTowardsPlayer()
@@ -64,9 +51,11 @@ public class Hand_Projectile : Hand
             yield return null;
         }
         //Debug.Log(gameObject.name + " finished aiming");
-        isAiming = false;
 
+        yield return new WaitForSeconds(shootWait);
         Shoot();
+
+        isAiming = false;
     }
 
     void Shoot()

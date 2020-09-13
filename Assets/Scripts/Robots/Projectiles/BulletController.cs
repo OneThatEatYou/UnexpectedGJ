@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
+    public string ignoreTriggerTag = "IgnoreTrigger";
+
+    [Space]
+
     public float moveSpeed;
     public GameObject deathParticle;
     public LayerMask effectLayer;
@@ -22,7 +26,16 @@ public class BulletController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        OnCollide();
+        
+        OnCollide(collision);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag(ignoreTriggerTag))
+        { return; }
+
+        OnTrigger(collision);
     }
 
     public virtual void Move()
@@ -30,9 +43,14 @@ public class BulletController : MonoBehaviour
         rb.MovePosition(rb.position - (Vector2)(transform.up * moveSpeed));
     }
 
-    public virtual void OnCollide()
+    public virtual void OnCollide(Collision2D collision)
     {
         Instantiate(deathParticle, transform.position, Quaternion.identity);
         Destroy(gameObject);
+    }
+
+    public virtual void OnTrigger(Collider2D collision)
+    {
+        Instantiate(deathParticle, transform.position, Quaternion.identity);
     }
 }

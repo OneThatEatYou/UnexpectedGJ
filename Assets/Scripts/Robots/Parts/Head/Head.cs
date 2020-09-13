@@ -4,5 +4,11 @@ using UnityEngine;
 
 public class Head : BasePart
 {
-    
+    public override void Action()
+    {
+        base.Action();
+
+        //charge
+        //shoot laser
+    }
 }

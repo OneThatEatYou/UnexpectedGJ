@@ -8,6 +8,9 @@ public class PlayerController : MonoBehaviour
     public int maxHealth;
     int currentHealth;
     public float speed;
+    float inputWeight = 1f;
+    [HideInInspector] public Vector2 envVel;
+    float envWeight;
     public float flipTime = 1f;
     public float inviTime = 1f;
     bool isInvi = false;
@@ -31,17 +34,21 @@ public class PlayerController : MonoBehaviour
     [Header("Animation Param")]
     public string movementParam;
     public string slapParam;
+    public string invicibleParam = "isInvicible";
 
     bool isFacingLeft = false;
+    Coroutine flippingCr;
     Rigidbody2D rb;
     SpriteRenderer rend;
     Animator anim;
+    BetterJump betterJumpScript;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         rend = GetComponentInChildren<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        betterJumpScript = GetComponent<BetterJump>();
     }
 
     void Start()
@@ -52,8 +59,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (isStunned)
-        { return; }
+        //if (isStunned)
+        //{ return; }
 
         float movement = Input.GetAxis("Horizontal");
         Move(movement);
@@ -85,7 +92,8 @@ public class PlayerController : MonoBehaviour
 
     private void Move(float movement)
     {
-        Vector2 targetVel = new Vector2(movement * speed, rb.velocity.y);
+        Vector2 targetVel = new Vector2(movement * speed * inputWeight, rb.velocity.y);
+        targetVel.x += envVel.x * envWeight;
         rb.velocity = targetVel;
 
         anim.SetFloat(movementParam, movement);
@@ -148,24 +156,12 @@ public class PlayerController : MonoBehaviour
 
     private void Flip()
     {
-        StopAllCoroutines();
+        if (flippingCr != null)
+        {
+            StopCoroutine(flippingCr);
+        }
 
-        if (isFacingLeft)
-        {
-            //face to right
-            //lerp angle from 180 to 90
-            //change sprite?
-            //lerp to 0
-            StartCoroutine(Flipping(isFacingLeft, flipTime));
-        }
-        else
-        {
-            //face to left
-            //lerp angle from 0 to 90
-            //change sprite?
-            //lerp to 180
-            StartCoroutine(Flipping(isFacingLeft, flipTime));
-        }
+        flippingCr = StartCoroutine(Flipping(isFacingLeft, flipTime));
 
         isFacingLeft = !isFacingLeft;
     }
@@ -247,11 +243,48 @@ public class PlayerController : MonoBehaviour
         IEnumerator InviTimer(float time)
         {
             isInvi = true;
+            anim.SetBool(invicibleParam, isInvi);
             yield return new WaitForSeconds(inviTime);
             isInvi = false;
+            anim.SetBool(invicibleParam, isInvi);
         }
     }
 
+    public void TriggerStun(float noInputTime, float recoverTime)
+    {
+        if (isStunned)
+        { return; }
+
+        StartCoroutine(StunTimer(recoverTime));
+
+        IEnumerator StunTimer(float time)
+        {
+            isStunned = true;
+            betterJumpScript.enabled = false;
+
+            rb.velocity = new Vector2(0, rb.velocity.y);
+            inputWeight = 0;
+            envWeight = 1;
+
+            yield return new WaitForSeconds(noInputTime);
+
+            float t = 0;
+            while (inputWeight != 1)
+            {
+                inputWeight = Mathf.Lerp(0, 1, t / time);
+                envWeight = 1 - inputWeight;
+                t += Time.deltaTime;
+                //Debug.Log(inputWeight);
+                yield return null;
+            }
+
+            betterJumpScript.enabled = true;
+            isStunned = false;
+            //Debug.Log("No longer stunned");
+        }
+    }
+
+    /*
     public void TriggerStun(float recoverTime)
     {
         if (isStunned)
@@ -269,6 +302,7 @@ public class PlayerController : MonoBehaviour
             isStunned = false;
         }
     }
+    */
 
     private void OnDrawGizmosSelected()
     {

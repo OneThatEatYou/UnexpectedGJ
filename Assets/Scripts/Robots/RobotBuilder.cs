@@ -10,6 +10,7 @@ public class RobotBuilder : MonoBehaviour
     [Space]
 
     public GameObject screwPrefab;
+    public GameObject fakeScrewPrefab;
 
     [Space]
 
@@ -22,6 +23,9 @@ public class RobotBuilder : MonoBehaviour
     [Space]
     
     public Vector2 spawnPos = Vector2.zero;
+
+    [Header("Debugging")]
+    public bool spawnOnStart = false;
 
     #region Singleton
     private static RobotBuilder instance;
@@ -52,7 +56,10 @@ public class RobotBuilder : MonoBehaviour
 
     private void Start()
     {
-        GenerateRobot();
+        if (spawnOnStart)
+        {
+            GenerateRobot();
+        }
     }
 
     [ContextMenu("Generate Robot")]
@@ -78,19 +85,24 @@ public class RobotBuilder : MonoBehaviour
         //generate parts
         newHead = Instantiate(heads[Random.Range(0, heads.Length)], newRobot.transform);
         newBody = Instantiate(bodies[Random.Range(0, bodies.Length)], newRobot.transform);
+        AddBasePart(newHead, newController);
+        AddBasePart(newBody, newController);
 
         for (int i = 0; i < newHands_L.Length; i++)
         {
             newHands_L[i] = Instantiate(hands_L[Random.Range(0, hands_L.Length)], newRobot.transform);
+            AddBasePart(newHands_L[i], newController);
         }
         for (int i = 0; i < newHands_R.Length; i++)
         {
             newHands_R[i] = Instantiate(hands_R[Random.Range(0, hands_R.Length)], newRobot.transform);
+            AddBasePart(newHands_R[i], newController);
         }
 
         for (int i = 0; i < newLegs.Length; i++)
         {
             newLegs[i] = Instantiate(legs[Random.Range(0, legs.Length)], newRobot.transform);
+            AddBasePart(newLegs[i], newController);
         }
 
         //assign sprites
@@ -140,12 +152,14 @@ public class RobotBuilder : MonoBehaviour
         bodyPos.x = spawnPos.x;
         bodyPos.y = lowestLegPos + newBodySprite.bounds.extents.y;
         newBody.transform.position = bodyPos;
+        SpawnScrews(newBody.GetComponent<BasePart>());
 
         //place head based on position and width of body
         Vector2 headPos;
         headPos.x = Random.Range(spawnPos.x + bodyXRange, spawnPos.x - bodyXRange);
         headPos.y = newBodySprite.bounds.extents.y + newHeadSprite.bounds.extents.y + bodyPos.y;
         newHead.transform.position = headPos;
+        SpawnScrews(newHead.GetComponent<BasePart>());
 
         //place hands
         Vector2 handPos;
@@ -162,6 +176,8 @@ public class RobotBuilder : MonoBehaviour
             handPos.x = spawnPos.x + newBodySprite.bounds.extents.x + newHand_LSprites[i].bounds.extents.x;
             handPos.y = Random.Range(bodyPos.y - newBodySprite.bounds.extents.y, bodyPos.y + newBodySprite.bounds.extents.y);
             newHands_R[i].transform.position = handPos;
+
+            SpawnScrews(newHands_R[i].GetComponent<BasePart>());
         }
     }
 
@@ -170,20 +186,78 @@ public class RobotBuilder : MonoBehaviour
         //spawn screws based on max hp of each parts
 
         Screw screwScript = screwPrefab.GetComponent<Screw>();
+        int numberOfScrews = Mathf.CeilToInt(part.maxHealth / screwScript.maxHealth);
+        int numberOfFakes = numberOfScrews;
 
-        for (int i = 0; i < part.maxHealth / screwScript.maxHealth; i++)
+        for (int i = 0; i < numberOfScrews; i++)
         {
+            int j = Random.Range(0, part.screwSpawnPos.Length);
+            //Debug.Log($"{part.name} generated j of {j}");
+
             GameObject screw = Instantiate(screwPrefab, part.transform);
             Screw thisScrew = screw.GetComponent<Screw>();
 
+            thisScrew.connectedPart = part;
+            thisScrew.unscrewDir = part.screwSpawnPos[j].unscrewDir;
+
             //generate a position
             Vector2 localPos;
-            localPos.x = Random.Range(part.screwStartRange.x, part.screwEndRange.x);
-            localPos.x += thisScrew.threadLength;
-            localPos.y = Random.Range(part.screwStartRange.y, part.screwEndRange.y);
+            localPos.x = Random.Range(part.screwSpawnPos[j].screwStartRange.x, part.screwSpawnPos[j].screwEndRange.x);
+            localPos.y = Random.Range(part.screwSpawnPos[j].screwStartRange.y, part.screwSpawnPos[j].screwEndRange.y);
+
+            switch (thisScrew.unscrewDir)
+            {
+                case UnscrewDirection.Left:
+                    localPos.x += thisScrew.threadLength;
+                    break;
+                case UnscrewDirection.Right:
+                    localPos.x -= thisScrew.threadLength;
+                    Vector3 angle = screw.transform.eulerAngles + new Vector3(0, 0, 180);
+                    screw.transform.rotation = Quaternion.Euler(angle);
+                    break;
+            }
+
             screw.transform.localPosition = localPos;
             thisScrew.startXPos = localPos.x;
-            thisScrew.connectedPart = part;
         }
+
+        for (int i = 0; i < numberOfFakes; i++)
+        {
+            int j = Random.Range(0, part.screwSpawnPos.Length);
+            //Debug.Log($"{part.name} generated j of {j}");
+
+            GameObject screw = Instantiate(fakeScrewPrefab, part.transform);
+            Screw thisScrew = screw.GetComponent<Screw>();
+
+            thisScrew.connectedPart = part;
+            thisScrew.unscrewDir = part.screwSpawnPos[j].unscrewDir;
+
+            //generate a position
+            Vector2 localPos;
+            localPos.x = Random.Range(part.screwSpawnPos[j].screwStartRange.x, part.screwSpawnPos[j].screwEndRange.x);
+            localPos.y = Random.Range(part.screwSpawnPos[j].screwStartRange.y, part.screwSpawnPos[j].screwEndRange.y);
+
+            switch (thisScrew.unscrewDir)
+            {
+                case UnscrewDirection.Left:
+                    localPos.x += thisScrew.threadLength;
+                    break;
+                case UnscrewDirection.Right:
+                    localPos.x -= thisScrew.threadLength;
+                    Vector3 angle = screw.transform.eulerAngles + new Vector3(0, 0, 180);
+                    screw.transform.rotation = Quaternion.Euler(angle);
+                    break;
+            }
+
+            screw.transform.localPosition = localPos;
+            thisScrew.startXPos = localPos.x;
+        }
+    }
+
+    void AddBasePart(GameObject obj, RobotController controller)
+    {
+        BasePart part = obj.GetComponent<BasePart>();
+        //Debug.Log(part.name + " added to list");
+        controller.parts.Add(part);
     }
 }

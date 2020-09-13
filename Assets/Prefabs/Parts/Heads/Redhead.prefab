@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 3930060940872489870}
   - component: {fileID: 4926432408327764333}
   - component: {fileID: 7383204954670903544}
-  - component: {fileID: 7661932350249065971}
+  - component: {fileID: 4650299034633014165}
+  - component: {fileID: 1797324083881206051}
   m_Layer: 12
   m_Name: Redhead
   m_TagString: Untagged
@@ -110,7 +111,28 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4, y: 3.25}
   m_EdgeRadius: 0
---- !u!114 &7661932350249065971
+--- !u!50 &4650299034633014165
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4042069862605000600}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &1797324083881206051
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,9 +141,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 4042069862605000600}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f31ae556ddb603844bc7e2b6dba7b460, type: 3}
+  m_Script: {fileID: 11500000, guid: 10b8d9e8615b8f843bdf3844204ec3a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 15
-  screwStartRange: {x: 0, y: 0}
-  screwEndRange: {x: 0, y: 0}
+  maxHealth: 6
+  cooldownRange: {x: 15, y: 20}
+  screwSpawnPos:
+  - unscrewDir: 0
+    screwStartRange: {x: -2, y: 1.29}
+    screwEndRange: {x: -2, y: -1.32}
+  - unscrewDir: 1
+    screwStartRange: {x: 2, y: 1.29}
+    screwEndRange: {x: 2, y: -1.32}
+  laserSpawnPos:
+  - {x: -0.76, y: 0.1}
+  - {x: 0.76, y: 0.1}
+  laserPrefab: {fileID: 5350610779359612022, guid: cda42a02ec085e949a5538e8ced7a310,
+    type: 3}
+  chargeParticles: {fileID: 9163309079961376718, guid: c4ad147db922bcb4bacb9ec179f75a99,
+    type: 3}
+  chargeTime: 5
+  aimAngleOffset: 90

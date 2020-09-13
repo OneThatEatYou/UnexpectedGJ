@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1209384589119735300}
   - component: {fileID: 7069751287358612711}
   - component: {fileID: 7586038544227236770}
+  - component: {fileID: 2757769322538539119}
   - component: {fileID: 3442732923324522611}
   m_Layer: 12
   m_Name: Redbody
@@ -110,6 +111,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 8, y: 6}
   m_EdgeRadius: 0
+--- !u!50 &2757769322538539119
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2187245724895662610}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!114 &3442732923324522611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,6 +144,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d524bee9ad303743a592a38bb661b5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 15
-  screwStartRange: {x: 0, y: 0}
-  screwEndRange: {x: 0, y: 0}
+  maxHealth: 9
+  cooldownRange: {x: 10, y: 20}
+  screwSpawnPos:
+  - unscrewDir: 0
+    screwStartRange: {x: -4, y: 2.42}
+    screwEndRange: {x: -4, y: -2.57}
+  - unscrewDir: 1
+    screwStartRange: {x: 4, y: 2.51}
+    screwEndRange: {x: 4, y: -2.64}

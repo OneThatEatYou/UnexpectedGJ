@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 7128142428386208474}
   - component: {fileID: 1168801146837862457}
   - component: {fileID: 462794464359906907}
+  - component: {fileID: 1311023977767816534}
   - component: {fileID: 2134507218196524059}
   m_Layer: 12
   m_Name: Redhand_L
@@ -102,7 +103,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -50599889
   m_SortingLayer: 2
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: -7886879895820439729, guid: 6ccb71e26546cc747805463e6a4515a9,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -141,6 +142,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.5, y: 5.75}
   m_EdgeRadius: 0
+--- !u!50 &1311023977767816534
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7817702771048333004}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!114 &2134507218196524059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,10 +176,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 6
-  screwStartRange: {x: -0.75, y: 0.3}
-  screwEndRange: {x: -0.75, y: -4.5}
+  cooldownRange: {x: 10, y: 15}
+  screwSpawnPos:
+  - unscrewDir: 0
+    screwStartRange: {x: -0.75, y: 0.29}
+    screwEndRange: {x: -0.75, y: -4.5}
   bulletSpawnPos: {fileID: 8922607531605082672}
   bulletPrefab: {fileID: 2347107865142992510, guid: 303eebc0a8916024db208e7e70f52430,
     type: 3}
   angleOffset: 90
   aimTime: 6
+  shootWait: 0.5

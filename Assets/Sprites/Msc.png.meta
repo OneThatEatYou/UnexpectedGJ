@@ -1,0 +1,539 @@
+fileFormatVersion: 2
+guid: 315d94a66b6543a46a4111c43ca835d0
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7629276125989968675
+    second: Msc_0
+  - first:
+      213: 3645870343941721060
+    second: Msc_1
+  - first:
+      213: -6258134792741256978
+    second: Msc_2
+  - first:
+      213: -8617840329787322513
+    second: Msc_3
+  - first:
+      213: -7113980551251725010
+    second: Msc_4
+  - first:
+      213: -2241035787501788582
+    second: Msc_5
+  - first:
+      213: -3685894113749906078
+    second: Msc_6
+  - first:
+      213: -3105294297731176558
+    second: Msc_7
+  - first:
+      213: -3358619520108514116
+    second: Msc_8
+  - first:
+      213: -90710706329015616
+    second: Msc_9
+  - first:
+      213: -7456693034000306246
+    second: Msc_10
+  - first:
+      213: 7985458897562333594
+    second: Msc_11
+  - first:
+      213: -3538160343615667616
+    second: Msc_12
+  - first:
+      213: 6339414733436965401
+    second: Msc_13
+  - first:
+      213: -7585901744613965412
+    second: Msc_14
+  - first:
+      213: 2335204443505895161
+    second: Msc_15
+  - first:
+      213: -274249995155860420
+    second: Msc_16
+  - first:
+      213: -6159331505148882210
+    second: Msc_17
+  - first:
+      213: -551045213116094401
+    second: Msc_18
+  - first:
+      213: -8664382300562261441
+    second: Msc_19
+  - first:
+      213: 8805473759014753915
+    second: Msc_20
+  - first:
+      213: 2869635664754429615
+    second: Msc_21
+  - first:
+      213: 1206618744522804068
+    second: Msc_22
+  - first:
+      213: 6641174465527869450
+    second: Msc_23
+  - first:
+      213: -1537539125893503019
+    second: Msc_24
+  - first:
+      213: -8183010657848209788
+    second: Msc_25
+  - first:
+      213: -107556706795628326
+    second: Msc_26
+  - first:
+      213: -179103600271131226
+    second: Msc_27
+  - first:
+      213: -4040889272758969528
+    second: Msc_28
+  - first:
+      213: 8024003370349661357
+    second: Msc_29
+  - first:
+      213: 4657828939391420271
+    second: Msc_30
+  - first:
+      213: 4531468985581494302
+    second: Msc_31
+  - first:
+      213: 150814638574856483
+    second: Msc_32
+  - first:
+      213: 7244331976727924652
+    second: Msc_33
+  - first:
+      213: -6599845386507892591
+    second: Msc_34
+  - first:
+      213: -5949305861154070910
+    second: Msc_35
+  - first:
+      213: 7493049511044416835
+    second: Msc_36
+  - first:
+      213: 5453380127241322117
+    second: Msc_37
+  - first:
+      213: -6030913307967751989
+    second: Msc_38
+  - first:
+      213: 4165354027389064193
+    second: Msc_39
+  - first:
+      213: 7547409070825784669
+    second: Msc_40
+  - first:
+      213: -5430008197638791095
+    second: Msc_41
+  - first:
+      213: -6670338579252269915
+    second: Msc_42
+  - first:
+      213: 3086991934927722453
+    second: Msc_43
+  - first:
+      213: 1230747019236831190
+    second: Msc_44
+  - first:
+      213: -3426670948372493621
+    second: Msc_45
+  - first:
+      213: 3473120768932672610
+    second: Msc_46
+  - first:
+      213: 2084881283873886703
+    second: Msc_47
+  - first:
+      213: -7983482210023820058
+    second: Msc_48
+  - first:
+      213: 6396262304162123271
+    second: Msc_49
+  - first:
+      213: -3428390987464013929
+    second: Msc_50
+  - first:
+      213: 5099107882778168588
+    second: Msc_51
+  - first:
+      213: -1798245629446840710
+    second: Msc_52
+  - first:
+      213: -4796093678805486818
+    second: Msc_53
+  - first:
+      213: -2337666499185630897
+    second: Msc_54
+  - first:
+      213: -8191524260215974513
+    second: Msc_55
+  - first:
+      213: 3427347589898714065
+    second: Msc_56
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 8
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Msc_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd4eff8f8cd5f1690800000000000000
+      internalID: -7629276125989968675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Msc_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4eb07cbd2cbb89230800000000000000
+      internalID: 3645870343941721060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Msc_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 8
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee005222093a629a0800000000000000
+      internalID: -6258134792741256978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Msc_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6fcdfb11e7476880800000000000000
+      internalID: -8617840329787322513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Msc_4
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e257a9f4160164d90800000000000000
+      internalID: -7113980551251725010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Msc_5
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a52a40523dd36e0e0800000000000000
+      internalID: -2241035787501788582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Msc_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26dcb3e05d219dcc0800000000000000
+      internalID: -3685894113749906078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Msc_7
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 8
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 297eface947c7e4d0800000000000000
+      internalID: -3105294297731176558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Msc_8
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 0
+        width: 8
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb43d385759c361d0800000000000000
+      internalID: -3358619520108514116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Msc_9
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 40
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ca2febd71bbdbef0800000000000000
+      internalID: -90710706329015616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Msc_10
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abf284d5131848890800000000000000
+      internalID: -7456693034000306246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Msc_11
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 8
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a917fadfe8c02de60800000000000000
+      internalID: 7985458897562333594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

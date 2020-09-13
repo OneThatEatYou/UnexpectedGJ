@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4018839730353301750}
   - component: {fileID: 4257263993242220115}
   m_Layer: 0
-  m_Name: ChargeParticle
+  m_Name: ChargeParticle_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

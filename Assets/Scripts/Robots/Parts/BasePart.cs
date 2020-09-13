@@ -6,6 +6,11 @@ public class BasePart : MonoBehaviour
 {
     public int maxHealth;
     int currentHealth;
+    public int CurrentHealth
+    {
+        get { return currentHealth; }
+        set { currentHealth = value; }
+    }
     public Vector2 cooldownRange;
     float cooldown;
     float lastShootTime = 0f;
@@ -27,7 +32,7 @@ public class BasePart : MonoBehaviour
         get { return controller; }
     }
 
-    Rigidbody2D rb;
+    protected Rigidbody2D rb;
     bool isDead = false;
 
     public virtual void Awake()
@@ -38,7 +43,7 @@ public class BasePart : MonoBehaviour
 
     public virtual void Start()
     {
-        currentHealth = maxHealth;
+        CurrentHealth = maxHealth;
         GenerateCooldown();
     }
 
@@ -60,22 +65,14 @@ public class BasePart : MonoBehaviour
     public virtual void TakeDamage(int damage)
     {
         Debug.Log($"{gameObject.name} took {damage} damage");
-
-        currentHealth -= damage;
-
-        if (currentHealth <= 0 && Controller.CanDetach(this))
-        {
-            Detach();
-        }
     }
 
     public virtual void Detach()
     {
-        controller.TakeDamage(maxHealth);
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.gravityScale = 1;
 
-        Controller.CheckDetachables();
+        //Controller.CheckDetachables();
 
         isDead = true;
     }

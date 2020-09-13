@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: LaserBeam
+  m_Name: LaserBeam_Red
   m_Shader: {fileID: -6465566751694194690, guid: 2ad8db13f0c083f46885d82fbb8778f2,
     type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
@@ -30,4 +30,4 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats: []
     m_Colors:
-    - Color_1A4E3FA6: {r: 3.6981132, g: 0.45354217, b: 0.45354217, a: 0}
+    - Color_1A4E3FA6: {r: 2.9960785, g: 0.1882353, b: 0.21960784, a: 0}

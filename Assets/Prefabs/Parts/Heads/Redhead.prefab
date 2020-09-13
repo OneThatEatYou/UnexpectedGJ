@@ -162,5 +162,5 @@ MonoBehaviour:
     type: 3}
   chargeParticles: {fileID: 9163309079961376718, guid: c4ad147db922bcb4bacb9ec179f75a99,
     type: 3}
-  chargeTime: 5
+  chargeTime: 4.5
   aimAngleOffset: 90

@@ -8,6 +8,18 @@ public class Leg : BasePart
     {
         base.Start();
 
-        Controller.detachables.Add(this);
+        Controller.AddNonDetachablePart(this);
+    }
+
+    public override void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
+
+        CurrentHealth -= damage;
+
+        if (CurrentHealth <= 0)
+        {
+            Controller.TakeDamage(maxHealth);
+        }
     }
 }

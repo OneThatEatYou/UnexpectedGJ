@@ -9,10 +9,12 @@ public class RobotController : MonoBehaviour
     public Transform PlayerPos { get { return playerPos; } }
 
     public List<BasePart> parts = new List<BasePart>();
-    public List<BasePart> detachables = new List<BasePart>();
+    List<BasePart> nonDetachables = new List<BasePart>();
 
     int maxHealth;
     int currentHealth;
+
+    [HideInInspector] public bool isMoving = false;
 
     private void Awake()
     {
@@ -54,87 +56,26 @@ public class RobotController : MonoBehaviour
     void Die()
     {
         Debug.Log("Robot died");
+
+        //detach all parts
+        foreach (BasePart part in nonDetachables)
+        {
+            part.Detach();
+        }
+
         //explosion
 
         //spawn new robot
+        StartCoroutine(SpawnNewRobot(3f));
+
+        IEnumerator SpawnNewRobot(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+
+            RobotBuilder.Instance.GenerateRobot();
+            Destroy(gameObject);
+        }
     }
-
-    //this part is still buggy
-    //public bool CanDetach(BasePart partToDetach)
-    //{
-    //    BasePart thisPart = null;
-
-    //    foreach (BasePart part in parts)
-    //    {
-    //        if (partToDetach == part)
-    //        {
-    //            thisPart = part;
-    //            break;
-    //        }
-    //    }
-
-    //    if (thisPart == null)
-    //    {
-    //        Debug.LogError("Part to detach not found!");
-    //        return false;
-    //    }
-
-    //    if (thisPart is Body || thisPart is Leg)
-    //    {
-    //        foreach (BasePart part in parts)
-    //        {
-    //            if (!(part is Leg) && !(part is Body))
-    //            {
-    //                Debug.Log("Cannot detach body before other parts");
-
-    //                foreach (BasePart detachable in detachables)
-    //                {
-    //                    //check if part is already in detachables list
-    //                    if (thisPart == detachable)
-    //                    {
-    //                        return false;
-    //                    }
-    //                }
-
-    //                Debug.Log($"Added {thisPart.name} to detachables");
-    //                detachables.Add(partToDetach);
-    //                return false;
-    //            }
-    //        }
-
-    //        parts.Remove(partToDetach);
-    //        return true;
-    //    }
-    //    else
-    //    {
-    //        parts.Remove(partToDetach);
-    //        return true;
-    //    }
-    //}
-
-    //public void CheckDetachables()
-    //{
-    //    Debug.Log("detachables.Count: " + detachables.Count);
-
-    //    foreach (BasePart part in detachables.ToList())
-    //    {
-    //        Debug.Log("Trying to detach " + part.name);
-
-    //        if (CanDetach(part))
-    //        {
-    //            part.Detach();
-    //        }
-    //        else
-    //        {
-    //            Debug.Log("Still cannot detach");
-    //        }
-    //    }
-
-    //    if (parts.Count == 0)
-    //    {
-    //        RobotBuilder.Instance.GenerateRobot();
-    //    }
-    //}
 
     private int GetMaxHealth()
     {
@@ -151,5 +92,10 @@ public class RobotController : MonoBehaviour
         }
 
         return maxHp;
+    }
+
+    public void AddNonDetachablePart(BasePart nonDetachablePart)
+    {
+        nonDetachables.Add(nonDetachablePart);
     }
 }

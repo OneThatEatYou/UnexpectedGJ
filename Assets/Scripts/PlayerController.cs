@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +17,21 @@ public class PlayerController : MonoBehaviour
     public float inviTime = 1f;
     bool isInvi = false;
     bool isStunned = false;
+    public RectTransform hpPanel;
+    Image[] healthImages;
+    public Sprite fullHealth;
+    public Sprite emptyHealth;
+
+    public int CurrentHealth
+    {
+        get { return currentHealth; }
+
+        set
+        {
+            currentHealth = value;
+            UpdateHealth(currentHealth);
+        }
+    }
 
     [Header("Jump settings")]
     public float jumpVel;
@@ -38,7 +54,12 @@ public class PlayerController : MonoBehaviour
     public string slapParam;
     public string invicibleParam = "isInvicible";
 
+    [Header("Death")]
+    public GameObject deathCanvas;
+    public GameObject deathParticle;
+
     bool isFacingLeft = false;
+    bool isDead = false;
     Coroutine flippingCr;
     Rigidbody2D rb;
     SpriteRenderer rend;
@@ -57,12 +78,14 @@ public class PlayerController : MonoBehaviour
     {
         lastShootTime = -shootCooldown;
         currentHealth = maxHealth;
+
+        RegisterHealthPanel();
     }
 
     void Update()
     {
-        //if (isStunned)
-        //{ return; }
+        if (isDead)
+        { return; }
 
         float movement = Input.GetAxis("Horizontal");
         Move(movement);
@@ -236,11 +259,11 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Player took " + dmg + " damage!");
         //play sfx
 
-        currentHealth -= dmg;
+        CurrentHealth -= dmg;
 
         //update health ui
 
-        if (currentHealth <= 0)
+        if (CurrentHealth <= 0)
         {
             Die();
         }
@@ -249,6 +272,13 @@ public class PlayerController : MonoBehaviour
     void Die()
     {
         Debug.Log("Player is dead");
+
+        isDead = true;
+
+        deathCanvas.SetActive(true);
+        GameManager.canRestart = true;
+        Instantiate(deathParticle, transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 
     public void TriggerInvisibility(float recoverTime)
@@ -302,25 +332,35 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /*
-    public void TriggerStun(float recoverTime)
+    void RegisterHealthPanel()
     {
-        if (isStunned)
-        { return; }
+        healthImages = new Image[maxHealth];
 
-        StartCoroutine(StunTimer(recoverTime));
-
-        IEnumerator StunTimer(float time)
+        for (int i = 0; i < maxHealth; i++)
         {
-            isStunned = true;
-            rb.velocity = new Vector2(0, rb.velocity.y);
+            Image img = hpPanel.GetChild(i).GetComponent<Image>();
 
-            yield return new WaitForSeconds(time);
+            if (!img)
+            { Debug.LogWarning("Health image not found"); }
 
-            isStunned = false;
+            healthImages[i] = img;
         }
     }
-    */
+
+    void UpdateHealth(int curHealth)
+    {
+        //set fullHealth
+        for (int i = 0; i < currentHealth; i++)
+        {
+            healthImages[i].sprite = fullHealth;
+        }
+
+        //set emptyHealth
+        for (int i = 0; i < maxHealth - currentHealth; i++)
+        {
+            healthImages[maxHealth - i - 1].sprite = emptyHealth; 
+        }
+    }
 
     private void OnDrawGizmosSelected()
     {

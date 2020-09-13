@@ -27,7 +27,8 @@ public class LaserHead : Head
 
         foreach (Vector2 pos in laserSpawnPos)
         {
-            Instantiate(chargeParticles, (Vector2)transform.position + pos, Quaternion.identity);
+            GameObject obj = Instantiate(chargeParticles, (Vector2)transform.position + pos, Quaternion.identity);
+            obj.transform.SetParent(gameObject.transform);
         }
 
         //Debug.Log(name + " is charging");

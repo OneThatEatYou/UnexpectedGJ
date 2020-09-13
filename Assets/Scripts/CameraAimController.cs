@@ -15,9 +15,12 @@ public class CameraAimController : MonoBehaviour
     public float displayDuration = 3f;
     public GameObject displayParent;
     public RawImage display;
-
     public Camera cam;
-    //SpriteRenderer rend;
+
+    [Header("Flash")]
+    public Image flashImage;
+    public float flashStay;
+    public float flashFade;
 
     private void Awake()
     {
@@ -32,8 +35,6 @@ public class CameraAimController : MonoBehaviour
         }
 
         #endregion
-
-        //rend = GetComponentInChildren<SpriteRenderer>();
     }
 
     void Update()
@@ -45,6 +46,7 @@ public class CameraAimController : MonoBehaviour
     public void Shoot()
     {
         StartCoroutine(TakeScreenshot(screenshotWidth, screenshotHeight));
+        StartCoroutine(FlashScreen());
     }
 
     public IEnumerator TakeScreenshot(int width, int height)
@@ -94,5 +96,27 @@ public class CameraAimController : MonoBehaviour
 
         yield return new WaitForSeconds(displayDuration);
         displayParent.SetActive(false);
+    }
+
+    IEnumerator FlashScreen()
+    {
+        flashImage.gameObject.SetActive(true);
+        flashImage.color = Color.white;
+
+        yield return new WaitForSeconds(flashStay);
+
+        float t = 0;
+        float a = 1;
+        while (a != 0)
+        {
+            a = Mathf.Lerp(1, 0, t / flashFade);
+            flashImage.color = new Color(1, 1, 1, a);
+
+            t += Time.deltaTime;
+
+            yield return null;
+        }
+
+        flashImage.gameObject.SetActive(false);
     }
 }

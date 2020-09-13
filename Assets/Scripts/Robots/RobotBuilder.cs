@@ -6,6 +6,7 @@ using UnityEngine;
 public class RobotBuilder : MonoBehaviour
 {
     public LayerMask groundLayer;
+    public Vector2 playGroundXRange;
 
     [Space]
 
@@ -259,5 +260,11 @@ public class RobotBuilder : MonoBehaviour
         BasePart part = obj.GetComponent<BasePart>();
         //Debug.Log(part.name + " added to list");
         controller.parts.Add(part);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(new Vector2(playGroundXRange.x, 0), new Vector2(playGroundXRange.y, 0));
     }
 }

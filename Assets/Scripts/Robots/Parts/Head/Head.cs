@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class Head : BasePart
 {
-    public override void Action()
+    public override void TakeDamage(int damage)
     {
-        base.Action();
+        base.TakeDamage(damage);
 
-        //charge
-        //shoot laser
+        CurrentHealth -= damage;
+
+        if (CurrentHealth <= 0)
+        {
+            Controller.TakeDamage(maxHealth);
+            Detach();
+        }
     }
 }

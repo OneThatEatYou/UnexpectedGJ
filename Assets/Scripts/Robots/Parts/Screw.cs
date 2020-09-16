@@ -17,6 +17,8 @@ public class Screw : MonoBehaviour
     public int maxHealth;
     int currentHealth;
 
+    public AudioClip detachSFX;
+
     Rigidbody2D rb;
 
     private void Awake()
@@ -110,6 +112,8 @@ public class Screw : MonoBehaviour
         {
             Debug.LogWarning($"Controller for {name} not found.");
         }
+
+        AudioManager.PlayAudioAtPosition(detachSFX, transform.position, AudioManager.sfxMixerGroup);
     }
 
     private void OnDrawGizmosSelected()

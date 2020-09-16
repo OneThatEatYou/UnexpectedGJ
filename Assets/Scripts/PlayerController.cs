@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     Image[] healthImages;
     public Sprite fullHealth;
     public Sprite emptyHealth;
+    public AudioClip hurtSFX;
 
     public int CurrentHealth
     {
@@ -38,16 +39,19 @@ public class PlayerController : MonoBehaviour
     public Vector2 groundBoxOffset;
     public Vector2 groundBox;
     public LayerMask groundLayer;
+    public AudioClip jumpSFX;
 
     [Header("Shoot settings")]
     public float shootCooldown = 1f;
     float lastShootTime = 0f;
     public Image cooldownImage;
+    public AudioClip shootSFX;
 
     [Header("Slap settings")]
     public Vector2 slapBoxOffset;
     public Vector2 slapBoxSize;
     public LayerMask slappableLayer;
+    public AudioClip slapSFX;
 
     [Header("Animation Param")]
     public string movementParam;
@@ -57,6 +61,7 @@ public class PlayerController : MonoBehaviour
     [Header("Death")]
     public GameObject deathCanvas;
     public GameObject deathParticle;
+    public AudioClip deathSFX;
 
     bool isFacingLeft = false;
     bool isDead = false;
@@ -142,6 +147,8 @@ public class PlayerController : MonoBehaviour
         {
             Vector2 targetVel = new Vector2(rb.velocity.x, jumpVel);
             rb.velocity = targetVel;
+
+            AudioManager.PlayAudioAtPosition(jumpSFX, transform.position, AudioManager.sfxMixerGroup);
         }
     }
 
@@ -152,6 +159,8 @@ public class PlayerController : MonoBehaviour
 
         lastShootTime = Time.time;
         CameraAimController.instance.Shoot();
+
+        AudioManager.PlayAudioAtPosition(shootSFX, transform.position, AudioManager.sfxMixerGroup);
 
         StartCoroutine(DisplayShootCooldown());
 
@@ -193,6 +202,7 @@ public class PlayerController : MonoBehaviour
         }
 
         anim.SetTrigger(slapParam);
+        AudioManager.PlayAudioAtPosition(slapSFX, transform.position, AudioManager.sfxMixerGroup);
     }
 
     private void Flip()
@@ -267,6 +277,10 @@ public class PlayerController : MonoBehaviour
         {
             Die();
         }
+        else
+        {
+            AudioManager.PlayAudioAtPosition(hurtSFX, transform.position, AudioManager.sfxMixerGroup);
+        }
     }
 
     void Die()
@@ -278,6 +292,9 @@ public class PlayerController : MonoBehaviour
         deathCanvas.SetActive(true);
         GameManager.canRestart = true;
         Instantiate(deathParticle, transform.position, Quaternion.identity);
+
+        AudioManager.PlayAudioAtPosition(deathSFX, transform.position, AudioManager.sfxMixerGroup);
+
         Destroy(gameObject);
     }
 

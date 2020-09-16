@@ -182,3 +182,4 @@ MonoBehaviour:
   effectLayer:
     serializedVersion: 2
     m_Bits: 8192
+  collideTriggerSFX: {fileID: 8300000, guid: 515f25e1338d9b6449fa026ea9c4c7e1, type: 3}

@@ -148,6 +148,7 @@ MonoBehaviour:
   cooldownRange: {x: 10, y: 20}
   deathParticle: {fileID: 4917040865964609858, guid: 682b2b53a2a58e7429554084ec1cdccb,
     type: 3}
+  explosionSFX: {fileID: 8300000, guid: 8e62989d797442340aa4f6bf0032c4d7, type: 3}
   screwSpawnPos:
   - unscrewDir: 0
     screwStartRange: {x: -2.3, y: 2.42}

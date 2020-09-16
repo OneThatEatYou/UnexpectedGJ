@@ -149,6 +149,7 @@ MonoBehaviour:
   cooldownRange: {x: 5, y: 10}
   deathParticle: {fileID: 4917040865964609858, guid: 682b2b53a2a58e7429554084ec1cdccb,
     type: 3}
+  explosionSFX: {fileID: 8300000, guid: 8e62989d797442340aa4f6bf0032c4d7, type: 3}
   screwSpawnPos:
   - unscrewDir: 1
     screwStartRange: {x: 0.75, y: 0.44}
@@ -159,6 +160,7 @@ MonoBehaviour:
   angleOffset: 90
   aimTime: 10
   shootWait: 1
+  shootSFX: {fileID: 8300000, guid: 4537fb9d01610354fb335c01b5dce027, type: 3}
 --- !u!1 &5026476447414693173
 GameObject:
   m_ObjectHideFlags: 0

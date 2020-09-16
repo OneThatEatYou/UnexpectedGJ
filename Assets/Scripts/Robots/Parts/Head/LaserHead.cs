@@ -10,6 +10,7 @@ public class LaserHead : Head
     public float chargeTime;
     bool isCharging = false;
     public float aimAngleOffset = 90f;
+    public AudioClip shootSFX;
 
     public override void Action()
     {
@@ -34,6 +35,8 @@ public class LaserHead : Head
         //Debug.Log(name + " is charging");
 
         yield return new WaitForSeconds(chargeTime);
+
+        AudioManager.PlayAudioAtPosition(shootSFX, laserSpawnPos[0], AudioManager.sfxMixerGroup);
 
         foreach (Vector2 pos in laserSpawnPos)
         {

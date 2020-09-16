@@ -266,3 +266,4 @@ MonoBehaviour:
   startXPos: 0
   unscrewedLayer: Ground
   maxHealth: 3
+  detachSFX: {fileID: 8300000, guid: 6f44857b2906b8b4d83e3893cd57f616, type: 3}

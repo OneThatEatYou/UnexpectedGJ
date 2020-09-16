@@ -5,6 +5,7 @@ using UnityEngine;
 public class Spring : MonoBehaviour
 {
     public float bounceVel;
+    public AudioClip bounceSFX;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -13,6 +14,7 @@ public class Spring : MonoBehaviour
         if (rb && rb.bodyType == RigidbodyType2D.Dynamic)
         {
             rb.velocity = new Vector2(rb.velocity.x, bounceVel);
+            AudioManager.PlayAudioAtPosition(bounceSFX, transform.position, AudioManager.sfxMixerGroup);
         }
     }
 }

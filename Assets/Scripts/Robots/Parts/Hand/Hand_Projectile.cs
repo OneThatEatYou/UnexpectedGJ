@@ -12,6 +12,8 @@ public class Hand_Projectile : Hand
     public float shootWait = 0.5f;
     bool isAiming = false;
 
+    public AudioClip shootSFX;
+
     public override void Action()
     {
         if (isAiming)
@@ -60,6 +62,8 @@ public class Hand_Projectile : Hand
 
     void Shoot()
     {
+        AudioManager.PlayAudioAtPosition(shootSFX, bulletSpawnPos.position, AudioManager.sfxMixerGroup);
+
         Instantiate(bulletPrefab, bulletSpawnPos.position, transform.rotation);
     }
 }

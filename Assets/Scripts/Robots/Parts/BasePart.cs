@@ -15,6 +15,7 @@ public class BasePart : MonoBehaviour
     float cooldown;
     float lastShootTime = 0f;
     public GameObject deathParticle;
+    public AudioClip explosionSFX;
 
     [System.Serializable]
     public struct ScrewSpawnPos
@@ -80,6 +81,7 @@ public class BasePart : MonoBehaviour
     public virtual void Explode()
     {
         //explosion
+        AudioManager.PlayAudioAtPosition(explosionSFX, transform.position, AudioManager.sfxMixerGroup);
         Instantiate(deathParticle, rb.worldCenterOfMass, Quaternion.identity);
 
         //screen shake

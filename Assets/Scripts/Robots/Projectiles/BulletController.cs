@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class BulletController : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class BulletController : MonoBehaviour
     public float moveSpeed;
     public GameObject deathParticle;
     public LayerMask effectLayer;
+    public AudioClip collideTriggerSFX;
 
     protected Rigidbody2D rb;
 
@@ -45,12 +47,14 @@ public class BulletController : MonoBehaviour
 
     public virtual void OnCollide(Collision2D collision)
     {
+        AudioManager.PlayAudioAtPosition(collideTriggerSFX, transform.position, AudioManager.sfxMixerGroup);
         Instantiate(deathParticle, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 
     public virtual void OnTrigger(Collider2D collision)
     {
+        AudioManager.PlayAudioAtPosition(collideTriggerSFX, transform.position, AudioManager.sfxMixerGroup);
         Instantiate(deathParticle, transform.position, Quaternion.identity);
     }
 }

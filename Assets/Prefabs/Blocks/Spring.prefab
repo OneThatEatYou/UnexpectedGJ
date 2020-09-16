@@ -154,3 +154,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bounceVel: 30
+  bounceSFX: {fileID: 8300000, guid: 4038e06992c6a65449803e7c4f592e2f, type: 3}

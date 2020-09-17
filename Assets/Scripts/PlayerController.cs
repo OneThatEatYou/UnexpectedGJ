@@ -266,8 +266,7 @@ public class PlayerController : MonoBehaviour
 
         TriggerInvisibility(inviTime);
 
-        Debug.Log("Player took " + dmg + " damage!");
-        //play sfx
+        //Debug.Log("Player took " + dmg + " damage!");
 
         CurrentHealth -= dmg;
 

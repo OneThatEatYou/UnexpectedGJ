@@ -72,8 +72,12 @@ public class CameraAimController : MonoBehaviour
 
         Vector2 rectStartPos;
         rectStartPos.x = pixelPos.x;
-        //rectStartPos.y = Screen.height - height - pixelPos.y;
+#if UNITY_WEBGL
+        
         rectStartPos.y = pixelPos.y;
+#else
+        rectStartPos.y = Screen.height - height - pixelPos.y;
+#endif
         rectStartPos.x = Mathf.Clamp(rectStartPos.x, 0, Screen.width - width);
         rectStartPos.y = Mathf.Clamp(rectStartPos.y, 0, Screen.height - height);
 

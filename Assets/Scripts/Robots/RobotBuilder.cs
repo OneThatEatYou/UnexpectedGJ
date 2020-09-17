@@ -131,10 +131,11 @@ public class RobotBuilder : MonoBehaviour
         //place legs based on width of body
         for (int i = 0; i < newLegs.Length; i++)
         {
-            Vector2 legPos;
+            Vector3 legPos;
             legPos.x = Random.Range(spawnPos.x + bodyXRange - newLegSprites[i].bounds.extents.x, spawnPos.x - bodyXRange + newLegSprites[i].bounds.extents.x);
             //legPos.y = groundHeight + newLegSprites[i].bounds.size.y;
             legPos.y = groundHeight + newLegSprites[i].pivot.y / newLegSprites[i].pixelsPerUnit;
+            legPos.z = newLegs[i].transform.position.z;
             newLegs[i].transform.position = legPos;
         }
 
@@ -149,33 +150,37 @@ public class RobotBuilder : MonoBehaviour
         }
 
         //place body based on height of legs
-        Vector2 bodyPos;
+        Vector3 bodyPos;
         bodyPos.x = spawnPos.x;
         bodyPos.y = lowestLegPos + newBodySprite.bounds.extents.y;
+        bodyPos.z = newBody.transform.position.z;
         newBody.transform.position = bodyPos;
         SpawnScrews(newBody.GetComponent<BasePart>());
 
         //place head based on position and width of body
-        Vector2 headPos;
+        Vector3 headPos;
         headPos.x = Random.Range(spawnPos.x + bodyXRange, spawnPos.x - bodyXRange);
         headPos.y = newBodySprite.bounds.extents.y + newHeadSprite.bounds.extents.y + bodyPos.y;
+        headPos.z = newHead.transform.position.z;
         newHead.transform.position = headPos;
         SpawnScrews(newHead.GetComponent<BasePart>());
 
         //place hands
-        Vector2 handPos;
+        Vector3 handPos;
         for (int i = 0; i < newHands_L.Length; i++)
         {
             handPos.x = spawnPos.x - newBodySprite.bounds.extents.x - newHand_LSprites[i].bounds.extents.x;
             handPos.y = Random.Range(bodyPos.y - newBodySprite.bounds.extents.y, bodyPos.y + newBodySprite.bounds.extents.y);
+            handPos.z = newHands_L[i].transform.position.z;
             newHands_L[i].transform.position = handPos;
-
+            
             SpawnScrews(newHands_L[i].GetComponent<BasePart>());
         }
         for (int i = 0; i < newHands_L.Length; i++)
         {
             handPos.x = spawnPos.x + newBodySprite.bounds.extents.x + newHand_LSprites[i].bounds.extents.x;
             handPos.y = Random.Range(bodyPos.y - newBodySprite.bounds.extents.y, bodyPos.y + newBodySprite.bounds.extents.y);
+            handPos.z = newHands_R[i].transform.position.z;
             newHands_R[i].transform.position = handPos;
 
             SpawnScrews(newHands_R[i].GetComponent<BasePart>());
@@ -189,6 +194,8 @@ public class RobotBuilder : MonoBehaviour
         Screw screwScript = screwPrefab.GetComponent<Screw>();
         int numberOfScrews = Mathf.CeilToInt(part.maxHealth / screwScript.maxHealth);
         int numberOfFakes = numberOfScrews;
+        string spriteSortingLayer = part.GetComponent<SpriteRenderer>().sortingLayerName;
+        int spriteSortingOrder = part.GetComponent<SpriteRenderer>().sortingOrder - 1;
 
         for (int i = 0; i < numberOfScrews; i++)
         {
@@ -197,6 +204,13 @@ public class RobotBuilder : MonoBehaviour
 
             GameObject screw = Instantiate(screwPrefab, part.transform);
             Screw thisScrew = screw.GetComponent<Screw>();
+            SpriteRenderer[] rend = screw.GetComponentsInChildren<SpriteRenderer>();
+
+            for (int k = 0; k < rend.Length; k++)
+            {
+                rend[k].sortingLayerName = spriteSortingLayer;
+                rend[k].sortingOrder = spriteSortingOrder - k;
+            }
 
             thisScrew.connectedPart = part;
             thisScrew.unscrewDir = part.screwSpawnPos[j].unscrewDir;
@@ -229,6 +243,13 @@ public class RobotBuilder : MonoBehaviour
 
             GameObject screw = Instantiate(fakeScrewPrefab, part.transform);
             Screw thisScrew = screw.GetComponent<Screw>();
+            SpriteRenderer[] rend = screw.GetComponentsInChildren<SpriteRenderer>();
+
+            for (int k = 0; k < rend.Length; k++)
+            {
+                rend[k].sortingLayerName = spriteSortingLayer;
+                rend[k].sortingOrder = spriteSortingOrder - k;
+            }
 
             thisScrew.connectedPart = part;
             thisScrew.unscrewDir = part.screwSpawnPos[j].unscrewDir;

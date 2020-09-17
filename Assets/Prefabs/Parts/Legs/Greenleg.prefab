@@ -70,9 +70,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -50599889
+  m_SortingLayerID: 1627770169
   m_SortingLayer: 2
-  m_SortingOrder: -2
+  m_SortingOrder: 0
   m_Sprite: {fileID: 1732480753463685347, guid: 832be7984d116a64eb5b9333c7f950de,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -92,13 +92,13 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7044498576880928698}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -1.73}
+  m_Offset: {x: 0, y: -0.75}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.875}
@@ -109,7 +109,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3, y: 4}
+  m_Size: {x: 7.5, y: 1.5}
   m_EdgeRadius: 0
 --- !u!50 &4168073638366412887
 Rigidbody2D:
@@ -150,4 +150,10 @@ MonoBehaviour:
     type: 3}
   explosionSFX: {fileID: 8300000, guid: 8e62989d797442340aa4f6bf0032c4d7, type: 3}
   screwSpawnPos: []
-  moveTime: 2
+  moveTime: 0.5
+  crushDamage: 1
+  crushBoxOffset: {x: 0, y: -1.57}
+  crushBoxSize: {x: 6.56, y: 0.67}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 8192

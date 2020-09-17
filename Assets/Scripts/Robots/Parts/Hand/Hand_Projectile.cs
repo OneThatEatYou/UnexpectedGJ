@@ -28,7 +28,7 @@ public class Hand_Projectile : Hand
     IEnumerator AimTowardsPlayer()
     {
         isAiming = true;
-        Debug.Log(gameObject.name + " is aiming");
+        //Debug.Log(gameObject.name + " is aiming");
 
         Vector2 dir = Controller.PlayerPos.transform.position - transform.position;
         float targetAngle = Mathf.Atan2(dir.y, dir.x);

@@ -14,7 +14,7 @@ public class Redleg : Leg
 
         base.Action();
 
-        Debug.Log("Jumping");
+        //Debug.Log("Jumping");
 
         Vector2 target;
         target.x = Random.Range(RobotBuilder.Instance.playGroundXRange.x, RobotBuilder.Instance.playGroundXRange.y);

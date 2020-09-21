@@ -43,7 +43,7 @@ public class RobotController : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        Debug.Log($"{gameObject.name} took {damage} damage");
+        //Debug.Log($"{gameObject.name} took {damage} damage");
 
         currentHealth -= damage;
 
@@ -63,8 +63,6 @@ public class RobotController : MonoBehaviour
             part.Detach();
         }
 
-        //explosion
-
         //spawn new robot
         StartCoroutine(SpawnNewRobot(3f));
 
@@ -73,8 +71,12 @@ public class RobotController : MonoBehaviour
             yield return new WaitForSeconds(delay);
 
             RobotBuilder.Instance.GenerateRobot();
+
+            DestroyAllParts();
             Destroy(gameObject);
         }
+
+        
     }
 
     private int GetMaxHealth()
@@ -97,5 +99,21 @@ public class RobotController : MonoBehaviour
     public void AddNonDetachablePart(BasePart nonDetachablePart)
     {
         nonDetachables.Add(nonDetachablePart);
+    }
+
+    void DestroyAllParts()
+    {
+        if (parts.Count == 0)
+        {
+            return;
+        }
+
+        foreach (BasePart part in parts.ToList())
+        {
+            if (part)
+            {
+                part.Explode();
+            }
+        }
     }
 }

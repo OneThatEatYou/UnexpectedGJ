@@ -6,30 +6,11 @@ public class Greenleg : Leg
 {
     [Tooltip("Time taken to move 1 unit")]
     public Vector2 moveTimeRange;
+    public float minDistance = 3f;
     public int crushDamage = 1;
     public Vector2 crushBoxOffset;
     public Vector2 crushBoxSize;
     public LayerMask playerLayer;
-
-    public override void Update()
-    {
-        base.Update();
-
-        Collider2D col = Physics2D.OverlapBox((Vector2)transform.position + crushBoxOffset, crushBoxSize, 0, playerLayer);
-        PlayerController playerCon;
-
-        if (col)
-        {
-            if (col.TryGetComponent(out playerCon))
-            {
-                if (col.GetComponent<Rigidbody2D>().velocity.y < 0)
-                {
-                    //only deal crush damage when player is moving downwards
-                    playerCon.TakeDamage(crushDamage);
-                }
-            }
-        }
-    }
 
     public override void Action()
     {
@@ -40,9 +21,7 @@ public class Greenleg : Leg
 
         //Debug.Log("Moving");
 
-        Vector2 target;
-        target.x = Random.Range(RobotBuilder.Instance.playGroundXRange.x, RobotBuilder.Instance.playGroundXRange.y);
-        target.y = Controller.transform.position.y;
+        Vector2 target = GenerateTarget(minDistance, 10);
 
         StartCoroutine(Stroll(target));
     }
@@ -56,6 +35,8 @@ public class Greenleg : Leg
         Vector2 currentPos = startPos;
         float distance = (startPos - target).magnitude;
         float localMoveTime = distance * Random.Range(moveTimeRange.x, moveTimeRange.y);
+
+        ShakeScreen(localMoveTime);
 
         //Debug.Log($"Distance: {distance}, LocalMoveTime: {localMoveTime}");
 
@@ -72,6 +53,21 @@ public class Greenleg : Leg
         }
 
         Controller.isMoving = false;
+    }
+
+    void ShakeScreen(float localMoveTime)
+    {
+        CameraController.GenerateImpulse(0.5f, 4, localMoveTime * 0.1f, localMoveTime * 0.7f, localMoveTime * 0.2f);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        PlayerController playerCon;
+        if (collision.TryGetComponent(out playerCon))
+        {
+            playerCon.TakeDamage(crushDamage);
+            Debug.Log("Player took crush damage");
+        }
     }
 
     public override void OnDrawGizmosSelected()

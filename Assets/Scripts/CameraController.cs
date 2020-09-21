@@ -51,4 +51,24 @@ public class CameraController : MonoBehaviour
         impulseSource.m_ImpulseDefinition.m_TimeEnvelope.m_DecayTime = decayTime;
         impulseSource.GenerateImpulse(direction);
     }
+
+    public static void GenerateImpulse(float amplitudeGain, float frequencyGain)
+    {
+        impulseSource.m_ImpulseDefinition.m_AmplitudeGain = amplitudeGain;
+        impulseSource.m_ImpulseDefinition.m_FrequencyGain = frequencyGain;
+        impulseSource.m_ImpulseDefinition.m_TimeEnvelope.m_AttackTime = 0.1f;
+        impulseSource.m_ImpulseDefinition.m_TimeEnvelope.m_SustainTime = 0.4f;
+        impulseSource.m_ImpulseDefinition.m_TimeEnvelope.m_DecayTime = 0.9f;
+        impulseSource.GenerateImpulse(1f);
+    }
+
+    public static void GenerateImpulse(float amplitudeGain, float frequencyGain, float attackTime, float sustainTime, float decayTime)
+    {
+        impulseSource.m_ImpulseDefinition.m_AmplitudeGain = amplitudeGain;
+        impulseSource.m_ImpulseDefinition.m_FrequencyGain = frequencyGain;
+        impulseSource.m_ImpulseDefinition.m_TimeEnvelope.m_AttackTime = attackTime;
+        impulseSource.m_ImpulseDefinition.m_TimeEnvelope.m_SustainTime = sustainTime;
+        impulseSource.m_ImpulseDefinition.m_TimeEnvelope.m_DecayTime = decayTime;
+        impulseSource.GenerateImpulse(1f);
+    }
 }

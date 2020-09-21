@@ -132,18 +132,18 @@ public class PlayerController : MonoBehaviour
     private void Jump()
     {
         //check if there is ground
-        bool isGrounded;
+        Collider2D groundCol;
 
         if (isFacingLeft)
         {
-            isGrounded = Physics2D.OverlapBox((Vector2)transform.position + new Vector2(-groundBoxOffset.x, groundBoxOffset.y), groundBox, 0f, groundLayer);
+            groundCol = Physics2D.OverlapBox((Vector2)transform.position + new Vector2(-groundBoxOffset.x, groundBoxOffset.y), groundBox, 0f, groundLayer);
         }
         else
         {
-            isGrounded = Physics2D.OverlapBox((Vector2)transform.position + groundBoxOffset, groundBox, 0f, groundLayer);
+            groundCol = Physics2D.OverlapBox((Vector2)transform.position + groundBoxOffset, groundBox, 0f, groundLayer);
         }
 
-        if (isGrounded)
+        if (groundCol)
         {
             Vector2 targetVel = new Vector2(rb.velocity.x, jumpVel);
             rb.velocity = targetVel;
@@ -324,7 +324,8 @@ public class PlayerController : MonoBehaviour
         IEnumerator StunTimer(float time)
         {
             isStunned = true;
-            betterJumpScript.enabled = false;
+
+            DisableBetterJump(time + noInputTime);
 
             rb.velocity = new Vector2(0, rb.velocity.y);
             inputWeight = 0;
@@ -342,7 +343,6 @@ public class PlayerController : MonoBehaviour
                 yield return null;
             }
 
-            betterJumpScript.enabled = true;
             isStunned = false;
             //Debug.Log("No longer stunned");
         }
@@ -375,6 +375,24 @@ public class PlayerController : MonoBehaviour
         for (int i = 0; i < maxHealth - currentHealth; i++)
         {
             healthImages[maxHealth - i - 1].sprite = emptyHealth; 
+        }
+    }
+
+    Coroutine disablingBetterJump;
+    public void DisableBetterJump(float time)
+    {
+        if (betterJumpScript.isDisabled)
+        {
+            StopCoroutine(disablingBetterJump);
+        }
+
+        disablingBetterJump = StartCoroutine(Trigger());
+
+        IEnumerator Trigger()
+        {
+            betterJumpScript.isDisabled = true;
+            yield return new WaitForSeconds(time);
+            betterJumpScript.isDisabled = false;
         }
     }
 

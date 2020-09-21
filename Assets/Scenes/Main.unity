@@ -294,6 +294,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fallMultiplier: 3
   lowJumpMultiplier: 2
+  isDisabled: 0
 --- !u!114 &32638657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,7 +323,7 @@ MonoBehaviour:
   groundBox: {x: 1.16, y: 0.2}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 6400
+    m_Bits: 39168
   jumpSFX: {fileID: 8300000, guid: 4038e06992c6a65449803e7c4f592e2f, type: 3}
   shootCooldown: 3
   cooldownImage: {fileID: 1237053395}
@@ -3596,11 +3597,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  time: {x: 3, y: 1}
+  time: {x: 2, y: 2.3}
   noInputTime: 0.5
   stunRecoverTime: 1
-  xVelMultiplier: 1.5
-  yVelMultiplier: 0.7
 --- !u!61 &894619094
 BoxCollider2D:
   m_ObjectHideFlags: 0

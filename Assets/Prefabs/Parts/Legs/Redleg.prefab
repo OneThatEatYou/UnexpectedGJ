@@ -71,7 +71,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1627770169
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 6865416417979594198, guid: 6ccb71e26546cc747805463e6a4515a9,
     type: 3}
@@ -101,7 +101,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: -1.73}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.9375}
+    pivot: {x: 0.5, y: 1}
     oldSize: {x: 3, y: 4}
     newSize: {x: 3, y: 4}
     adaptiveTilingThreshold: 0.5
@@ -150,5 +150,6 @@ MonoBehaviour:
     type: 3}
   explosionSFX: {fileID: 8300000, guid: 8e62989d797442340aa4f6bf0032c4d7, type: 3}
   screwSpawnPos: []
-  moveTime: 3
-  jumpPowerRange: {x: 3, y: 6}
+  moveTime: 1.5
+  minDistance: 3
+  gravityScale: 2

@@ -6,6 +6,7 @@ public class BetterJump : MonoBehaviour
 {
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2f;
+    public bool isDisabled;
 
     Rigidbody2D rb;
 
@@ -22,7 +23,7 @@ public class BetterJump : MonoBehaviour
         }
         else if (rb.velocity.y > 0)
         {
-            if (!Input.GetKey(KeyCode.UpArrow) && !Input.GetKey(KeyCode.Space) && !Input.GetKey(KeyCode.W))
+            if ((!Input.GetKey(KeyCode.UpArrow) && !Input.GetKey(KeyCode.Space) && !Input.GetKey(KeyCode.W)) || isDisabled)
             {
                 rb.velocity += Vector2.up * Physics2D.gravity * rb.gravityScale * (lowJumpMultiplier - 1) * Time.deltaTime;
             }

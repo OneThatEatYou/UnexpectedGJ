@@ -65,15 +65,13 @@ public class BasePart : MonoBehaviour
 
     public virtual void TakeDamage(int damage)
     {
-        Debug.Log($"{gameObject.name} took {damage} damage");
+        //Debug.Log($"{gameObject.name} took {damage} damage");
     }
 
     public virtual void Detach()
     {
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.gravityScale = 1;
-
-        //Controller.CheckDetachables();
 
         isDead = true;
     }
@@ -84,7 +82,10 @@ public class BasePart : MonoBehaviour
         AudioManager.PlayAudioAtPosition(explosionSFX, transform.position, AudioManager.sfxMixerGroup);
         Instantiate(deathParticle, rb.worldCenterOfMass, Quaternion.identity);
 
+        Controller.parts.Remove(this);
+
         //screen shake
+        CameraController.GenerateImpulse(7, 4);
 
         Destroy(gameObject);
     }

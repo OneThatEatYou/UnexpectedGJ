@@ -13,6 +13,11 @@ public class Spring : MonoBehaviour
 
         if (rb && rb.bodyType == RigidbodyType2D.Dynamic)
         {
+            PlayerController playerCon;
+            if (collision.gameObject.TryGetComponent(out playerCon))
+            {
+                playerCon.DisableBetterJump(1);
+            }
             rb.velocity = new Vector2(rb.velocity.x, bounceVel);
             AudioManager.PlayAudioAtPosition(bounceSFX, transform.position, AudioManager.sfxMixerGroup);
         }

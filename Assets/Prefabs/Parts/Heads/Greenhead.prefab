@@ -168,11 +168,17 @@ MonoBehaviour:
   explosionSFX: {fileID: 8300000, guid: 8e62989d797442340aa4f6bf0032c4d7, type: 3}
   screwSpawnPos:
   - unscrewDir: 0
-    screwStartRange: {x: -2, y: 0.25}
-    screwEndRange: {x: -2, y: -1.32}
+    screwPos: {x: -2, y: 0}
+  - unscrewDir: 0
+    screwPos: {x: -2, y: -0.65}
+  - unscrewDir: 0
+    screwPos: {x: -2, y: -1.3}
   - unscrewDir: 1
-    screwStartRange: {x: 2, y: 0.25}
-    screwEndRange: {x: 2, y: -1.32}
+    screwPos: {x: 2, y: 0}
+  - unscrewDir: 1
+    screwPos: {x: 2, y: -0.65}
+  - unscrewDir: 1
+    screwPos: {x: 2, y: -1.3}
   laserSpawnPos:
   - {x: 0, y: 0}
   laserPrefab: {fileID: 5350610779359612022, guid: 3d606af995e9f9045b58d93ab3afd768,

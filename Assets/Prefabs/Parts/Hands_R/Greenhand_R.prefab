@@ -72,7 +72,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -703402615
-  m_SortingLayer: 6
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: -8471546740692648176, guid: 832be7984d116a64eb5b9333c7f950de,
     type: 3}
@@ -152,8 +152,15 @@ MonoBehaviour:
   explosionSFX: {fileID: 8300000, guid: 8e62989d797442340aa4f6bf0032c4d7, type: 3}
   screwSpawnPos:
   - unscrewDir: 1
-    screwStartRange: {x: 0.75, y: 0.44}
-    screwEndRange: {x: 0.75, y: -4.75}
+    screwPos: {x: 0.75, y: -0.12}
+  - unscrewDir: 1
+    screwPos: {x: 0.75, y: -0.82}
+  - unscrewDir: 1
+    screwPos: {x: 0.75, y: -1.52}
+  - unscrewDir: 1
+    screwPos: {x: 0.75, y: -2.22}
+  - unscrewDir: 1
+    screwPos: {x: 0.75, y: -2.92}
   bulletSpawnPos: {fileID: 8300563236035556846}
   bulletPrefab: {fileID: 2347107865142992510, guid: 2312818a88cc29a4eb85106f72bce908,
     type: 3}

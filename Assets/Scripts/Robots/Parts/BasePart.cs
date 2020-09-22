@@ -21,8 +21,7 @@ public class BasePart : MonoBehaviour
     public struct ScrewSpawnPos
     {
         public UnscrewDirection unscrewDir;
-        public Vector2 screwStartRange;
-        public Vector2 screwEndRange;
+        public Vector2 screwPos;
     }
 
     public ScrewSpawnPos[] screwSpawnPos;
@@ -106,6 +105,14 @@ public class BasePart : MonoBehaviour
         }
     }
 
+    public Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Vector3 angles)
+    {
+        Vector3 dir = point - pivot; // get point direction relative to pivot
+        dir = Quaternion.Euler(angles) * dir; // rotate it
+        point = dir + pivot; // calculate rotated point
+        return point; // return it
+    }
+
     public virtual void OnDrawGizmosSelected()
     {
         if (screwSpawnPos.Length < 1)
@@ -115,7 +122,8 @@ public class BasePart : MonoBehaviour
 
         for (int i = 0; i < screwSpawnPos.Length; i++)
         {
-            Gizmos.DrawLine(screwSpawnPos[i].screwStartRange, screwSpawnPos[i].screwEndRange);
+            Vector3 point = RotatePointAroundPivot((Vector2)transform.position + screwSpawnPos[i].screwPos, transform.position, transform.eulerAngles);
+            Gizmos.DrawWireSphere(point, 0.3f);
         }
     }
 }

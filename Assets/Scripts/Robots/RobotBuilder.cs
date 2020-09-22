@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 //stores parts
@@ -197,11 +198,12 @@ public class RobotBuilder : MonoBehaviour
         string spriteSortingLayer = part.GetComponent<SpriteRenderer>().sortingLayerName;
         int spriteSortingOrder = part.GetComponent<SpriteRenderer>().sortingOrder - 1;
 
+        //List<int> spawnedScrewPos = new List<int>();
+        var screwSpawnPosList = part.screwSpawnPos.ToList();
+        BasePart.ScrewSpawnPos spawnPos;
+
         for (int i = 0; i < numberOfScrews; i++)
         {
-            int j = Random.Range(0, part.screwSpawnPos.Length);
-            //Debug.Log($"{part.name} generated j of {j}");
-
             GameObject screw = Instantiate(screwPrefab, part.transform);
             Screw thisScrew = screw.GetComponent<Screw>();
             SpriteRenderer[] rend = screw.GetComponentsInChildren<SpriteRenderer>();
@@ -212,13 +214,14 @@ public class RobotBuilder : MonoBehaviour
                 rend[k].sortingOrder = spriteSortingOrder - k;
             }
 
-            thisScrew.connectedPart = part;
-            thisScrew.unscrewDir = part.screwSpawnPos[j].unscrewDir;
+            int j = Random.Range(0, screwSpawnPosList.Count);
+            spawnPos = screwSpawnPosList[j];
+            screwSpawnPosList.RemoveAt(j);
 
-            //generate a position
-            Vector2 localPos;
-            localPos.x = Random.Range(part.screwSpawnPos[j].screwStartRange.x, part.screwSpawnPos[j].screwEndRange.x);
-            localPos.y = Random.Range(part.screwSpawnPos[j].screwStartRange.y, part.screwSpawnPos[j].screwEndRange.y);
+            //Debug.Log($"{part.name} generated j of {j}");
+            thisScrew.connectedPart = part;
+            thisScrew.unscrewDir = spawnPos.unscrewDir;
+            Vector2 localPos = spawnPos.screwPos;
 
             switch (thisScrew.unscrewDir)
             {
@@ -238,9 +241,6 @@ public class RobotBuilder : MonoBehaviour
 
         for (int i = 0; i < numberOfFakes; i++)
         {
-            int j = Random.Range(0, part.screwSpawnPos.Length);
-            //Debug.Log($"{part.name} generated j of {j}");
-
             GameObject screw = Instantiate(fakeScrewPrefab, part.transform);
             Screw thisScrew = screw.GetComponent<Screw>();
             SpriteRenderer[] rend = screw.GetComponentsInChildren<SpriteRenderer>();
@@ -251,13 +251,14 @@ public class RobotBuilder : MonoBehaviour
                 rend[k].sortingOrder = spriteSortingOrder - k;
             }
 
-            thisScrew.connectedPart = part;
-            thisScrew.unscrewDir = part.screwSpawnPos[j].unscrewDir;
+            int j = Random.Range(0, screwSpawnPosList.Count);
+            spawnPos = screwSpawnPosList[j];
+            screwSpawnPosList.RemoveAt(j);
 
-            //generate a position
-            Vector2 localPos;
-            localPos.x = Random.Range(part.screwSpawnPos[j].screwStartRange.x, part.screwSpawnPos[j].screwEndRange.x);
-            localPos.y = Random.Range(part.screwSpawnPos[j].screwStartRange.y, part.screwSpawnPos[j].screwEndRange.y);
+            //Debug.Log($"{part.name} generated j of {j}");
+            thisScrew.connectedPart = part;
+            thisScrew.unscrewDir = spawnPos.unscrewDir;
+            Vector2 localPos = spawnPos.screwPos;
 
             switch (thisScrew.unscrewDir)
             {

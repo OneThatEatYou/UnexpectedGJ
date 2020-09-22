@@ -71,7 +71,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1144693211
-  m_SortingLayer: 5
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 7758824549583303750, guid: 832be7984d116a64eb5b9333c7f950de,
     type: 3}
@@ -151,8 +151,38 @@ MonoBehaviour:
   explosionSFX: {fileID: 8300000, guid: 8e62989d797442340aa4f6bf0032c4d7, type: 3}
   screwSpawnPos:
   - unscrewDir: 0
-    screwStartRange: {x: -2.3, y: 2.42}
-    screwEndRange: {x: -2.3, y: -2.57}
+    screwPos: {x: -2.25, y: 2.65}
+  - unscrewDir: 0
+    screwPos: {x: -2.25, y: 2}
+  - unscrewDir: 0
+    screwPos: {x: -2.25, y: 1.35}
+  - unscrewDir: 0
+    screwPos: {x: -2.25, y: 0.7}
+  - unscrewDir: 0
+    screwPos: {x: -2.25, y: 0.05}
+  - unscrewDir: 0
+    screwPos: {x: -2.25, y: -0.6}
+  - unscrewDir: 0
+    screwPos: {x: -2.25, y: -1.25}
+  - unscrewDir: 0
+    screwPos: {x: -2.25, y: -1.9}
+  - unscrewDir: 0
+    screwPos: {x: -2.25, y: -2.55}
   - unscrewDir: 1
-    screwStartRange: {x: 2.3, y: 2.51}
-    screwEndRange: {x: 2.3, y: -2.64}
+    screwPos: {x: 2.25, y: 2.65}
+  - unscrewDir: 1
+    screwPos: {x: 2.25, y: 2}
+  - unscrewDir: 1
+    screwPos: {x: 2.25, y: 1.35}
+  - unscrewDir: 1
+    screwPos: {x: 2.25, y: 0.7}
+  - unscrewDir: 1
+    screwPos: {x: 2.25, y: 0.05}
+  - unscrewDir: 1
+    screwPos: {x: 2.25, y: -0.6}
+  - unscrewDir: 1
+    screwPos: {x: 2.25, y: -1.25}
+  - unscrewDir: 1
+    screwPos: {x: 2.25, y: -1.9}
+  - unscrewDir: 1
+    screwPos: {x: 2.25, y: -2.55}

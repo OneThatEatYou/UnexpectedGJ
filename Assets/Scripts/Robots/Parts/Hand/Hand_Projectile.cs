@@ -41,7 +41,7 @@ public class Hand_Projectile : Hand
         float localAimTime = aimTime * (angleDif / 360);
         //Debug.Log($"t: {t}, angleDif: {angleDif},startAngle: {startAngle}, targetAngle: {targetAngle}, localAimTime: {localAimTime}");
 
-        //play repeating sfx
+        //play looping sfx
 
         while (Mathf.Abs(Mathf.DeltaAngle(currentAngle, targetAngle)) >= 0.01f)
         {
@@ -65,5 +65,7 @@ public class Hand_Projectile : Hand
         AudioManager.PlayAudioAtPosition(shootSFX, bulletSpawnPos.position, AudioManager.sfxMixerGroup);
 
         Instantiate(bulletPrefab, bulletSpawnPos.position, transform.rotation);
+
+        Debug.Log("Shooting from " + bulletSpawnPos.position);
     }
 }

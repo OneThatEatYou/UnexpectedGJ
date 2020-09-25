@@ -49,7 +49,7 @@ public class BasePart : MonoBehaviour
 
     public virtual void Update()
     {
-        if (Time.time > lastShootTime + cooldown && !isDead)
+        if (Time.time > lastShootTime + cooldown && !isDead && Controller.PlayerPos)
         {
             Action();
             GenerateCooldown();

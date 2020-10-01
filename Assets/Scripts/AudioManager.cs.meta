@@ -3,7 +3,11 @@ guid: 00088e2fe7f6dee4abdc91102e4c5d32
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - mainMixer: {fileID: 24100000, guid: deb25d07ef7d13b4b994139e2d19a30c, type: 2}
+  - introSource: {instanceID: 0}
+  - loopableSource: {instanceID: 0}
+  - loopableAudioClip: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

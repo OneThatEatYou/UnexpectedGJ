@@ -5,6 +5,27 @@ using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
+    //private static AudioManager instance;
+    //public static AudioManager Instance
+    //{
+    //    get
+    //    {
+    //        if (instance == null)
+    //        {
+    //            //check if instance is in scene
+    //            instance = FindObjectOfType<AudioManager>();
+
+    //            if (instance == null)
+    //            {
+    //                //spawn instance
+    //                GameObject obj = new GameObject();
+    //                obj.AddComponent<AudioManager>();
+    //            }
+    //        }
+    //        return instance;
+    //    }
+    //}
+
     public AudioMixer mainMixer;
     public static AudioMixerGroup bgmMixerGroup;
     public static AudioMixerGroup sfxMixerGroup;
@@ -39,7 +60,7 @@ public class AudioManager : MonoBehaviour
     {
         double scheduledTime = startLoop;
 
-        Debug.Log("Initial delay: " + initialDelay);
+        //Debug.Log("Initial delay: " + initialDelay);
         yield return new WaitForSeconds(initialDelay);
 
         while (true)
@@ -54,9 +75,9 @@ public class AudioManager : MonoBehaviour
             //schedule source to be played
             source.PlayScheduled(scheduledTime);
             //wait until the occupied source finished playing
-            Debug.Log("Waiting for " + ((float)clipLength + 1f) + " seconds");
+            //Debug.Log("Waiting for " + ((float)clipLength + 1f) + " seconds");
             yield return new WaitForSeconds((float)clipLength + 1f);
-            Debug.Log("Finished waiting");
+            //Debug.Log("Finished waiting");
         }
     }
 

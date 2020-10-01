@@ -5411,7 +5411,7 @@ MonoBehaviour:
   - {fileID: 7044498576880928698, guid: 82da63fe95b81a24f88824d7818c33c9, type: 3}
   - {fileID: 7044498576880928698, guid: bafe8f492a2dc394b83a167f802efea1, type: 3}
   spawnPos: {x: 0, y: 0}
-  spawnOnStart: 0
+  spawnOnStart: 1
 --- !u!4 &1531065524
 Transform:
   m_ObjectHideFlags: 0

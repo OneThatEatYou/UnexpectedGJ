@@ -17,7 +17,8 @@ public class Redleg : Leg
 
         //Debug.Log("Jumping");
 
-        Vector2 target = GenerateTarget(minDistance, 10);
+        Vector2 target = GenerateTarget(minDistance, 20);
+        Debug.Log("target:" + target);
 
         StartCoroutine(Jump(target));
     }
@@ -34,11 +35,12 @@ public class Redleg : Leg
 
         while (t != moveTime)
         {
+            t += Time.deltaTime;
+            t = Mathf.Clamp(t, 0, moveTime);
             currentPos.x = Mathf.Lerp(startPos.x, target.x, t / moveTime);
             currentPos.y = jumpPower * t + 0.5f * (Physics2D.gravity.y * gravityScale) * t * t;
             Controller.transform.position = currentPos;
-            t += Time.deltaTime;
-            t = Mathf.Clamp(t, 0, moveTime);
+            
 
             //Debug.Log(t);
 

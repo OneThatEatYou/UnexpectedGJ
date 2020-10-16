@@ -45,6 +45,7 @@ public class BasePart : MonoBehaviour
     {
         CurrentHealth = maxHealth;
         GenerateCooldown();
+        lastShootTime = Time.time;
     }
 
     public virtual void Update()

@@ -92,6 +92,9 @@ public class PlayerController : MonoBehaviour
         if (isDead)
         { return; }
 
+        if (GameManager.isPaused)
+        { return; }
+
         float movement = Input.GetAxis("Horizontal");
         Move(movement);
 
@@ -289,7 +292,7 @@ public class PlayerController : MonoBehaviour
         isDead = true;
 
         deathCanvas.SetActive(true);
-        GameManager.canRestart = true;
+        GameManager.Instance.canRestart = true;
         Instantiate(deathParticle, transform.position, Quaternion.identity);
 
         AudioManager.PlayAudioAtPosition(deathSFX, transform.position, AudioManager.sfxMixerGroup);

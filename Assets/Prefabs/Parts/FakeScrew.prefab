@@ -100,6 +100,10 @@ MonoBehaviour:
   unscrewDir: 0
   startXPos: 0
   unscrewedLayer: Unscrewed
+  mask:
+    serializedVersion: 2
+    m_Bits: 32768
+  unscrewedSortingLayer: Middleground
   maxHealth: 3
   detachSFX: {fileID: 8300000, guid: 6f44857b2906b8b4d83e3893cd57f616, type: 3}
 --- !u!1 &6955604546964382077
@@ -170,7 +174,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -50599889
-  m_SortingLayer: 7
+  m_SortingLayer: 5
   m_SortingOrder: -2
   m_Sprite: {fileID: 2531822210571077860, guid: 9c44c2be41334ce42a98c46af9cb3ee8,
     type: 3}

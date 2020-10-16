@@ -13,6 +13,7 @@ public class Screw : MonoBehaviour
     public UnscrewDirection unscrewDir;
     [HideInInspector] public float startXPos;
     public string unscrewedLayer;
+    public string unscrewedSortingLayer = "Middleground";
 
     public int maxHealth;
     int currentHealth;
@@ -20,10 +21,12 @@ public class Screw : MonoBehaviour
     public AudioClip detachSFX;
 
     Rigidbody2D rb;
+    SpriteRenderer[] sprites;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        sprites = GetComponentsInChildren<SpriteRenderer>();
     }
 
     private void Start()
@@ -97,7 +100,14 @@ public class Screw : MonoBehaviour
 
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        //sets collision layer
         gameObject.layer = LayerMask.NameToLayer(unscrewedLayer);
+        //set sprite layer
+        foreach (SpriteRenderer rend in sprites)
+        {
+            rend.sortingLayerName = unscrewedSortingLayer;
+            rend.sortingOrder = 0;
+        }
 
         if (connectedPart)
         {

@@ -7,8 +7,10 @@ using UnityEngine.UI;
 public class CameraAimController : MonoBehaviour
 {
     public static CameraAimController instance;
+    public static bool isHidingCursor = false;
 
     public int screenshotWidth, screenshotHeight;
+    public Vector2 intendedScreenRes = new Vector2(960, 540);
 
     [Space]
 
@@ -22,6 +24,14 @@ public class CameraAimController : MonoBehaviour
     public float flashStay;
     public float flashFade;
     public float flashAlpha;
+
+    public Vector2Int ScreenSize
+    {
+        get 
+        {
+            return new Vector2Int(Screen.width, Screen.height);
+        }
+    }
 
     private void Awake()
     {
@@ -40,19 +50,28 @@ public class CameraAimController : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.isPaused)
+        { return; }
+
         Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.position = pos;
     }
 
     public void Shoot()
     {
-        StartCoroutine(TakeScreenshot(screenshotWidth, screenshotHeight));
+        int sizeX = Mathf.RoundToInt(ScreenSize.x * (screenshotWidth / intendedScreenRes.x));
+        int sizeY = Mathf.RoundToInt(ScreenSize.y * (screenshotHeight / intendedScreenRes.y));
+
+        StartCoroutine(TakeScreenshot(sizeX, sizeY));
         StartCoroutine(FlashScreen());
     }
 
     public IEnumerator TakeScreenshot(int width, int height)
     {
         yield return new WaitForEndOfFrame();
+
+        Cursor.visible = false;
+        isHidingCursor = true;
 
         RenderTexture rendTex = new RenderTexture(Screen.width, Screen.height, 24);
         cam.targetTexture = rendTex;
@@ -102,58 +121,10 @@ public class CameraAimController : MonoBehaviour
 
         yield return new WaitForSeconds(displayDuration);
         displayParent.SetActive(false);
+
+        Cursor.visible = true;
+        isHidingCursor = false;
     }
-
-    /*
-    public IEnumerator TakeScreenshot(int width, int height)
-    {
-        yield return new WaitForEndOfFrame();
-
-        RenderTexture rendTex = new RenderTexture(Screen.width, Screen.height, 24);
-        cam.targetTexture = rendTex;
-
-        //creates a blank texture
-        Texture2D result = new Texture2D(width, height, TextureFormat.RGB24, false);
-        cam.Render();
-
-        RenderTexture.active = rendTex;
-
-        //calculates the position to read
-        Vector2 pixelPos = (Vector2)Input.mousePosition - new Vector2(width / 2, height / 2);
-        pixelPos.x = Mathf.Clamp(pixelPos.x, 0, Screen.width - width);
-        pixelPos.y = Mathf.Clamp(pixelPos.y, 0, Screen.height - height);
-
-        //Debug.Log(pixelPos);
-
-        Vector2 rectStartPos;
-        rectStartPos.x = pixelPos.x;
-        rectStartPos.y = Screen.height - height - pixelPos.y;
-        rectStartPos.x = Mathf.Clamp(rectStartPos.x, 0, Screen.width - width);
-        rectStartPos.y = Mathf.Clamp(rectStartPos.y, 0, Screen.height - height);
-
-        //rect starts from top left while Input.mousePosition starts from bottom left
-        Rect rect = new Rect(rectStartPos.x, rectStartPos.y, width, height);
-        result.ReadPixels(rect, 0, 0);
-        result.Apply();
-
-        //saves the texture as png file
-        //byte[] byteArray = result.EncodeToPNG();
-        //System.IO.File.WriteAllBytes(Application.dataPath + "/CameraScreenshot.png", byteArray);
-        //Debug.Log("Saved screenshot.");
-
-        //apply the result to display
-        displayParent.SetActive(true);
-        display.texture = result;
-
-        //reset
-        RenderTexture.active = null;
-        cam.targetTexture = null;
-        Destroy(rendTex);
-
-        yield return new WaitForSeconds(displayDuration);
-        displayParent.SetActive(false);
-    }
-    */
 
     IEnumerator FlashScreen()
     {

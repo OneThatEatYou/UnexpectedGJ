@@ -57,7 +57,7 @@ public class Greenleg : Leg
 
     void ShakeScreen(float localMoveTime)
     {
-        CameraController.GenerateImpulse(0.5f, 4, localMoveTime * 0.1f, localMoveTime * 0.7f, localMoveTime * 0.2f);
+        CameraController.GenerateImpulse(0.5f, 4, localMoveTime * 0.1f, localMoveTime * 0.7f, localMoveTime * 1f);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

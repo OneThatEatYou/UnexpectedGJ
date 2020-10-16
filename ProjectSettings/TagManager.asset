@@ -55,14 +55,14 @@ TagManager:
   - name: Head
     uniqueID: 1532947043
     locked: 0
+  - name: Middleground
+    uniqueID: 4244367407
+    locked: 0
   - name: Hand_R
     uniqueID: 3591564681
     locked: 0
   - name: Hand_L
     uniqueID: 1877199825
-    locked: 0
-  - name: Middleground
-    uniqueID: 4244367407
     locked: 0
   - name: Foreground
     uniqueID: 3495607485

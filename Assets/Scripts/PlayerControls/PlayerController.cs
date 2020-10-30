@@ -18,7 +18,10 @@ public class PlayerController : MonoBehaviour
     bool isInvi = false;
     bool isStunned = false;
     public RectTransform hpPanel;
-    Image[] healthImages;
+    Image[] healthImages;           //left most health has index 0
+    Animator[] healthAnims;
+    public string healthBeatParam = "BeatRate";
+    public float maxBeatRate = 1f;
     public Sprite fullHealth;
     public Sprite emptyHealth;
     public AudioClip hurtSFX;
@@ -30,7 +33,7 @@ public class PlayerController : MonoBehaviour
         set
         {
             currentHealth = value;
-            UpdateHealth(currentHealth);
+            UpdateHealth();
         }
     }
 
@@ -354,6 +357,7 @@ public class PlayerController : MonoBehaviour
     void RegisterHealthPanel()
     {
         healthImages = new Image[maxHealth];
+        healthAnims = new Animator[maxHealth];
 
         for (int i = 0; i < maxHealth; i++)
         {
@@ -363,21 +367,30 @@ public class PlayerController : MonoBehaviour
             { Debug.LogWarning("Health image not found"); }
 
             healthImages[i] = img;
+
+            Animator anim = hpPanel.GetChild(i).GetComponent<Animator>();
+            if (!anim)
+            { Debug.LogWarning("Health animator not found"); }
+            healthAnims[i] = anim;
         }
     }
 
-    void UpdateHealth(int curHealth)
+    void UpdateHealth()
     {
+        float beatRate = (1f - ((float)CurrentHealth / maxHealth)) * maxBeatRate;
+        
         //set fullHealth
-        for (int i = 0; i < currentHealth; i++)
+        for (int i = 0; i < CurrentHealth; i++)
         {
             healthImages[i].sprite = fullHealth;
+            healthAnims[i].SetFloat(healthBeatParam, 1f + beatRate);
         }
 
         //set emptyHealth
-        for (int i = 0; i < maxHealth - currentHealth; i++)
+        for (int i = CurrentHealth; i < maxHealth; i++)
         {
-            healthImages[maxHealth - i - 1].sprite = emptyHealth; 
+            healthImages[i].sprite = emptyHealth;
+            healthAnims[i].enabled = false;
         }
     }
 

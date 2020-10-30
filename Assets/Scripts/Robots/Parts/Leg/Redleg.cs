@@ -18,7 +18,7 @@ public class Redleg : Leg
         //Debug.Log("Jumping");
 
         Vector2 target = GenerateTarget(minDistance, 20);
-        Debug.Log("target:" + target);
+        //Debug.Log("target:" + target);
 
         StartCoroutine(Jump(target));
     }

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// handles how modules behave
+/// </summary>
 public class BasePart : MonoBehaviour
 {
     public int maxHealth;
@@ -11,9 +14,16 @@ public class BasePart : MonoBehaviour
         get { return currentHealth; }
         set { currentHealth = value; }
     }
+
     public Vector2 cooldownRange;
+    public Vector2 initialCooldownRange = new Vector2(1f, 3f);
     float cooldown;
+    public float Cooldown { get { return cooldown; } }
     float lastShootTime = 0f;
+    public float LastShootTime { get { return lastShootTime; } }
+    float initialCooldown;
+    public float InitialCooldown { get { return initialCooldown; } }
+
     public GameObject deathParticle;
     public AudioClip explosionSFX;
 
@@ -33,7 +43,8 @@ public class BasePart : MonoBehaviour
     }
 
     protected Rigidbody2D rb;
-    bool isDead = false;
+    bool isDisabled = false;
+    public bool IsDisabled { get { return isDisabled; } }
 
     public virtual void Awake()
     {
@@ -43,24 +54,18 @@ public class BasePart : MonoBehaviour
 
     public virtual void Start()
     {
-        CurrentHealth = maxHealth;
-        GenerateCooldown();
-        lastShootTime = Time.time;
+        initialCooldown = Random.Range(initialCooldownRange.x, initialCooldownRange.y);
     }
 
     public virtual void Update()
     {
-        if (Time.time > lastShootTime + cooldown && !isDead && Controller.PlayerPos)
-        {
-            Action();
-            GenerateCooldown();
-            lastShootTime = Time.time;
-        }
+        
     }
 
     public virtual void Action()
     {
-        
+        GenerateCooldown();
+        lastShootTime = Time.time;
     }
 
     public virtual void TakeDamage(int damage)
@@ -73,7 +78,7 @@ public class BasePart : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.gravityScale = 1;
 
-        isDead = true;
+        isDisabled = true;
     }
 
     public virtual void Explode()
@@ -97,7 +102,7 @@ public class BasePart : MonoBehaviour
 
     public virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        if (isDead)
+        if (isDisabled)
         {
             if (collision.gameObject.CompareTag("Ground"))
             {

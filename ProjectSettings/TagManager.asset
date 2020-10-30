@@ -6,6 +6,7 @@ TagManager:
   tags:
   - IgnoreTrigger
   - Ground
+  - BGM Looper
   layers:
   - Default
   - TransparentFX

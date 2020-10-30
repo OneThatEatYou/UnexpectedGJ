@@ -72,7 +72,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -703402615
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: -8471546740692648176, guid: 832be7984d116a64eb5b9333c7f950de,
     type: 3}
@@ -147,6 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 6
   cooldownRange: {x: 8, y: 13}
+  initialCooldownRange: {x: 1, y: 3}
   deathParticle: {fileID: 4917040865964609858, guid: 682b2b53a2a58e7429554084ec1cdccb,
     type: 3}
   explosionSFX: {fileID: 8300000, guid: 8e62989d797442340aa4f6bf0032c4d7, type: 3}

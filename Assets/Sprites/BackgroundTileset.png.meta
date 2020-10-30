@@ -1,13 +1,25 @@
 fileFormatVersion: 2
-guid: 1c025502823cde740afdfc434589eb41
+guid: 2ed9964f82ffbee4c8f2acc706356d14
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4606908045521496030
-    second: Heart_0
+      213: 5306501987304934638
+    second: BackgroundTileset_0
   - first:
-      213: -4195582761621981391
-    second: Heart_1
+      213: -289038533832729146
+    second: BackgroundTileset_1
+  - first:
+      213: 8589662592058232969
+    second: BackgroundTileset_2
+  - first:
+      213: -3678565376124798810
+    second: BackgroundTileset_3
+  - first:
+      213: 3688205950161616019
+    second: BackgroundTileset_4
+  - first:
+      213: -2974319747403318798
+    second: BackgroundTileset_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -105,13 +117,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Heart_0
+      name: BackgroundTileset_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 1
-        width: 13
-        height: 13
+        x: 0
+        y: 80
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -119,20 +131,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ed7a23e75760fef30800000000000000
-      internalID: 4606908045521496030
+      spriteID: eec0731417b74a940800000000000000
+      internalID: 5306501987304934638
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Heart_1
+      name: BackgroundTileset_1
       rect:
         serializedVersion: 2
-        x: 17
-        y: 1
-        width: 13
-        height: 13
+        x: 16
+        y: 80
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,8 +152,92 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 137f4cb15bb46c5c0800000000000000
-      internalID: -4195582761621981391
+      spriteID: 6cd10802cf02dfbf0800000000000000
+      internalID: -289038533832729146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BackgroundTileset_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98097141e9c943770800000000000000
+      internalID: 8589662592058232969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BackgroundTileset_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a8b701c74c13fcc0800000000000000
+      internalID: -3678565376124798810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BackgroundTileset_4
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 64
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39c7ddd45c32f2330800000000000000
+      internalID: 3688205950161616019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BackgroundTileset_5
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 64
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f97897c2f719b6d0800000000000000
+      internalID: -2974319747403318798
       vertices: []
       indices: 
       edges: []

@@ -6248,7 +6248,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -50599889
-  m_SortingLayer: 7
+  m_SortingLayer: 5
   m_SortingOrder: 2
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0.5, y: 0.5, z: 0}
@@ -7950,7 +7950,7 @@ GameObject:
   - component: {fileID: 1678409708}
   m_Layer: 0
   m_Name: BGMSource
-  m_TagString: Untagged
+  m_TagString: BGM Looper
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7967,6 +7967,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e61c59029a07884cb0db954d7fd6a20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bgmLooperTag: BGM Looper
   source0: {fileID: 812107427}
   source1: {fileID: 1702247358}
   introAudioClip: {fileID: 8300000, guid: 3597ad295cc6d3f4c985e0ec9f31012c, type: 3}

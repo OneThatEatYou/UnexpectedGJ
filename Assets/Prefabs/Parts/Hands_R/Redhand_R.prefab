@@ -72,7 +72,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -703402615
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 5432487394219148453, guid: 6ccb71e26546cc747805463e6a4515a9,
     type: 3}
@@ -147,6 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 6
   cooldownRange: {x: 5, y: 10}
+  initialCooldownRange: {x: 1, y: 3}
   deathParticle: {fileID: 4917040865964609858, guid: 682b2b53a2a58e7429554084ec1cdccb,
     type: 3}
   explosionSFX: {fileID: 8300000, guid: 8e62989d797442340aa4f6bf0032c4d7, type: 3}
@@ -165,7 +166,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 2347107865142992510, guid: 303eebc0a8916024db208e7e70f52430,
     type: 3}
   angleOffset: 90
-  aimTime: 10
+  aimTime: 7
   shootWait: 1
   shootSFX: {fileID: 8300000, guid: 4537fb9d01610354fb335c01b5dce027, type: 3}
 --- !u!1 &5026476447414693173

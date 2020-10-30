@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// handles when modules are executed
+/// </summary>
 public class RobotController : MonoBehaviour
 {
     Transform playerPos;
@@ -13,6 +16,7 @@ public class RobotController : MonoBehaviour
 
     int maxHealth;
     int currentHealth;
+    float spawnInTime;
 
     [HideInInspector] public bool isMoving = false;
 
@@ -23,22 +27,31 @@ public class RobotController : MonoBehaviour
 
     void Start()
     {
-        //var parts = RobotBuilder.Instance.GetAllParts(Base);
-        //foreach (var item in parts)
-        //{
-        //    Debug.Log(item.name);
-        //}
-
-        //Debug.Log(parts);
-
         maxHealth = GetMaxHealth();
         currentHealth = maxHealth;
+
+        foreach (BasePart part in parts)
+        {
+            part.CurrentHealth = part.maxHealth;
+            part.GenerateCooldown();
+        }
+
+        spawnInTime = Time.time;
     }
 
-    // Update is called once per frame
     void Update()
     {
-
+        foreach (BasePart part in parts)
+        {
+            if (Time.time < spawnInTime + part.InitialCooldown)
+            {
+                return;
+            }
+            if (Time.time > part.LastShootTime + part.Cooldown && !part.IsDisabled && part.Controller.PlayerPos)
+            {
+                part.Action();
+            }
+        }
     }
 
     public void TakeDamage(int damage)
@@ -79,6 +92,7 @@ public class RobotController : MonoBehaviour
         
     }
 
+    //returns the sum of all max health of parts
     private int GetMaxHealth()
     {
         int maxHp = 0;

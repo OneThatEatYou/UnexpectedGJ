@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BGMLooper : MonoBehaviour
 {
-    static BGMLooper bgmLooper = null;
+    public string bgmLooperTag = "BGM Looper";
 
     public AudioSource source0;         //this source starts with intro
     public AudioSource source1;
@@ -15,13 +15,16 @@ public class BGMLooper : MonoBehaviour
 
     private void Awake()
     {
-        if (bgmLooper != null && bgmLooper != this)
+        //make sure that there is only 1 BGM looper in the scene
+        GameObject[] objs = GameObject.FindGameObjectsWithTag(bgmLooperTag);
+
+        for (int i = 0; i < objs.Length; i++)
         {
-            Destroy(gameObject);
-        }
-        else
-        {
-            bgmLooper = this;
+            if (objs[i] != gameObject)
+            {
+                Destroy(gameObject);
+                break;
+            }
         }
     }
 
@@ -56,7 +59,6 @@ public class BGMLooper : MonoBehaviour
             scheduledTime += loopableLength;
 
             //wait until the occupied source finished playing
-            //Debug.Log("Waiting for " + ((float)clipLength + 1f) + " seconds");
             yield return new WaitForSeconds((float)loopableLength + 1f);
             //Debug.Log("Finished waiting");
         }

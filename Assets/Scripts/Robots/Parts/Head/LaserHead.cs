@@ -8,15 +8,11 @@ public class LaserHead : Head
     public GameObject laserPrefab;
     public GameObject chargeParticles;
     public float chargeTime;
-    bool isCharging = false;
     public float aimAngleOffset = 90f;
     public AudioClip shootSFX;
 
     public override void Action()
     {
-        if (isCharging)
-        { return; }
-
         base.Action();
 
         StartCoroutine(ChargeAndShootLaser());
@@ -24,8 +20,6 @@ public class LaserHead : Head
 
     IEnumerator ChargeAndShootLaser()
     {
-        isCharging = true;
-
         foreach (Vector2 pos in laserSpawnPos)
         {
             GameObject obj = Instantiate(chargeParticles, (Vector2)transform.position + pos, Quaternion.identity);
@@ -47,7 +41,7 @@ public class LaserHead : Head
             //Debug.Log(targetAngle);
         }
 
-        isCharging = false;
+        StartCoroutine(StartCooldown(1f));
         //Debug.Log(name + " shot a laser beam");
     }
 

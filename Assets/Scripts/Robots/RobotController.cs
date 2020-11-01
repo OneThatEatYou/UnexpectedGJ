@@ -12,13 +12,17 @@ public class RobotController : MonoBehaviour
     public Transform PlayerPos { get { return playerPos; } }
 
     public List<BasePart> parts = new List<BasePart>();
+    public List<Body> bodies = new List<Body>();
+    public List<Hand> hands = new List<Hand>();
+    public List<Head> heads = new List<Head>();
+    public List<Leg> legs = new List<Leg>();
     List<BasePart> nonDetachables = new List<BasePart>();
 
     int maxHealth;
     int currentHealth;
     float spawnInTime;
 
-    [HideInInspector] public bool isMoving = false;
+    [HideInInspector] public bool canMove = true;
 
     private void Awake()
     {
@@ -47,10 +51,41 @@ public class RobotController : MonoBehaviour
             {
                 return;
             }
-            if (Time.time > part.LastShootTime + part.Cooldown && !part.IsDisabled && part.Controller.PlayerPos)
+        }
+
+        // PROCESS:      
+        // CALL Action()
+        //    ==> IsReady SET TO false
+        //        ==> PERFORM ACTION
+        //            ==> StartCoroutine(StartCooldown())
+        //                ==> IsReady SET TO true
+        // REPEAT
+
+        foreach (Body body in bodies)
+        {
+            if (body.IsReady && !body.IsDisabled && PlayerPos)
             {
-                part.Action();
+                body.Action();
             }
+        }
+        foreach (Hand hand in hands)
+        {
+            if (hand.IsReady && !hand.IsDisabled && PlayerPos)
+            {
+                hand.Action();
+            }
+        }
+        foreach (Head head in heads)
+        {
+            if (head.IsReady && !head.IsDisabled && PlayerPos)
+            {
+                head.Action();
+            }
+        }
+        
+        if (canMove && PlayerPos)
+        {
+            legs[Random.Range(0, legs.Count)].Action();
         }
     }
 

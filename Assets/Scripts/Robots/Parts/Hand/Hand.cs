@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Hand : BasePart
 {
+    [Header("Part Specific Settings")]
+    public float angleOffset;
+    public float unreachableRad;
+    public LayerMask targetLayer;
+
     public override void TakeDamage(int damage)
     {
         base.TakeDamage(damage);
@@ -15,5 +20,13 @@ public class Hand : BasePart
             Controller.TakeDamage(maxHealth);
             Detach();
         }
+    }
+
+    public override void OnDrawGizmosSelected()
+    {
+        base.OnDrawGizmosSelected();
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, unreachableRad);
     }
 }

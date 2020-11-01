@@ -11,6 +11,13 @@ public class Leg : BasePart
         Controller.AddNonDetachablePart(this);
     }
 
+    public override void Action()
+    {
+        base.Action();
+
+        Controller.canMove = false;
+    }
+
     public override void TakeDamage(int damage)
     {
         base.TakeDamage(damage);
@@ -28,6 +35,13 @@ public class Leg : BasePart
         base.Detach();
 
         Explode();
+    }
+
+    public IEnumerator ReadyLegAfterCooldown()
+    {
+        yield return new WaitForSeconds(Cooldown);
+
+        Controller.canMove = true;
     }
 
     public virtual Vector2 GenerateTarget(float minDistance, int numOfTries)

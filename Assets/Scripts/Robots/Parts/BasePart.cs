@@ -7,6 +7,7 @@ using UnityEngine;
 /// </summary>
 public class BasePart : MonoBehaviour
 {
+    [Header("Basic Settings")]
     public int maxHealth;
     int currentHealth;
     public int CurrentHealth
@@ -19,10 +20,10 @@ public class BasePart : MonoBehaviour
     public Vector2 initialCooldownRange = new Vector2(1f, 3f);
     float cooldown;
     public float Cooldown { get { return cooldown; } }
-    float lastShootTime = 0f;
-    public float LastShootTime { get { return lastShootTime; } }
     float initialCooldown;
     public float InitialCooldown { get { return initialCooldown; } }
+
+    [Space]
 
     public GameObject deathParticle;
     public AudioClip explosionSFX;
@@ -34,17 +35,18 @@ public class BasePart : MonoBehaviour
         public Vector2 screwPos;
     }
 
+    [Space]
+
     public ScrewSpawnPos[] screwSpawnPos;
 
     private RobotController controller;
-    public RobotController Controller
-    {
-        get { return controller; }
-    }
+    public RobotController Controller { get { return controller; } }
 
     protected Rigidbody2D rb;
     bool isDisabled = false;
     public bool IsDisabled { get { return isDisabled; } }
+    bool isReady = true;
+    public bool IsReady { get { return isReady; } }
 
     public virtual void Awake()
     {
@@ -65,7 +67,7 @@ public class BasePart : MonoBehaviour
     public virtual void Action()
     {
         GenerateCooldown();
-        lastShootTime = Time.time;
+        isReady = false;
     }
 
     public virtual void TakeDamage(int damage)
@@ -109,6 +111,13 @@ public class BasePart : MonoBehaviour
                 Explode();
             }
         }
+    }
+
+    public IEnumerator StartCooldown(float multiplier)
+    {
+        yield return new WaitForSeconds(Cooldown * multiplier);
+
+        isReady = true;
     }
 
     public Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Vector3 angles)

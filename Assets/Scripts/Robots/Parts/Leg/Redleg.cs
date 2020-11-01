@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class Redleg : Leg
 {
+    [Header("Part Specific Settings")]
     public float moveTime;
     public float minDistance;
     public float gravityScale = 2f;
 
     public override void Action()
     {
-        if (Controller.isMoving)
-        { return; }
-
         base.Action();
 
         //Debug.Log("Jumping");
@@ -25,8 +23,6 @@ public class Redleg : Leg
 
     IEnumerator Jump(Vector2 target)
     {
-        Controller.isMoving = true;
-
         float t = 0;
         Vector2 startPos = Controller.transform.position;
         Vector2 currentPos = startPos;
@@ -48,6 +44,6 @@ public class Redleg : Leg
         }
 
         CameraController.GenerateImpulse(Vector2.down, 5, 5, 0, 0.3f, 0.5f);
-        Controller.isMoving = false;
+        StartCoroutine(ReadyLegAfterCooldown());
     }
 }

@@ -7,19 +7,20 @@ public class Hand_Projectile : Hand
     public Transform bulletSpawnPos;
     public GameObject bulletPrefab;
 
-    public float angleOffset;
     public float aimTime = 3f;
     public float shootWait = 0.5f;
-    bool isAiming = false;
 
     public AudioClip shootSFX;
 
     public override void Action()
     {
-        if (isAiming)
-        { return; }
-
         base.Action();
+
+        if (Physics2D.OverlapCircle(transform.position, unreachableRad, targetLayer))
+        {
+            StartCoroutine(StartCooldown(0.5f));
+            return;
+        }
 
         //aim
         StartCoroutine(AimTowardsPlayer());
@@ -27,13 +28,13 @@ public class Hand_Projectile : Hand
 
     IEnumerator AimTowardsPlayer()
     {
-        isAiming = true;
         //Debug.Log(gameObject.name + " is aiming");
 
         Vector2 dir = Controller.PlayerPos.transform.position - transform.position;
-        float targetAngle = Mathf.Atan2(dir.y, dir.x);
-        targetAngle *= Mathf.Rad2Deg;
+        //calculate the angle needed for Vector2.left to point at dir.
+        float targetAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         targetAngle += angleOffset;
+        targetAngle = Mathf.Repeat(targetAngle, 360);
         float startAngle = transform.eulerAngles.z;
         float currentAngle = startAngle;
         float angleDif = Mathf.Abs(Mathf.DeltaAngle(startAngle, targetAngle));
@@ -57,7 +58,7 @@ public class Hand_Projectile : Hand
         yield return new WaitForSeconds(shootWait);
         Shoot();
 
-        isAiming = false;
+        StartCoroutine(StartCooldown(1f));
     }
 
     void Shoot()

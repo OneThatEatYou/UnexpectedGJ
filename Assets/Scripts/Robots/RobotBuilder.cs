@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-//stores parts
 public class RobotBuilder : MonoBehaviour
 {
     public LayerMask groundLayer;
@@ -282,6 +281,23 @@ public class RobotBuilder : MonoBehaviour
         BasePart part = obj.GetComponent<BasePart>();
         //Debug.Log(part.name + " added to list");
         controller.parts.Add(part);
+
+        if (part is Body)
+        {
+            controller.bodies.Add(part as Body);
+        }
+        else if (part is Hand)
+        {
+            controller.hands.Add(part as Hand);
+        }
+        else if (part is Head)
+        {
+            controller.heads.Add(part as Head);
+        }
+        else if (part is Leg)
+        {
+            controller.legs.Add(part as Leg);
+        }
     }
 
     private void OnDrawGizmosSelected()

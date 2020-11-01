@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Greenleg : Leg
 {
+    [Header("Part Specific Settings")]
     [Tooltip("Time taken to move 1 unit")]
     public Vector2 moveTimeRange;
     public float minDistance = 3f;
@@ -14,29 +15,25 @@ public class Greenleg : Leg
 
     public override void Action()
     {
-        if (Controller.isMoving)
-        { return; }
-
         base.Action();
 
         //Debug.Log("Moving");
 
-        Vector2 target = GenerateTarget(minDistance, 10);
+        Vector2 target = GenerateTarget(minDistance, 20);
 
         StartCoroutine(Stroll(target));
     }
 
     IEnumerator Stroll(Vector2 target)
     {
-        Controller.isMoving = true;
-
         float t = 0;
         Vector2 startPos = Controller.transform.position;
         Vector2 currentPos = startPos;
         float distance = (startPos - target).magnitude;
         float localMoveTime = distance * Random.Range(moveTimeRange.x, moveTimeRange.y);
 
-        ShakeScreen(localMoveTime);
+        Vector2 dir = (target - startPos).normalized;
+        ShakeScreen(dir, localMoveTime);
 
         //Debug.Log($"Distance: {distance}, LocalMoveTime: {localMoveTime}");
 
@@ -52,12 +49,13 @@ public class Greenleg : Leg
             yield return null;
         }
 
-        Controller.isMoving = false;
+        StartCoroutine(ReadyLegAfterCooldown());
     }
 
-    void ShakeScreen(float localMoveTime)
+    void ShakeScreen(Vector2 dir, float localMoveTime)
     {
-        CameraController.GenerateImpulse(0.5f, 4, localMoveTime * 0.1f, localMoveTime * 0.7f, localMoveTime * 1f);
+        //CameraController.GenerateImpulse(dir, 0.5f, 4, localMoveTime * 0.1f, localMoveTime * 0.7f, localMoveTime * 1f);
+        CameraController.GenerateImpulse(dir, 1f, 4, localMoveTime * 0.1f, localMoveTime * 0.7f, localMoveTime * 1f);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

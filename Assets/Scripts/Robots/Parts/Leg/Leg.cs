@@ -44,60 +44,49 @@ public class Leg : BasePart
         Controller.canMove = true;
     }
 
-    public virtual Vector2 GenerateTarget(float minDistance, int numOfTries)
+    public virtual Vector2 GenerateTarget(float minDistance)
     {
+        //stores value to be returned
         Vector2 target;
-        target.x = Random.Range(RobotBuilder.Instance.playGroundXRange.x, RobotBuilder.Instance.playGroundXRange.y);
+
+        //stores sets of points to choose from: left and right
+        List<Vector2> ranges = new List<Vector2>();
+        int rangeInt = 0;
+        float minPos = Controller.transform.position.x - minDistance;
+        float maxPos = Controller.transform.position.x + minDistance;
+
+        if (minPos > RobotBuilder.Instance.playGroundXRange.x)
+        {
+            //can generate point from left set
+            Vector2 setL;
+            setL.x = RobotBuilder.Instance.playGroundXRange.x;
+            setL.y = minPos;
+            ranges.Add(setL);
+        }
+        if (maxPos < RobotBuilder.Instance.playGroundXRange.y)
+        {
+            //can generate point from right set
+            Vector2 setR;
+            setR.x = maxPos;
+            setR.y = RobotBuilder.Instance.playGroundXRange.y;
+            ranges.Add(setR);
+        }
+
+        if (ranges.Count == 0)
+        {
+            Debug.LogError($"No suitable range of points found for {name}. minPos: {minPos}, maxPos: {maxPos}");
+            return Vector2.zero;
+        }
+        else if (ranges.Count > 1)
+        {
+            //choose random range
+            rangeInt = Random.Range(0, ranges.Count);
+        }
+
+        //choose a point from choosen range
+        target.x = Random.Range(ranges[rangeInt].x, ranges[rangeInt].y);
         target.y = Controller.transform.position.y;
 
-        Vector2 direction = target - (Vector2)transform.position;
-        float distance = direction.magnitude;
-        int tries = 0;
-
-        //while distance is too little and target outside bounds
-        while (distance < minDistance || (target.x < RobotBuilder.Instance.playGroundXRange.x || target.x > RobotBuilder.Instance.playGroundXRange.y))
-        {
-            if (tries < numOfTries)
-            {
-                if (distance < minDistance)
-                {
-                    if (direction.x < 0)
-                    {
-                        //move more to the left
-                        target.x -= minDistance;
-                    }
-                    else
-                    {
-                        //move more to the right
-                        target.x += minDistance;
-                    }
-
-                    //check if out of bounds
-                    if (target.x < RobotBuilder.Instance.playGroundXRange.x || target.x > RobotBuilder.Instance.playGroundXRange.y)
-                    {
-                        Random.Range(RobotBuilder.Instance.playGroundXRange.x, RobotBuilder.Instance.playGroundXRange.y);
-                    }
-
-                    direction = target - (Vector2)transform.position;
-                    distance = direction.magnitude;
-
-                    if (tries == numOfTries)
-                    {
-                        Debug.Log("No suitable target found.");
-                        target = Vector2.zero;
-                    }
-
-                    tries++;
-                }
-                else
-                {
-                    Debug.Log("No suitable target found. Last target is " + target);
-                    target = Vector2.zero;
-                    
-                    break;
-                }
-            }
-        }
         return target;
     }
 }

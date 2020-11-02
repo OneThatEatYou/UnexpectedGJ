@@ -8,9 +8,6 @@ public class Greenleg : Leg
     [Tooltip("Time taken to move 1 unit")]
     public Vector2 moveTimeRange;
     public float minDistance = 3f;
-    public int crushDamage = 1;
-    public Vector2 crushBoxOffset;
-    public Vector2 crushBoxSize;
     public LayerMask playerLayer;
 
     public override void Action()
@@ -19,7 +16,7 @@ public class Greenleg : Leg
 
         //Debug.Log("Moving");
 
-        Vector2 target = GenerateTarget(minDistance, 20);
+        Vector2 target = GenerateTarget(minDistance);
 
         StartCoroutine(Stroll(target));
     }
@@ -54,25 +51,6 @@ public class Greenleg : Leg
 
     void ShakeScreen(Vector2 dir, float localMoveTime)
     {
-        //CameraController.GenerateImpulse(dir, 0.5f, 4, localMoveTime * 0.1f, localMoveTime * 0.7f, localMoveTime * 1f);
         CameraController.GenerateImpulse(dir, 1f, 4, localMoveTime * 0.1f, localMoveTime * 0.7f, localMoveTime * 1f);
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        PlayerController playerCon;
-        if (collision.TryGetComponent(out playerCon))
-        {
-            playerCon.TakeDamage(crushDamage);
-            Debug.Log("Player took crush damage");
-        }
-    }
-
-    public override void OnDrawGizmosSelected()
-    {
-        base.OnDrawGizmosSelected();
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube((Vector2)transform.position + crushBoxOffset, crushBoxSize);
     }
 }

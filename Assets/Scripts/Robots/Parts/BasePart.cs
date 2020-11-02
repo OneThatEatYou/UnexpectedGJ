@@ -91,6 +91,8 @@ public class BasePart : MonoBehaviour
 
         Controller.parts.Remove(this);
 
+        //remove from specific part list?
+
         //screen shake
         CameraController.GenerateImpulse(7, 4);
 

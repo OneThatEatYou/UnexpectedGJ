@@ -36,8 +36,15 @@ public class RobotController : MonoBehaviour
 
         foreach (BasePart part in parts)
         {
-            part.CurrentHealth = part.maxHealth;
-            part.GenerateCooldown();
+            if (part)
+            {
+                part.CurrentHealth = part.maxHealth;
+                part.GenerateCooldown();
+            }
+            else
+            {
+                Debug.LogWarning("Part is missing when calculating max health");
+            }
         }
 
         spawnInTime = Time.time;
@@ -47,7 +54,8 @@ public class RobotController : MonoBehaviour
     {
         foreach (BasePart part in parts)
         {
-            if (Time.time < spawnInTime + part.InitialCooldown)
+            //check if part still exists because it may be destroyed while running the loop
+            if (part && Time.time < spawnInTime + part.InitialCooldown)
             {
                 return;
             }
@@ -63,21 +71,21 @@ public class RobotController : MonoBehaviour
 
         foreach (Body body in bodies)
         {
-            if (body.IsReady && !body.IsDisabled && PlayerPos)
+            if (body && body.IsReady && !body.IsDisabled && PlayerPos)
             {
                 body.Action();
             }
         }
         foreach (Hand hand in hands)
         {
-            if (hand.IsReady && !hand.IsDisabled && PlayerPos)
+            if (hand && hand.IsReady && !hand.IsDisabled && PlayerPos)
             {
                 hand.Action();
             }
         }
         foreach (Head head in heads)
         {
-            if (head.IsReady && !head.IsDisabled && PlayerPos)
+            if (head && head.IsReady && !head.IsDisabled && PlayerPos)
             {
                 head.Action();
             }

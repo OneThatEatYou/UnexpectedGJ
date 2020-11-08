@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8021234898818700204}
   - component: {fileID: 2127232922799878479}
-  - component: {fileID: 8683714332842078178}
   - component: {fileID: 4168073638366412887}
   - component: {fileID: -3600531364795025512}
   m_Layer: 12
@@ -85,32 +84,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &8683714332842078178
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7044498576880928698}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -1.73}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 1}
-    oldSize: {x: 3, y: 4}
-    newSize: {x: 3, y: 4}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 3, y: 4}
-  m_EdgeRadius: 0
 --- !u!50 &4168073638366412887
 Rigidbody2D:
   serializedVersion: 4
@@ -152,7 +125,7 @@ MonoBehaviour:
   explosionSFX: {fileID: 8300000, guid: 8e62989d797442340aa4f6bf0032c4d7, type: 3}
   screwSpawnPos: []
   moveTime: 1.5
-  minDistance: 3
+  minDistance: 5
   gravityScale: 2
   crouchAmount: -0.7
   crouchTime: 1.5

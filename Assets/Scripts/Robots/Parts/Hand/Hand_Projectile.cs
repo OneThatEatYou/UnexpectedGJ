@@ -41,7 +41,7 @@ public class Hand_Projectile : Hand
         float t = 0;
         float localAimTime = aimTime * (angleDif / 360);
         //Debug.Log($"t: {t}, angleDif: {angleDif},startAngle: {startAngle}, targetAngle: {targetAngle}, localAimTime: {localAimTime}");
-
+        Debug.Log($"{name} has a angle difference of {Mathf.DeltaAngle(startAngle, targetAngle)}");
         //play looping sfx
 
         while (Mathf.Abs(Mathf.DeltaAngle(currentAngle, targetAngle)) >= 0.01f)

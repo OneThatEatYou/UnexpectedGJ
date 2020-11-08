@@ -36,7 +36,7 @@ public class Greenleg : Leg
 
         while (t != localMoveTime)
         {
-            currentPos.x = Mathf.Lerp(startPos.x, target.x, t / localMoveTime);
+            currentPos.x = Mathf.SmoothStep(startPos.x, target.x, t / localMoveTime);
             Controller.transform.position = currentPos;
             t += Time.deltaTime;
             t = Mathf.Clamp(t, 0, localMoveTime);

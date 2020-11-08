@@ -192,7 +192,7 @@ MonoBehaviour:
     screwPos: {x: -0.75, y: -2.22}
   - unscrewDir: 0
     screwPos: {x: -0.75, y: -2.92}
-  angleOffset: 90
+  angleOffset: 0
   unreachableRad: 4.6
   targetLayer:
     serializedVersion: 2
@@ -200,6 +200,6 @@ MonoBehaviour:
   bulletSpawnPos: {fileID: 8922607531605082672}
   bulletPrefab: {fileID: 2347107865142992510, guid: 2312818a88cc29a4eb85106f72bce908,
     type: 3}
-  aimTime: 6
+  aimSpeed: 50
   shootWait: 1
   shootSFX: {fileID: 8300000, guid: 4537fb9d01610354fb335c01b5dce027, type: 3}

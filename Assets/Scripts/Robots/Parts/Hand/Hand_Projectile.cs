@@ -7,7 +7,7 @@ public class Hand_Projectile : Hand
     public Transform bulletSpawnPos;
     public GameObject bulletPrefab;
 
-    public float aimTime = 3f;
+    public float aimSpeed = 50f;
     public float shootWait = 0.5f;
 
     public AudioClip shootSFX;
@@ -31,28 +31,17 @@ public class Hand_Projectile : Hand
         //Debug.Log(gameObject.name + " is aiming");
 
         Vector2 dir = Controller.PlayerPos.transform.position - transform.position;
-        //calculate the angle needed for Vector2.left to point at dir.
-        float targetAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        targetAngle += angleOffset;
-        targetAngle = Mathf.Repeat(targetAngle, 360);
-        float startAngle = transform.eulerAngles.z;
-        float currentAngle = startAngle;
-        float angleDif = Mathf.Abs(Mathf.DeltaAngle(startAngle, targetAngle));
-        float t = 0;
-        float localAimTime = aimTime * (angleDif / 360);
-        //Debug.Log($"t: {t}, angleDif: {angleDif},startAngle: {startAngle}, targetAngle: {targetAngle}, localAimTime: {localAimTime}");
-        Debug.Log($"{name} has a angle difference of {Mathf.DeltaAngle(startAngle, targetAngle)}");
-        //play looping sfx
+        Quaternion targetQuaternion = Quaternion.FromToRotation(Vector2.down, dir) * Quaternion.Euler(0, 0, angleOffset);
 
-        while (Mathf.Abs(Mathf.DeltaAngle(currentAngle, targetAngle)) >= 0.01f)
+        //play looping sfx
+        
+        while (transform.rotation != targetQuaternion)
         {
-            currentAngle = Mathf.LerpAngle(startAngle, targetAngle, t / localAimTime);
-            transform.rotation = Quaternion.Euler(0, 0, currentAngle);
-            t += Time.deltaTime;
-            //Debug.Log(currentAngle);
-            //Debug.Log(Mathf.DeltaAngle(currentAngle, targetAngle));
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetQuaternion, aimSpeed * Time.deltaTime);
+
             yield return null;
         }
+
         //Debug.Log(gameObject.name + " finished aiming");
 
         yield return new WaitForSeconds(shootWait);

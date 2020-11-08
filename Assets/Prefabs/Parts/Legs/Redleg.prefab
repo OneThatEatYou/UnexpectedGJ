@@ -71,7 +71,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1627770169
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: -1
   m_Sprite: {fileID: 6865416417979594198, guid: 6ccb71e26546cc747805463e6a4515a9,
     type: 3}
@@ -154,3 +154,7 @@ MonoBehaviour:
   moveTime: 1.5
   minDistance: 3
   gravityScale: 2
+  crouchAmount: -0.7
+  crouchTime: 1.5
+  holdTime: 0.8
+  releaseTime: 0.2

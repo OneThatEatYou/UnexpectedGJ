@@ -33,6 +33,7 @@ public class RobotController : MonoBehaviour
     {
         maxHealth = GetMaxHealth();
         currentHealth = maxHealth;
+        Debug.Log(currentHealth);
 
         foreach (BasePart part in parts)
         {
@@ -131,8 +132,6 @@ public class RobotController : MonoBehaviour
             DestroyAllParts();
             Destroy(gameObject);
         }
-
-        
     }
 
     //returns the sum of all max health of parts
@@ -140,13 +139,21 @@ public class RobotController : MonoBehaviour
     {
         int maxHp = 0;
 
-        for (int i = 0; i < transform.childCount; i++)
+        //for (int i = 0; i < transform.childCount; i++)
+        //{
+        //    BasePart part;
+        //    transform.GetChild(i).TryGetComponent(out part);
+        //    if (part != null)
+        //    {
+        //        maxHp += part.maxHealth;
+        //    }
+        //}
+
+        for (int i = 0; i < parts.Count; i++)
         {
-            BasePart part;
-            transform.GetChild(i).TryGetComponent(out part);
-            if (part != null)
+            if (parts[i] != null)
             {
-                maxHp += part.maxHealth;
+                maxHp += parts[i].maxHealth;
             }
         }
 

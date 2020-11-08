@@ -163,6 +163,7 @@ public class RobotBuilder : MonoBehaviour
         headPos.y = newBodySprite.bounds.extents.y + newHeadSprite.bounds.extents.y + bodyPos.y;
         headPos.z = newHead.transform.position.z;
         newHead.transform.position = headPos;
+        newHead.transform.parent = newBody.transform;
         SpawnScrews(newHead.GetComponent<BasePart>());
 
         //place hands
@@ -173,7 +174,7 @@ public class RobotBuilder : MonoBehaviour
             handPos.y = Random.Range(bodyPos.y - newBodySprite.bounds.extents.y, bodyPos.y + newBodySprite.bounds.extents.y);
             handPos.z = newHands_L[i].transform.position.z;
             newHands_L[i].transform.position = handPos;
-            
+            newHands_L[i].transform.parent = newBody.transform;
             SpawnScrews(newHands_L[i].GetComponent<BasePart>());
         }
         for (int i = 0; i < newHands_L.Length; i++)
@@ -182,7 +183,7 @@ public class RobotBuilder : MonoBehaviour
             handPos.y = Random.Range(bodyPos.y - newBodySprite.bounds.extents.y, bodyPos.y + newBodySprite.bounds.extents.y);
             handPos.z = newHands_R[i].transform.position.z;
             newHands_R[i].transform.position = handPos;
-
+            newHands_R[i].transform.parent = newBody.transform;
             SpawnScrews(newHands_R[i].GetComponent<BasePart>());
         }
     }

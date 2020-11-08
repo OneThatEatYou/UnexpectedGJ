@@ -9,6 +9,11 @@ public class Redleg : Leg
     public float minDistance;
     public float gravityScale = 2f;
 
+    public float crouchAmount;
+    public float crouchTime;
+    public float holdTime;
+    public float releaseTime;
+
     public override void Action()
     {
         base.Action();
@@ -28,6 +33,13 @@ public class Redleg : Leg
         Vector2 currentPos = startPos;
 
         float jumpPower = -0.5f * (Physics2D.gravity.y * gravityScale) * moveTime;
+
+        for (int i = 0; i < Controller.bodies.Count; i++)
+        {
+            Controller.bodies[i].Crouch(crouchAmount, crouchTime, holdTime, releaseTime);
+        }
+
+        yield return new WaitForSeconds(crouchTime + holdTime + (releaseTime / 2));
 
         while (t != moveTime)
         {

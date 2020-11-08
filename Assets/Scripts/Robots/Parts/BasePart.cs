@@ -48,6 +48,8 @@ public class BasePart : MonoBehaviour
     bool isReady = true;
     public bool IsReady { get { return isReady; } }
 
+    bool isAnimating = false;
+
     public virtual void Awake()
     {
         controller = GetComponentInParent<RobotController>();
@@ -79,6 +81,7 @@ public class BasePart : MonoBehaviour
     {
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.gravityScale = 1;
+        transform.parent = null;
 
         isDisabled = true;
     }
@@ -120,6 +123,50 @@ public class BasePart : MonoBehaviour
         yield return new WaitForSeconds(Cooldown * multiplier);
 
         isReady = true;
+    }
+
+    public void Crouch(float crouchAmount, float crouchTime, float holdTime, float releaseTime)
+    {
+        if (!isAnimating)
+        {
+            StartCoroutine(CrouchCrt());
+        }
+
+        IEnumerator CrouchCrt()
+        {
+            isAnimating = true;
+
+            float t = 0;
+            float initialLocalPos = transform.localPosition.y;
+            float finalLocalPos = initialLocalPos + crouchAmount;
+
+            //lower position of body
+            while (t < crouchTime)
+            {
+                t += Time.deltaTime;
+                t = Mathf.Clamp(t, 0, crouchTime);
+                //interpolate to crouch amount
+                float tmp = Mathf.Sin((Mathf.PI / 2) * t / crouchTime);
+                transform.localPosition = new Vector2(transform.localPosition.x, Mathf.Lerp(initialLocalPos, finalLocalPos, tmp));
+
+                yield return null;
+            }
+
+            yield return new WaitForSeconds(holdTime);
+
+            t = 0;
+            while (t < releaseTime)
+            {
+                t += Time.deltaTime;
+
+                //interpolate to original position
+                transform.localPosition = new Vector2(transform.localPosition.x, Mathf.Lerp(finalLocalPos, initialLocalPos, t / releaseTime));
+
+                yield return null;
+            }
+
+            isAnimating = false;
+        }
     }
 
     public Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Vector3 angles)

@@ -41,6 +41,8 @@ public class PlayerController : MonoBehaviour
     public float jumpVel;
     public Vector2 groundBoxOffset;
     public Vector2 groundBox;
+    public float groundedTime = 0.1f;
+    float curGroundedTime;
     public LayerMask groundLayer;
     public AudioClip jumpSFX;
 
@@ -110,6 +112,8 @@ public class PlayerController : MonoBehaviour
             Flip();
         }
 
+        CheckGrounded();
+
         if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
         {
             Jump();
@@ -135,8 +139,15 @@ public class PlayerController : MonoBehaviour
         anim.SetFloat(movementParam, movement);
     }
 
-    private void Jump()
+    private void CheckGrounded()
     {
+        //dont check for grounded when player is moving upwards
+        if (rb.velocity.y > 0.1f)
+        {
+            curGroundedTime -= Time.deltaTime;
+            return; 
+        }
+
         //check if there is ground
         Collider2D groundCol;
 
@@ -151,10 +162,25 @@ public class PlayerController : MonoBehaviour
 
         if (groundCol)
         {
+            curGroundedTime = groundedTime;
+        }
+        else
+        {
+            curGroundedTime -= Time.deltaTime;
+        }
+    }
+
+    private void Jump()
+    {
+        //can jump when recently grounded
+        if (curGroundedTime > 0)
+        {
             Vector2 targetVel = new Vector2(rb.velocity.x, jumpVel);
             rb.velocity = targetVel;
 
             AudioManager.PlayAudioAtPosition(jumpSFX, transform.position, AudioManager.sfxMixerGroup);
+
+            curGroundedTime = 0;
         }
     }
 

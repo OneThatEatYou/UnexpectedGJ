@@ -169,14 +169,6 @@ public class BasePart : MonoBehaviour
         }
     }
 
-    public Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Vector3 angles)
-    {
-        Vector3 dir = point - pivot; // get point direction relative to pivot
-        dir = Quaternion.Euler(angles) * dir; // rotate it
-        point = dir + pivot; // calculate rotated point
-        return point; // return it
-    }
-
     public virtual void OnDrawGizmosSelected()
     {
         if (screwSpawnPos.Length < 1)
@@ -186,7 +178,7 @@ public class BasePart : MonoBehaviour
 
         for (int i = 0; i < screwSpawnPos.Length; i++)
         {
-            Vector3 point = RotatePointAroundPivot((Vector2)transform.position + screwSpawnPos[i].screwPos, transform.position, transform.eulerAngles);
+            Vector3 point = GameManager.RotatePointAroundPivot((Vector2)transform.position + screwSpawnPos[i].screwPos, transform.position, transform.eulerAngles);
             Gizmos.DrawWireSphere(point, 0.3f);
         }
     }

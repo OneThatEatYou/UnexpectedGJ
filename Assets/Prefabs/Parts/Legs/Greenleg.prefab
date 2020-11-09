@@ -124,7 +124,7 @@ MonoBehaviour:
     type: 3}
   explosionSFX: {fileID: 8300000, guid: 8e62989d797442340aa4f6bf0032c4d7, type: 3}
   screwSpawnPos: []
-  moveTimeRange: {x: 0.15, y: 0.3}
+  moveSpeedRange: {x: 0.3, y: 0.4}
   minDistance: 6
   playerLayer:
     serializedVersion: 2

@@ -6,7 +6,7 @@ public class Greenleg : Leg
 {
     [Header("Part Specific Settings")]
     [Tooltip("Time taken to move 1 unit")]
-    public Vector2 moveTimeRange;
+    public Vector2 moveSpeedRange;
     public float minDistance = 3f;
     public LayerMask playerLayer;
 
@@ -27,7 +27,7 @@ public class Greenleg : Leg
         Vector2 startPos = Controller.transform.position;
         Vector2 currentPos = startPos;
         float distance = (startPos - target).magnitude;
-        float localMoveTime = distance * Random.Range(moveTimeRange.x, moveTimeRange.y);
+        float localMoveTime = distance * Random.Range(moveSpeedRange.x, moveSpeedRange.y);
 
         Vector2 dir = (target - startPos).normalized;
         ShakeScreen(dir, localMoveTime);

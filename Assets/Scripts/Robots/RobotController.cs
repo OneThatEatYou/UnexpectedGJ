@@ -35,7 +35,8 @@ public class RobotController : MonoBehaviour
         currentHealth = maxHealth;
         Debug.Log(currentHealth);
 
-        foreach (BasePart part in parts)
+        //set health for each parts
+        foreach (BasePart part in parts.ToList())
         {
             if (part)
             {
@@ -45,6 +46,7 @@ public class RobotController : MonoBehaviour
             else
             {
                 Debug.LogWarning("Part is missing when calculating max health");
+                parts.Remove(part);
             }
         }
 
@@ -70,31 +72,42 @@ public class RobotController : MonoBehaviour
         //                ==> IsReady SET TO true
         // REPEAT
 
-        foreach (Body body in bodies)
+        if (bodies.Count > 0)
         {
-            if (body && body.IsReady && !body.IsDisabled && PlayerPos)
+            foreach (Body body in bodies)
             {
-                body.Action();
+                if (body && body.IsReady && !body.IsDisabled && PlayerPos)
+                {
+                    body.Action();
+                }
             }
         }
-        foreach (Hand hand in hands)
+        if (hands.Count > 0)
         {
-            if (hand && hand.IsReady && !hand.IsDisabled && PlayerPos)
+            foreach (Hand hand in hands)
             {
-                hand.Action();
+                if (hand && hand.IsReady && !hand.IsDisabled && PlayerPos)
+                {
+                    hand.Action();
+                }
             }
         }
-        foreach (Head head in heads)
+        if (heads.Count > 0)
         {
-            if (head && head.IsReady && !head.IsDisabled && PlayerPos)
+            foreach (Head head in heads)
             {
-                head.Action();
+                if (head && head.IsReady && !head.IsDisabled && PlayerPos)
+                {
+                    head.Action();
+                }
             }
         }
-        
-        if (canMove && PlayerPos)
+        if (legs.Count > 0)
         {
-            legs[Random.Range(0, legs.Count)].Action();
+            if (canMove && PlayerPos)
+            {
+                legs[Random.Range(0, legs.Count)].Action();
+            }
         }
     }
 
@@ -138,16 +151,6 @@ public class RobotController : MonoBehaviour
     private int GetMaxHealth()
     {
         int maxHp = 0;
-
-        //for (int i = 0; i < transform.childCount; i++)
-        //{
-        //    BasePart part;
-        //    transform.GetChild(i).TryGetComponent(out part);
-        //    if (part != null)
-        //    {
-        //        maxHp += part.maxHealth;
-        //    }
-        //}
 
         for (int i = 0; i < parts.Count; i++)
         {

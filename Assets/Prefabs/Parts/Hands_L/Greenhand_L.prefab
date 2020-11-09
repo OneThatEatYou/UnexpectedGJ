@@ -197,6 +197,9 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 8192
+  redAngleStart: {x: 0, y: 0, z: 110}
+  redAngleEnd: {x: 0, y: 0, z: -110}
+  arcType: 0
   bulletSpawnPos: {fileID: 8922607531605082672}
   bulletPrefab: {fileID: 2347107865142992510, guid: 2312818a88cc29a4eb85106f72bce908,
     type: 3}

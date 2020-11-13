@@ -9,6 +9,7 @@ public class Hand_Projectile : Hand
     public GameObject bulletPrefab;
 
     public float aimSpeed = 50f;
+    public float maxSpeed = 20f;
     public float shootWait = 0.5f;
 
     public AudioClip shootSFX;
@@ -33,26 +34,22 @@ public class Hand_Projectile : Hand
         Debug.Log(gameObject.name + " is aiming");
 
         Vector2 dir = Controller.PlayerPos.transform.position - transform.position;
-        Quaternion targetQuaternion = Quaternion.FromToRotation(Vector2.down, dir) * Quaternion.Euler(0, 0, angleOffset);
-        Quaternion redAngleStartQuaternion = Quaternion.Euler(redAngleStart.x, redAngleStart.y, redAngleStart.z);
-        Quaternion redAngleEndQuaternion = Quaternion.Euler(redAngleEnd.x, redAngleEnd.y, redAngleEnd.z);
+        float targetAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + angleOffset;
+        Debug.Log($"target angle: {targetAngle}");
+        Quaternion targetQuaternion = Quaternion.Euler(0, 0, targetAngle);
 
         //check if player is in unreachable range
         //if currently in red range, can only rotate within red range
         if (Physics2D.OverlapCircle(transform.position, unreachableRad, targetLayer))
         {
-            Debug.Log("Player is in unreachable radius");
-
-            //Quaternion.Angle always returns positive value
-
-            if (Quaternion.Angle(transform.localRotation, redAngleEndQuaternion) < 0 && Quaternion.Angle(transform.localRotation, redAngleStartQuaternion) > 0)
+            if (Mathf.DeltaAngle(transform.localEulerAngles.z, redAngleEnd.z) < 0 && Mathf.DeltaAngle(transform.localEulerAngles.z, redAngleStart.z) > 0)
             {
                 //currently in minor arc
-                Debug.Log($"Player in minor arc. Angle difference: {Quaternion.Angle(transform.localRotation, redAngleEndQuaternion)}");
+                Debug.Log($"Player in minor arc. Angle difference: {Mathf.DeltaAngle(transform.localEulerAngles.z, redAngleEnd.z)}");
 
                 if (arcType == RedArcType.Minor)
                 {
-                    if (Quaternion.Angle(targetQuaternion, redAngleEndQuaternion) > 0 || Quaternion.Angle(targetQuaternion, redAngleStartQuaternion) < 0)
+                    if (Mathf.DeltaAngle(targetAngle, redAngleEnd.z) > 0 || Mathf.DeltaAngle(targetAngle, redAngleStart.z) < 0)
                     {
                         //target is in major arc
                         //abort
@@ -65,11 +62,11 @@ public class Hand_Projectile : Hand
             else
             {
                 //currently in major arc
-                Debug.Log($"Player in major arc. Angle difference: {Quaternion.Angle(transform.localRotation, redAngleEndQuaternion)}");
+                Debug.Log($"Player in major arc. Angle difference: {Mathf.DeltaAngle(transform.localEulerAngles.z, redAngleEnd.z)}");
 
                 if (arcType == RedArcType.Major)
                 {
-                    if (Quaternion.Angle(targetQuaternion, redAngleEndQuaternion) < 0 && Quaternion.Angle(targetQuaternion, redAngleStartQuaternion) > 0)
+                    if (Mathf.DeltaAngle(targetAngle, redAngleEnd.z) < 0 && Mathf.DeltaAngle(targetAngle, redAngleStart.z) > 0)
                     {
                         //target is in minor arc
                         //abort
@@ -83,14 +80,22 @@ public class Hand_Projectile : Hand
 
         //play looping sfx
 
+        Debug.Log("start rotating");
+
+        Quaternion startQuaternion = transform.rotation;
+        float angle = transform.localEulerAngles.z;
+        float aVel = 0;
+
         while (transform.rotation != targetQuaternion)
         {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetQuaternion, aimSpeed * Time.deltaTime);
+            angle = Mathf.SmoothDampAngle(angle, targetAngle, ref aVel, 1/aimSpeed, maxSpeed);
+            //transform.rotation = Quaternion.Lerp(startQuaternion, targetQuaternion, prog);
+            transform.rotation = Quaternion.Euler(0, 0, angle);
 
             yield return null;
         }
 
-        //Debug.Log(gameObject.name + " finished aiming");
+        Debug.Log(gameObject.name + " finished aiming");
 
         yield return new WaitForSeconds(shootWait);
         Shoot();

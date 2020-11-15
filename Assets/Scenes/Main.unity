@@ -672,8 +672,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1531065523}
-        m_MethodName: GenerateRobot
+      - m_Target: {fileID: 591309345}
+        m_MethodName: SpawnNewRobot
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1979,6 +1979,7 @@ GameObject:
   - component: {fileID: 591309342}
   - component: {fileID: 591309344}
   - component: {fileID: 591309343}
+  - component: {fileID: 591309345}
   m_Layer: 5
   m_Name: Debugger
   m_TagString: Untagged
@@ -2044,6 +2045,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &591309345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591309341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2f2f514beca96e4faa9499fd13f23dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &662438614
 GameObject:
   m_ObjectHideFlags: 0

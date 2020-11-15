@@ -33,7 +33,7 @@ public class RobotController : MonoBehaviour
     {
         maxHealth = GetMaxHealth();
         currentHealth = maxHealth;
-        Debug.Log(currentHealth);
+        //Debug.Log(currentHealth);
 
         //set health for each parts
         foreach (BasePart part in parts.ToList())

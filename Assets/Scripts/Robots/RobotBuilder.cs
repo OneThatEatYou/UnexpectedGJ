@@ -159,7 +159,7 @@ public class RobotBuilder : MonoBehaviour
 
         //place head based on position and width of body
         Vector3 headPos;
-        headPos.x = Random.Range(spawnPos.x + bodyXRange, spawnPos.x - bodyXRange);
+        headPos.x = Random.Range(spawnPos.x + bodyXRange - newHeadSprite.bounds.extents.x, spawnPos.x - bodyXRange + newHeadSprite.bounds.extents.x);
         headPos.y = newBodySprite.bounds.extents.y + newHeadSprite.bounds.extents.y + bodyPos.y;
         headPos.z = newHead.transform.position.z;
         newHead.transform.position = headPos;

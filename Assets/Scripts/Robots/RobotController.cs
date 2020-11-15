@@ -12,7 +12,7 @@ public class RobotController : MonoBehaviour
     public Transform PlayerPos { get { return playerPos; } }
 
     public List<BasePart> parts = new List<BasePart>();
-    public List<Body> bodies = new List<Body>();
+    public Body body;
     public List<Hand> hands = new List<Hand>();
     public List<Head> heads = new List<Head>();
     public List<Leg> legs = new List<Leg>();
@@ -72,16 +72,12 @@ public class RobotController : MonoBehaviour
         //                ==> IsReady SET TO true
         // REPEAT
 
-        if (bodies.Count > 0)
+  
+        if (body && body.IsReady && !body.IsDisabled && PlayerPos)
         {
-            foreach (Body body in bodies)
-            {
-                if (body && body.IsReady && !body.IsDisabled && PlayerPos)
-                {
-                    body.Action();
-                }
-            }
+            body.Action();
         }
+
         if (hands.Count > 0)
         {
             foreach (Hand hand in hands)

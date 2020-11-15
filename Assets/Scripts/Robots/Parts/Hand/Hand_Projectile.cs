@@ -86,7 +86,7 @@ public class Hand_Projectile : Hand
         float angle = transform.localEulerAngles.z;
         float aVel = 0;
 
-        while (transform.rotation != targetQuaternion)
+        while (Quaternion.Angle(transform.rotation, targetQuaternion) > 0.1f)
         {
             angle = Mathf.SmoothDampAngle(angle, targetAngle, ref aVel, 1/aimSpeed, maxSpeed);
             //transform.rotation = Quaternion.Lerp(startQuaternion, targetQuaternion, prog);

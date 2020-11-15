@@ -9,10 +9,15 @@ public class Redleg : Leg
     public float minDistance;
     public float gravityScale = 2f;
 
+    [Header("Animation Settings")]
+
     public float crouchAmount;
     public float crouchTime;
     public float holdTime;
     public float releaseTime;
+    public float impactMagnitude = 0.3f;
+    public float impactDuration = 0.2f;
+    public float easeBackDuration = 0.5f;
 
     public override void Action()
     {
@@ -30,12 +35,9 @@ public class Redleg : Leg
 
         float jumpPower = -0.5f * (Physics2D.gravity.y * gravityScale) * moveTime;
 
-        for (int i = 0; i < Controller.bodies.Count; i++)
-        {
-            Controller.bodies[i].Crouch(crouchAmount, crouchTime, holdTime, releaseTime);
-        }
+        Controller.body.PlayCrouchSeq(crouchAmount, crouchTime, holdTime, releaseTime);
 
-        yield return new WaitForSeconds(crouchTime + holdTime + (releaseTime / 2));
+        yield return new WaitForSeconds(crouchTime + holdTime + releaseTime / 4);
 
         while (t != moveTime)
         {
@@ -50,6 +52,8 @@ public class Redleg : Leg
 
             yield return null;
         }
+
+        Controller.body.PlayImpactSeq(Vector2.down * impactMagnitude, impactMagnitude, easeBackDuration);
 
         CameraController.GenerateImpulse(Vector2.down, 5, 5, 0, 0.3f, 0.5f);
         StartCoroutine(ReadyLegAfterCooldown());

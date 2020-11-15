@@ -285,7 +285,7 @@ public class RobotBuilder : MonoBehaviour
 
         if (part is Body)
         {
-            controller.bodies.Add(part as Body);
+            controller.body = (Body)part;
         }
         else if (part is Hand)
         {

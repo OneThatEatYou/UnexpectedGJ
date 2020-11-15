@@ -127,7 +127,10 @@ MonoBehaviour:
   moveTime: 1.5
   minDistance: 5
   gravityScale: 2
-  crouchAmount: -0.7
-  crouchTime: 1.5
+  crouchAmount: 0.4
+  crouchTime: 2
   holdTime: 0.8
-  releaseTime: 0.2
+  releaseTime: 0.3
+  impactMagnitude: 0.15
+  impactDuration: 0.15
+  easeBackDuration: 0.2

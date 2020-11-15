@@ -10,6 +10,12 @@ public class Greenleg : Leg
     public float minDistance = 3f;
     public LayerMask playerLayer;
 
+    //[Header("Animation settings")]
+    //public float angle;
+    //public float variation;
+    //public float startDuration = 0.5f;
+    //public float halfPeriod = 0.1f;
+
     public override void Action()
     {
         base.Action();
@@ -33,6 +39,8 @@ public class Greenleg : Leg
         ShakeScreen(dir, localMoveTime);
 
         //Debug.Log($"Distance: {distance}, LocalMoveTime: {localMoveTime}");
+
+        //Controller.body.PlayBodyShake(angle, variation, localMoveTime, startDuration, halfPeriod);
 
         while (t != localMoveTime)
         {

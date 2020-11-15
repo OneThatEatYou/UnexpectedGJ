@@ -63,6 +63,16 @@ PrefabInstance:
       propertyPath: screwSpawnPos.Array.data[4].screwPos.x
       value: 0.75
       objectReference: {fileID: 0}
+    - target: {fileID: 2134507218196524059, guid: 77d7ac8370de5354fa9c440473d498a0,
+        type: 3}
+      propertyPath: redAngleStart.z
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 2134507218196524059, guid: 77d7ac8370de5354fa9c440473d498a0,
+        type: 3}
+      propertyPath: redAngleEnd.z
+      value: -70
+      objectReference: {fileID: 0}
     - target: {fileID: 7128142428386208474, guid: 77d7ac8370de5354fa9c440473d498a0,
         type: 3}
       propertyPath: m_LocalPosition.x

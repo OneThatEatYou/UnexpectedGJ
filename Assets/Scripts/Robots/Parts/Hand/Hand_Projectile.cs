@@ -45,7 +45,7 @@ public class Hand_Projectile : Hand
             if (Mathf.DeltaAngle(transform.localEulerAngles.z, redAngleEnd.z) < 0 && Mathf.DeltaAngle(transform.localEulerAngles.z, redAngleStart.z) > 0)
             {
                 //currently in minor arc
-                Debug.Log($"Player in minor arc. Angle difference: {Mathf.DeltaAngle(transform.localEulerAngles.z, redAngleEnd.z)}");
+                //Debug.Log($"Player in minor arc. Angle difference: {Mathf.DeltaAngle(transform.localEulerAngles.z, redAngleEnd.z)}");
 
                 if (arcType == RedArcType.Minor)
                 {
@@ -53,7 +53,7 @@ public class Hand_Projectile : Hand
                     {
                         //target is in major arc
                         //abort
-                        Debug.Log("Target is in major arc. Aborting.");
+                        //Debug.Log("Target is in major arc. Aborting.");
                         StartCoroutine(StartCooldown(0.5f));
                         yield break;
                     }
@@ -62,7 +62,7 @@ public class Hand_Projectile : Hand
             else
             {
                 //currently in major arc
-                Debug.Log($"Player in major arc. Angle difference: {Mathf.DeltaAngle(transform.localEulerAngles.z, redAngleEnd.z)}");
+                //Debug.Log($"Player in major arc. Angle difference: {Mathf.DeltaAngle(transform.localEulerAngles.z, redAngleEnd.z)}");
 
                 if (arcType == RedArcType.Major)
                 {
@@ -70,7 +70,7 @@ public class Hand_Projectile : Hand
                     {
                         //target is in minor arc
                         //abort
-                        Debug.Log("Target is in minor arc. Aborting.");
+                        //Debug.Log("Target is in minor arc. Aborting.");
                         StartCoroutine(StartCooldown(0.5f));
                         yield break;
                     }

@@ -63,6 +63,16 @@ PrefabInstance:
       propertyPath: screwSpawnPos.Array.data[3].unscrewDir
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2134507218196524059, guid: e0abbc0613928fc4bb52bda05d639ee3,
+        type: 3}
+      propertyPath: redAngleStart.z
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 2134507218196524059, guid: e0abbc0613928fc4bb52bda05d639ee3,
+        type: 3}
+      propertyPath: redAngleEnd.z
+      value: -70
+      objectReference: {fileID: 0}
     - target: {fileID: 7128142428386208474, guid: e0abbc0613928fc4bb52bda05d639ee3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -121,7 +131,7 @@ PrefabInstance:
     - target: {fileID: 7817702771048333004, guid: e0abbc0613928fc4bb52bda05d639ee3,
         type: 3}
       propertyPath: m_Name
-      value: Test Greenhand_R
+      value: Greenhand_R
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0abbc0613928fc4bb52bda05d639ee3, type: 3}

@@ -63,7 +63,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 4
+  spritePixelsToUnits: 8
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -120,10 +120,10 @@ TextureImporter:
       name: Redbot_0
       rect:
         serializedVersion: 2
-        x: 16
-        y: 40
-        width: 16
-        height: 13
+        x: 32
+        y: 80
+        width: 32
+        height: 26
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,10 +141,10 @@ TextureImporter:
       name: Redbot_1
       rect:
         serializedVersion: 2
-        x: 8
-        y: 16
-        width: 32
-        height: 24
+        x: 16
+        y: 32
+        width: 64
+        height: 48
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,10 +162,10 @@ TextureImporter:
       name: Redbot_2
       rect:
         serializedVersion: 2
-        x: 2
-        y: 16
-        width: 6
-        height: 23
+        x: 3
+        y: 46
+        width: 13
+        height: 32
       alignment: 9
       pivot: {x: 0.5, y: 0.86956525}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -183,10 +183,10 @@ TextureImporter:
       name: Redbot_3
       rect:
         serializedVersion: 2
-        x: 40
-        y: 16
-        width: 6
-        height: 23
+        x: 80
+        y: 32
+        width: 13
+        height: 46
       alignment: 9
       pivot: {x: 0.5, y: 0.86956525}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -204,10 +204,10 @@ TextureImporter:
       name: Redbot_4
       rect:
         serializedVersion: 2
-        x: 10
+        x: 20
         y: 0
-        width: 12
-        height: 16
+        width: 24
+        height: 32
       alignment: 9
       pivot: {x: 0.5, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -225,10 +225,10 @@ TextureImporter:
       name: Redbot_5
       rect:
         serializedVersion: 2
-        x: 26
+        x: 52
         y: 0
-        width: 12
-        height: 16
+        width: 24
+        height: 32
       alignment: 9
       pivot: {x: 0.5, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}

@@ -14,6 +14,7 @@ public class BulletController : MonoBehaviour
     public LayerMask effectLayer;
     public AudioClip collideTriggerSFX;
 
+    public Transform target;
     protected Rigidbody2D rb;
 
     private void Awake()
@@ -42,7 +43,7 @@ public class BulletController : MonoBehaviour
 
     public virtual void Move()
     {
-        rb.MovePosition(rb.position - (Vector2)(transform.up * moveSpeed));
+        rb.MovePosition(rb.position - (Vector2)(transform.up * moveSpeed * Time.fixedDeltaTime));
     }
 
     public virtual void OnCollide(Collision2D collision)

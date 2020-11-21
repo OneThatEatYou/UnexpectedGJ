@@ -31,11 +31,11 @@ public class Hand_Projectile : Hand
 
     IEnumerator AimTowardsPlayer()
     {
-        Debug.Log(gameObject.name + " is aiming");
+        //Debug.Log(gameObject.name + " is aiming");
 
         Vector2 dir = Controller.PlayerPos.transform.position - transform.position;
         float targetAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + angleOffset;
-        Debug.Log($"target angle: {targetAngle}");
+        //Debug.Log($"target angle: {targetAngle}");
         Quaternion targetQuaternion = Quaternion.Euler(0, 0, targetAngle);
 
         //check if player is in unreachable range
@@ -80,7 +80,7 @@ public class Hand_Projectile : Hand
 
         //play looping sfx
 
-        Debug.Log("start rotating");
+        //Debug.Log("start rotating");
 
         Quaternion startQuaternion = transform.rotation;
         float angle = transform.localEulerAngles.z;
@@ -95,7 +95,7 @@ public class Hand_Projectile : Hand
             yield return null;
         }
 
-        Debug.Log(gameObject.name + " finished aiming");
+        //Debug.Log(gameObject.name + " finished aiming");
 
         yield return new WaitForSeconds(shootWait);
         Shoot();
@@ -107,6 +107,7 @@ public class Hand_Projectile : Hand
     {
         AudioManager.PlayAudioAtPosition(shootSFX, bulletSpawnPos.position, AudioManager.sfxMixerGroup);
 
-        Instantiate(bulletPrefab, bulletSpawnPos.position, transform.rotation);
+        BulletController bul = Instantiate(bulletPrefab, bulletSpawnPos.position, transform.rotation).GetComponent<BulletController>();
+        bul.target = Controller.PlayerPos;
     }
 }

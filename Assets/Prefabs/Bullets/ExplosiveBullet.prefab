@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1823053979977455830}
   - component: {fileID: 8465476564214289726}
   - component: {fileID: 9164050780038654441}
+  - component: {fileID: 2841866437180765307}
   m_Layer: 12
   m_Name: ExplosiveBullet
   m_TagString: Untagged
@@ -47,7 +48,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.19}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -58,7 +59,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 1.2}
+  m_Size: {x: 0.3, y: 1.86}
   m_EdgeRadius: 0
 --- !u!50 &8465476564214289726
 Rigidbody2D:
@@ -94,14 +95,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ignoreTriggerTag: IgnoreTrigger
-  moveSpeed: 0.2
+  moveSpeed: 5
   deathParticle: {fileID: 4917040865964609858, guid: 682b2b53a2a58e7429554084ec1cdccb,
     type: 3}
   effectLayer:
     serializedVersion: 2
     m_Bits: 8192
   collideTriggerSFX: {fileID: 8300000, guid: 679c3c3cb60b47243b06f6a7f598ca22, type: 3}
+  target: {fileID: 0}
   explosionRad: 1.8
+  maxAngleDelta: 0.5
+--- !u!95 &2841866437180765307
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2347107865142992510}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2534204924968491563
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,13 +148,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2534204924968491563}
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1137096021906249128}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1759922191403967820
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -170,9 +192,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -50599889
-  m_SortingLayer: 2
+  m_SortingLayer: 7
   m_SortingOrder: 2
-  m_Sprite: {fileID: -6258134792741256978, guid: 315d94a66b6543a46a4111c43ca835d0,
+  m_Sprite: {fileID: -4478703775913692564, guid: f56617a3f71148649b9efaa08a456204,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

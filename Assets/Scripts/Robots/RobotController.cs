@@ -12,10 +12,10 @@ public class RobotController : MonoBehaviour
     public Transform PlayerPos { get { return playerPos; } }
 
     public List<BasePart> parts = new List<BasePart>();
-    public Body body;
-    public List<Hand> hands = new List<Hand>();
-    public List<Head> heads = new List<Head>();
-    public List<Leg> legs = new List<Leg>();
+    [HideInInspector] public Body body;
+    [HideInInspector] public List<Hand> hands = new List<Hand>();
+    [HideInInspector] public List<Head> heads = new List<Head>();
+    [HideInInspector] public List<Leg> legs = new List<Leg>();
     List<BasePart> nonDetachables = new List<BasePart>();
 
     int maxHealth;
@@ -42,6 +42,7 @@ public class RobotController : MonoBehaviour
             {
                 part.CurrentHealth = part.maxHealth;
                 part.GenerateCooldown();
+                AssignPartToPartList(part);
             }
             else
             {
@@ -104,6 +105,33 @@ public class RobotController : MonoBehaviour
             {
                 legs[Random.Range(0, legs.Count)].Action();
             }
+        }
+    }
+
+    void AssignPartToPartList(BasePart part)
+    {
+        if (part is Body)
+        {
+            if (body == null)
+            {
+                body = (Body)part;
+            }
+            else
+            {
+                Debug.LogWarning("Multiple bodies found. Only one body will be used.");
+            }
+        }
+        else if (part is Hand)
+        {
+            hands.Add(part as Hand);
+        }
+        else if (part is Head)
+        {
+            heads.Add(part as Head);
+        }
+        else if (part is Leg)
+        {
+            legs.Add(part as Leg);
         }
     }
 

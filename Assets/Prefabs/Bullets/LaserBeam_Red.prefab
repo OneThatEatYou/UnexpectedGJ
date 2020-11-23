@@ -68,7 +68,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -50599889
-  m_SortingLayer: 2
+  m_SortingLayer: 7
   m_SortingOrder: 1
   m_Sprite: {fileID: 3645870343941721060, guid: 315d94a66b6543a46a4111c43ca835d0,
     type: 3}
@@ -176,10 +176,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ignoreTriggerTag: IgnoreTrigger
-  moveSpeed: 0.4
+  moveSpeed: 15
   deathParticle: {fileID: 3079307049118664866, guid: 7688d0c8dac61294f80bf656c6ea4cae,
     type: 3}
   effectLayer:
     serializedVersion: 2
     m_Bits: 8192
   collideTriggerSFX: {fileID: 8300000, guid: 515f25e1338d9b6449fa026ea9c4c7e1, type: 3}
+  target: {fileID: 0}

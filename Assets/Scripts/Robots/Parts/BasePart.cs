@@ -126,7 +126,7 @@ public class BasePart : MonoBehaviour
 
     public void PlayCrouchSeq(float crouchAmount, float crouchTime, float holdTime, float releaseTime)
     {
-        Sequence s  = DOTween.Sequence();
+        Sequence s = DOTween.Sequence();
         //lowers part
         s.Append(transform.DOLocalMoveY(-crouchAmount, crouchTime, false).SetRelative().SetEase(Ease.InQuad));
         //return part back by the same amount after a delay

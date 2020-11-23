@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using DG.Tweening;
 
 public class Hand_Projectile : Hand
 {
@@ -13,6 +14,14 @@ public class Hand_Projectile : Hand
     public float shootWait = 0.5f;
 
     public AudioClip shootSFX;
+
+    [Header("Tweening settings")]
+    public AnimationCurve rotationCurve;
+    public float expand = 0.03f;
+    public float expandRTime = 0.02f;
+    public float recoil = 0.8f;
+    public float recoilTime = 0.5f;
+    public float recoilRTime = 0.2f;
 
     public override void Action()
     {
@@ -86,19 +95,35 @@ public class Hand_Projectile : Hand
         float angle = transform.localEulerAngles.z;
         float aVel = 0;
 
-        while (Quaternion.Angle(transform.rotation, targetQuaternion) > 0.1f)
-        {
-            angle = Mathf.SmoothDampAngle(angle, targetAngle, ref aVel, 1/aimSpeed, maxSpeed);
-            //transform.rotation = Quaternion.Lerp(startQuaternion, targetQuaternion, prog);
-            transform.rotation = Quaternion.Euler(0, 0, angle);
+        //linear
+        float t = Quaternion.Angle(transform.rotation, targetQuaternion) / 180 * aimSpeed;
 
-            yield return null;
-        }
+        transform.DOLocalRotateQuaternion(targetQuaternion, t).SetEase(rotationCurve);
+        yield return new WaitForSeconds(t);
+
+        //smooth start and end
+        //while (Quaternion.Angle(transform.rotation, targetQuaternion) > 0.1f)
+        //{
+        //    angle = Mathf.SmoothDampAngle(angle, targetAngle, ref aVel, 1/aimSpeed, maxSpeed);
+        //    transform.rotation = Quaternion.Euler(0, 0, angle);
+
+        //    yield return null;
+        //}
 
         //Debug.Log(gameObject.name + " finished aiming");
 
+        //excrete
+        Sequence s1 = DOTween.Sequence();
+        s1.Append(transform.DOScale(Vector2.one * expand, shootWait).SetRelative().SetEase(Ease.OutCubic));
+        s1.Insert(shootWait, transform.DOScale(Vector2.one, expandRTime).SetEase(Ease.OutBack));
+
         yield return new WaitForSeconds(shootWait);
         Shoot();
+
+        //recoil
+        Sequence s2 = DOTween.Sequence();
+        s2.Append(transform.DOLocalMove(transform.up * recoil, recoilTime).SetRelative());
+        s2.Append(transform.DOLocalMove(transform.up * -recoil, recoilRTime).SetRelative().SetEase(Ease.InQuad));
 
         StartCoroutine(StartCooldown(1f));
     }

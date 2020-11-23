@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 6
-  cooldownRange: {x: 8, y: 13}
+  cooldownRange: {x: 3, y: 8}
   initialCooldownRange: {x: 1, y: 3}
   deathParticle: {fileID: 4917040865964609858, guid: 682b2b53a2a58e7429554084ec1cdccb,
     type: 3}
@@ -203,7 +203,54 @@ MonoBehaviour:
   bulletSpawnPos: {fileID: 8922607531605082672}
   bulletPrefab: {fileID: 2347107865142992510, guid: 2312818a88cc29a4eb85106f72bce908,
     type: 3}
-  aimSpeed: 2
+  aimSpeed: 4
   maxSpeed: 35
-  shootWait: 1
+  shootWait: 0.3
   shootSFX: {fileID: 8300000, guid: 4537fb9d01610354fb335c01b5dce027, type: 3}
+  rotationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.27037376
+      outSlope: 0.27037376
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.20726408
+    - serializedVersion: 3
+      time: 0.697062
+      value: 1
+      inSlope: 2.7487142
+      outSlope: -1.6473503
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0.07747162
+      outWeight: 0.2797472
+    - serializedVersion: 3
+      time: 0.9275979
+      value: 1
+      inSlope: 1.6290591
+      outSlope: -1.3423244
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0.24253999
+      outWeight: 0.97287905
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1.6932427
+      outSlope: 1.6932427
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.8254335
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  expand: 0.04
+  expandRTime: 0.2
+  recoil: 0.7
+  recoilTime: 0.2
+  recoilRTime: 0.5

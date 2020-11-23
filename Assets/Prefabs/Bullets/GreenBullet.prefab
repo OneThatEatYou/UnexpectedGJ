@@ -84,14 +84,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ignoreTriggerTag: IgnoreTrigger
-  moveSpeed: 0.2
+  moveSpeed: 10
   deathParticle: {fileID: 4917040865964609858, guid: 682b2b53a2a58e7429554084ec1cdccb,
     type: 3}
   effectLayer:
     serializedVersion: 2
     m_Bits: 8192
   collideTriggerSFX: {fileID: 8300000, guid: 679c3c3cb60b47243b06f6a7f598ca22, type: 3}
+  target: {fileID: 0}
   explosionRad: 1.8
+  maxAngleDelta: 0
+  accel: 100
+  followTime: 3
+  animationStartTime: 0
 --- !u!1 &2534204924968491563
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,7 +165,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -50599889
-  m_SortingLayer: 2
+  m_SortingLayer: 7
   m_SortingOrder: 2
   m_Sprite: {fileID: -7629276125989968675, guid: 315d94a66b6543a46a4111c43ca835d0,
     type: 3}

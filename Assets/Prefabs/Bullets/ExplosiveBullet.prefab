@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ignoreTriggerTag: IgnoreTrigger
-  moveSpeed: 5
+  moveSpeed: 8
   deathParticle: {fileID: 4917040865964609858, guid: 682b2b53a2a58e7429554084ec1cdccb,
     type: 3}
   effectLayer:
@@ -104,7 +104,10 @@ MonoBehaviour:
   collideTriggerSFX: {fileID: 8300000, guid: 679c3c3cb60b47243b06f6a7f598ca22, type: 3}
   target: {fileID: 0}
   explosionRad: 1.8
-  maxAngleDelta: 0.5
+  maxAngleDelta: 0.8
+  accel: 7
+  followTime: 4
+  animationStartTime: 0.3
 --- !u!95 &2841866437180765307
 Animator:
   serializedVersion: 3
@@ -115,7 +118,7 @@ Animator:
   m_GameObject: {fileID: 2347107865142992510}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 22b7029d4d7ce264aa973754a0530110, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

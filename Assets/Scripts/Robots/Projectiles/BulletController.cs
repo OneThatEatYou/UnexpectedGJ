@@ -16,10 +16,12 @@ public class BulletController : MonoBehaviour
 
     public Transform target;
     protected Rigidbody2D rb;
+    protected Animator anim;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     private void FixedUpdate()

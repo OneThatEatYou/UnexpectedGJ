@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 public class Hand : BasePart
 {
@@ -38,6 +40,7 @@ public class Hand : BasePart
     }
 }
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(Hand_Projectile))]
 public class DrawWireArc : Editor
 {
@@ -68,3 +71,4 @@ public class DrawWireArc : Editor
         }
     }
 }
+#endif

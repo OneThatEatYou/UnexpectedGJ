@@ -51,6 +51,10 @@ public class PlayerController : MonoBehaviour
     float lastShootTime = 0f;
     public Image cooldownImage;
     public AudioClip shootSFX;
+    public float slowIn;
+    public float slowStay;
+    public float slowOut;
+    public float slowTimeScale;
 
     [Header("Slap settings")]
     public Vector2 slapBoxOffset;
@@ -191,6 +195,7 @@ public class PlayerController : MonoBehaviour
 
         lastShootTime = Time.time;
         CameraAimController.instance.Shoot();
+        StartCoroutine(StartSlowMo());
 
         AudioManager.PlayAudioAtPosition(shootSFX, transform.position, AudioManager.sfxMixerGroup);
 
@@ -208,6 +213,37 @@ public class PlayerController : MonoBehaviour
 
                 yield return null;
             }
+        }
+
+        IEnumerator StartSlowMo()
+        {
+            float t = 0;
+            float tScale = Time.timeScale;
+
+            while (t < slowIn)
+            {
+                //decrease time scale
+                float p = Mathf.Sin(Mathf.PI/2 * t / slowIn);
+                Time.timeScale = Mathf.Lerp(tScale, slowTimeScale, t);
+                t += Time.unscaledDeltaTime;
+
+                yield return null;
+            }
+            Time.timeScale = slowTimeScale;
+
+            yield return new WaitForSecondsRealtime(slowStay);
+
+            t = 0;
+            while (t < slowOut)
+            {
+                //increase time scale
+                float p = Mathf.Cos(Mathf.PI / 2 * t / slowOut);
+                Time.timeScale = Mathf.Lerp(slowTimeScale, 1, t);
+                t += Time.unscaledDeltaTime;
+
+                yield return null;
+            }
+            Time.timeScale = 1;
         }
     }   
     

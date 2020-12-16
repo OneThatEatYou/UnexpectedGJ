@@ -91,24 +91,11 @@ public class Hand_Projectile : Hand
 
         //Debug.Log("start rotating");
 
-        Quaternion startQuaternion = transform.rotation;
-        float angle = transform.localEulerAngles.z;
-        float aVel = 0;
-
         //linear
         float t = Quaternion.Angle(transform.rotation, targetQuaternion) / 180 * aimSpeed;
 
         transform.DOLocalRotateQuaternion(targetQuaternion, t).SetEase(rotationCurve);
         yield return new WaitForSeconds(t);
-
-        //smooth start and end
-        //while (Quaternion.Angle(transform.rotation, targetQuaternion) > 0.1f)
-        //{
-        //    angle = Mathf.SmoothDampAngle(angle, targetAngle, ref aVel, 1/aimSpeed, maxSpeed);
-        //    transform.rotation = Quaternion.Euler(0, 0, angle);
-
-        //    yield return null;
-        //}
 
         //Debug.Log(gameObject.name + " finished aiming");
 

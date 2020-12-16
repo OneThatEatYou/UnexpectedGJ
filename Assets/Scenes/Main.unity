@@ -255,9 +255,9 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 1
   m_AngularDrag: 0
-  m_GravityScale: 2
+  m_GravityScale: 2.5
   m_Material: {fileID: 0}
   m_Interpolate: 1
   m_SleepingMode: 1
@@ -307,7 +307,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 5
-  speed: 10
+  speed: 90
+  maxSpeed: 10
   envVel: {x: 0, y: 0}
   flipTime: 0.15
   inviTime: 2
@@ -319,7 +320,7 @@ MonoBehaviour:
   emptyHealth: {fileID: 6375093254594437473, guid: 74e4c5c48dd659d41b75c168b3834a9b,
     type: 3}
   hurtSFX: {fileID: 8300000, guid: f86c24a49c89dde429aceb5f6a2d7779, type: 3}
-  jumpVel: 15
+  jumpVel: 20
   groundBoxOffset: {x: 0, y: -0.65}
   groundBox: {x: 1.16, y: 0.1}
   groundedTime: 0.1
@@ -343,6 +344,8 @@ MonoBehaviour:
   movementParam: Movement
   slapParam: Slap
   invicibleParam: isInvicible
+  jumpParam: Jump
+  landedParam: Landed
   deathCanvas: {fileID: 1746746656}
   deathParticle: {fileID: 4917040865964609858, guid: 682b2b53a2a58e7429554084ec1cdccb,
     type: 3}
@@ -1281,7 +1284,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 449482308}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.62, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 32638655}
@@ -3424,15 +3427,13 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 1214992945}
     m_ColliderPaths:
-    - - X: 140000000
-        Y: -60000000
-      - X: 120000000
-        Y: -60000000
-      - X: 120000000
-        Y: -80000000
-      - X: 100000000
-        Y: -80000000
-      - X: 100000000
+    - - X: 41
+        Y: -60000100
+      - X: -20000041
+        Y: -60000100
+      - X: -20000100
+        Y: -60000041
+      - X: -20000100
         Y: -60000000
       - X: -100000000
         Y: -60000000
@@ -3448,6 +3449,20 @@ CompositeCollider2D:
         Y: -119999900
       - X: 140000000
         Y: -119999900
+      - X: 140000000
+        Y: -60000000
+      - X: 120000000
+        Y: -60000000
+      - X: 120000000
+        Y: -80000000
+      - X: 100000000
+        Y: -80000000
+      - X: 100000000
+        Y: -60000000
+      - X: 100
+        Y: -60000000
+      - X: 100
+        Y: -60000041
   m_CompositePaths:
     m_Paths:
     - - {x: 13.999971, y: -11.99999}
@@ -3976,7 +3991,7 @@ Tilemap:
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -8, y: -7, z: 0}
-  m_Size: {x: 16, y: 7, z: 1}
+  m_Size: {x: 16, y: 10, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:

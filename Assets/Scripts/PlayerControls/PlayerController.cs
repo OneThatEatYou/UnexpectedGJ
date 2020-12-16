@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public int maxHealth;
     int currentHealth;
     public float speed;
+    public float maxSpeed;
     float inputWeight = 1f;
     [HideInInspector] public Vector2 envVel;
     float envWeight;
@@ -66,6 +67,8 @@ public class PlayerController : MonoBehaviour
     public string movementParam;
     public string slapParam;
     public string invicibleParam = "isInvicible";
+    public string jumpParam = "Jump";
+    public string landedParam = "Landed";
 
     [Header("Death")]
     public GameObject deathCanvas;
@@ -136,11 +139,10 @@ public class PlayerController : MonoBehaviour
 
     private void Move(float movement)
     {
-        Vector2 targetVel = new Vector2(movement * speed * inputWeight, rb.velocity.y);
-        targetVel.x += envVel.x * envWeight;
-        rb.velocity = targetVel;
+        rb.AddForce(movement * speed * Vector2.right);
+        rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -maxSpeed, maxSpeed), rb.velocity.y);
 
-        anim.SetFloat(movementParam, movement);
+        anim.SetFloat(movementParam, rb.velocity.x);
     }
 
     private void CheckGrounded()
@@ -166,6 +168,11 @@ public class PlayerController : MonoBehaviour
 
         if (groundCol)
         {
+            if (curGroundedTime < -0.1f)
+            {
+                //landed
+                anim.SetTrigger(landedParam);
+            }
             curGroundedTime = groundedTime;
         }
         else
@@ -179,11 +186,10 @@ public class PlayerController : MonoBehaviour
         //can jump when recently grounded
         if (curGroundedTime > 0)
         {
-            Vector2 targetVel = new Vector2(rb.velocity.x, jumpVel);
-            rb.velocity = targetVel;
+            rb.AddForce(jumpVel * Vector2.up, ForceMode2D.Impulse);
 
             AudioManager.PlayAudioAtPosition(jumpSFX, transform.position, AudioManager.sfxMixerGroup);
-
+            anim.SetTrigger(jumpParam);
             curGroundedTime = 0;
         }
     }

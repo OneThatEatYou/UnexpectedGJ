@@ -328,13 +328,15 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 39168
   jumpSFX: {fileID: 8300000, guid: 4038e06992c6a65449803e7c4f592e2f, type: 3}
+  dustAnimation: {fileID: 3128619107200759883, guid: 552c778137e5c3a4ba6761b1cafdcf82,
+    type: 3}
   shootCooldown: 3
-  cooldownImage: {fileID: 1237053395}
-  shootSFX: {fileID: 8300000, guid: 7d654730f90912b4993553ddb418178b, type: 3}
   slowIn: 0.2
   slowStay: 1.5
   slowOut: 0.5
   slowTimeScale: 0.3
+  cooldownImage: {fileID: 1237053395}
+  shootSFX: {fileID: 8300000, guid: 7d654730f90912b4993553ddb418178b, type: 3}
   slapBoxOffset: {x: 1.22, y: 0.12}
   slapBoxSize: {x: 1.35, y: 1.57}
   slappableLayer:
@@ -3427,13 +3429,17 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 1214992945}
     m_ColliderPaths:
-    - - X: 41
-        Y: -60000100
-      - X: -20000041
-        Y: -60000100
-      - X: -20000100
-        Y: -60000041
-      - X: -20000100
+    - - X: 140000000
+        Y: -120000000
+      - X: 140000000
+        Y: -60000000
+      - X: 120000000
+        Y: -60000000
+      - X: 120000000
+        Y: -80000000
+      - X: 100000000
+        Y: -80000000
+      - X: 100000000
         Y: -60000000
       - X: -100000000
         Y: -60000000
@@ -3446,26 +3452,10 @@ CompositeCollider2D:
       - X: -140000000
         Y: -60000000
       - X: -140000000
-        Y: -119999900
-      - X: 140000000
-        Y: -119999900
-      - X: 140000000
-        Y: -60000000
-      - X: 120000000
-        Y: -60000000
-      - X: 120000000
-        Y: -80000000
-      - X: 100000000
-        Y: -80000000
-      - X: 100000000
-        Y: -60000000
-      - X: 100
-        Y: -60000000
-      - X: 100
-        Y: -60000041
+        Y: -120000000
   m_CompositePaths:
     m_Paths:
-    - - {x: 13.999971, y: -11.99999}
+    - - {x: 13.999971, y: -12}
       - {x: 13.999971, y: -6}
       - {x: 12, y: -6.000029}
       - {x: 11.99997, y: -8}
@@ -3476,7 +3466,7 @@ CompositeCollider2D:
       - {x: -12, y: -7.9999704}
       - {x: -12.00003, y: -6}
       - {x: -14, y: -6.000029}
-      - {x: -13.999971, y: -11.99999}
+      - {x: -13.999971, y: -12}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!50 &1214992944

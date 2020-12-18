@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9004270391595702018}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9004270391750930460}
@@ -68,10 +68,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -50599889
-  m_SortingLayer: 2
+  m_SortingLayer: 7
   m_SortingOrder: 2
-  m_Sprite: {fileID: -3309781605116015348, guid: 6f3e8e2cd3a20584cac100a5838204a7,
-    type: 3}
+  m_Sprite: {fileID: 279919546456459192, guid: 9a581692821d3cb4181e59fa12eadb3f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -93,6 +92,7 @@ GameObject:
   - component: {fileID: 9004270391750930460}
   - component: {fileID: 9004270391750930461}
   - component: {fileID: 9004270391750930434}
+  - component: {fileID: 7684032688005931627}
   m_Layer: 0
   m_Name: Spring
   m_TagString: Untagged
@@ -153,5 +153,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fe2e283fa0b4f048b9d693c42f54091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounceVel: 30
+  bounceFore: 40
   bounceSFX: {fileID: 8300000, guid: 4038e06992c6a65449803e7c4f592e2f, type: 3}
+--- !u!95 &7684032688005931627
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9004270391750930435}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7f4981637c32ff745838fde9aebad9b3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

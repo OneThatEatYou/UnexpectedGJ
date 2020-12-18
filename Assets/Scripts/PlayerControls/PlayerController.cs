@@ -9,11 +9,13 @@ public class PlayerController : MonoBehaviour
     [Header("General settings")]
     public int maxHealth;
     int currentHealth;
+    [Space]
     public float speed;
     public float maxSpeed;
+    
     float inputWeight = 1f;
-    [HideInInspector] public Vector2 envVel;
     float envWeight;
+    [Space]
     public float flipTime = 1f;
     public float inviTime = 1f;
     bool isInvi = false;
@@ -46,16 +48,17 @@ public class PlayerController : MonoBehaviour
     float curGroundedTime;
     public LayerMask groundLayer;
     public AudioClip jumpSFX;
+    public GameObject dustAnimation;
 
     [Header("Shoot settings")]
     public float shootCooldown = 1f;
     float lastShootTime = 0f;
-    public Image cooldownImage;
-    public AudioClip shootSFX;
     public float slowIn;
     public float slowStay;
     public float slowOut;
     public float slowTimeScale;
+    public Image cooldownImage;
+    public AudioClip shootSFX;
 
     [Header("Slap settings")]
     public Vector2 slapBoxOffset;
@@ -172,6 +175,9 @@ public class PlayerController : MonoBehaviour
             {
                 //landed
                 anim.SetTrigger(landedParam);
+
+                GameObject dust = Instantiate(dustAnimation, (Vector2)transform.position + groundBoxOffset, Quaternion.identity);
+                Destroy(dust, 1);
             }
             curGroundedTime = groundedTime;
         }

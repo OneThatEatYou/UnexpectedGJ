@@ -33,17 +33,15 @@ public class DeathPlane : MonoBehaviour
 
     //    Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
     //    Vector2 displacement = target - (Vector2)player.transform.position;
-    //    Vector2 force = Vector2.zero;
     //    Vector2 u = Vector2.zero;
-    //    Vector2 v = Vector2.zero;
     //    Vector2 a = new Vector2(0, Physics2D.gravity.y * rb.gravityScale);
 
-    //    u.y = (displacement.y / t.y) - (a.y * t.y);
-    //    u.x = displacement.x / t.x * xVelMultiplier;
+    //    u.y = (displacement.y / t.y) - (0.5f * a.y * t.y);
+    //    u.x = displacement.x / t.x;
 
     //    //directly add to y velocity
     //    //smooths x velocity
-    //    rb.velocity = u * yVelMultiplier;
+    //    rb.velocity = new Vector2 (rb.velocity.x, u.y);
     //    player.envVel = u;
 
     //    //Debug.Log($"displacement: {displacement}, a: {a}, u: {u}");
@@ -67,8 +65,7 @@ public class DeathPlane : MonoBehaviour
 
         //directly add to y velocity
         //smooths x velocity
-        rb.velocity = new Vector2 (rb.velocity.x, u.y);
-        player.envVel = u;
+        rb.AddForce(new Vector2(rb.velocity.x, u.y), ForceMode2D.Impulse);
 
         //Debug.Log($"displacement: {displacement}, a: {a}, u: {u}");
     }

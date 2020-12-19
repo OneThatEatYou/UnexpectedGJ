@@ -20,7 +20,7 @@ public class ExplosiveBullet : BulletController
         PlayerController player;
         if (col && col.TryGetComponent(out player))
         {
-            player.TakeDamage(1);
+            player.Die();
         }
 
         base.OnCollide(collision);

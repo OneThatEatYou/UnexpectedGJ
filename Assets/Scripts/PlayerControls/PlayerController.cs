@@ -7,20 +7,6 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     [Header("General settings")]
-    public int maxHealth;
-    int currentHealth;
-    public int CurrentHealth
-    {
-        get { return currentHealth; }
-
-        set
-        {
-            currentHealth = value;
-            UpdateHealth();
-        }
-    }
-
-    [Space]
     public float speed;
     public float maxSpeed;
     float inputWeight = 1f;
@@ -30,13 +16,6 @@ public class PlayerController : MonoBehaviour
     public float inviTime = 1f;
     bool isInvi = false;
     bool isStunned = false;
-    public RectTransform hpPanel;
-    Image[] healthImages;           //left most health has index 0
-    Animator[] healthAnims;
-    public string healthBeatParam = "BeatRate";
-    public float maxBeatRate = 1f;
-    public Sprite fullHealth;
-    public Sprite emptyHealth;
     public AudioClip hurtSFX;
 
     [Header("Jump settings")]
@@ -56,7 +35,6 @@ public class PlayerController : MonoBehaviour
     public float slowStay;
     public float slowOut;
     public float slowTimeScale;
-    public Image cooldownImage;
     public AudioClip shootSFX;
 
     [Header("Slap settings")]
@@ -73,12 +51,10 @@ public class PlayerController : MonoBehaviour
     public string landedParam = "Landed";
 
     [Header("Death")]
-    public GameObject deathCanvas;
     public GameObject deathParticle;
     public AudioClip deathSFX;
 
     bool isFacingLeft = false;
-    bool isDead = false;
     Coroutine flippingCr;
     Rigidbody2D rb;
     SpriteRenderer rend;
@@ -95,14 +71,11 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        Initialize();
+        lastShootTime = -shootCooldown;
     }
 
     void Update()
     {
-        if (isDead)
-        { return; }
-
         if (GameManager.isPaused)
         { return; }
 
@@ -134,14 +107,6 @@ public class PlayerController : MonoBehaviour
         {
             Slap();
         }
-    }
-
-    void Initialize()
-    {
-        lastShootTime = -shootCooldown;
-        currentHealth = maxHealth;
-
-        RegisterHealthPanel();
     }
 
     private void Move(float movement)
@@ -215,21 +180,21 @@ public class PlayerController : MonoBehaviour
 
         AudioManager.PlayAudioAtPosition(shootSFX, transform.position, AudioManager.sfxMixerGroup);
 
-        StartCoroutine(DisplayShootCooldown());
+        //StartCoroutine(DisplayShootCooldown());
 
-        IEnumerator DisplayShootCooldown()
-        {
-            float t = 0;
-            cooldownImage.fillAmount = 1;
+        //IEnumerator DisplayShootCooldown()
+        //{
+        //    float t = 0;
+        //    cooldownImage.fillAmount = 1;
 
-            while (cooldownImage.fillAmount != 0)
-            {
-                cooldownImage.fillAmount = Mathf.Lerp(1, 0, t / shootCooldown);
-                t += Time.deltaTime;
+        //    while (cooldownImage.fillAmount != 0)
+        //    {
+        //        cooldownImage.fillAmount = Mathf.Lerp(1, 0, t / shootCooldown);
+        //        t += Time.deltaTime;
 
-                yield return null;
-            }
-        }
+        //        yield return null;
+        //    }
+        //}
 
         IEnumerator StartSlowMo()
         {
@@ -343,41 +308,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int dmg = 1)
+    public void Die()
     {
-        //if (isInvi)
-        //{ return; }
+        //dont die if invisible
+        if (isInvi)
+        { return; }
 
-        //TriggerInvisibility(inviTime);
+        BattleManager.Instance.TakeDamage();
 
-        CurrentHealth -= dmg;
-        Respawn();
-
-        if (CurrentHealth <= 0)
-        {
-            GameOver();
-        }
-        else
-        {
-            AudioManager.PlayAudioAtPosition(hurtSFX, transform.position, AudioManager.sfxMixerGroup);
-        }
-    }
-
-    void Respawn()
-    {
-        transform.position = Vector2.zero;
-    }
-
-    void GameOver()
-    {
-        Debug.Log("Player is dead");
-
-        isDead = true;
-
-        deathCanvas.SetActive(true);
-        GameManager.Instance.canRestart = true;
         Instantiate(deathParticle, transform.position, Quaternion.identity);
-
         AudioManager.PlayAudioAtPosition(deathSFX, transform.position, AudioManager.sfxMixerGroup);
 
         Destroy(gameObject);
@@ -429,46 +368,6 @@ public class PlayerController : MonoBehaviour
 
             isStunned = false;
             //Debug.Log("No longer stunned");
-        }
-    }
-
-    void RegisterHealthPanel()
-    {
-        healthImages = new Image[maxHealth];
-        healthAnims = new Animator[maxHealth];
-
-        for (int i = 0; i < maxHealth; i++)
-        {
-            Image img = hpPanel.GetChild(i).GetComponent<Image>();
-
-            if (!img)
-            { Debug.LogWarning("Health image not found"); }
-
-            healthImages[i] = img;
-
-            Animator anim = hpPanel.GetChild(i).GetComponent<Animator>();
-            if (!anim)
-            { Debug.LogWarning("Health animator not found"); }
-            healthAnims[i] = anim;
-        }
-    }
-
-    void UpdateHealth()
-    {
-        float beatRate = (1f - ((float)CurrentHealth / maxHealth)) * maxBeatRate;
-        
-        //set fullHealth
-        for (int i = 0; i < CurrentHealth; i++)
-        {
-            healthImages[i].sprite = fullHealth;
-            healthAnims[i].SetFloat(healthBeatParam, 1f + beatRate);
-        }
-
-        //set emptyHealth
-        for (int i = CurrentHealth; i < maxHealth; i++)
-        {
-            healthImages[i].sprite = emptyHealth;
-            healthAnims[i].enabled = false;
         }
     }
 

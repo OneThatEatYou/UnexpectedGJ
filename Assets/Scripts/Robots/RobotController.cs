@@ -9,7 +9,26 @@ using UnityEngine;
 public class RobotController : MonoBehaviour
 {
     Transform playerPos;
-    public Transform PlayerPos { get { return playerPos; } }
+    public Transform PlayerPos
+    { 
+        get 
+        {
+            if (playerPos == null)
+            {
+                var player = FindObjectOfType<PlayerController>();
+
+                if (player)
+                {
+                    playerPos = player.transform;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            return playerPos; 
+        } 
+    }
 
     public List<BasePart> parts = new List<BasePart>();
     [HideInInspector] public Body body;
@@ -23,11 +42,6 @@ public class RobotController : MonoBehaviour
     float spawnInTime;
 
     [HideInInspector] public bool canMove = true;
-
-    private void Awake()
-    {
-        playerPos = FindObjectOfType<PlayerController>().transform;
-    }
 
     void Start()
     {
@@ -73,8 +87,8 @@ public class RobotController : MonoBehaviour
         //                ==> IsReady SET TO true
         // REPEAT
 
-  
-        if (body && body.IsReady && !body.IsDisabled && PlayerPos)
+        //actions will still be called when player is dead
+        if (body && body.IsReady && !body.IsDisabled)
         {
             body.Action();
         }
@@ -83,7 +97,7 @@ public class RobotController : MonoBehaviour
         {
             foreach (Hand hand in hands)
             {
-                if (hand && hand.IsReady && !hand.IsDisabled && PlayerPos)
+                if (hand && hand.IsReady && !hand.IsDisabled)
                 {
                     hand.Action();
                 }
@@ -93,7 +107,7 @@ public class RobotController : MonoBehaviour
         {
             foreach (Head head in heads)
             {
-                if (head && head.IsReady && !head.IsDisabled && PlayerPos)
+                if (head && head.IsReady && !head.IsDisabled)
                 {
                     head.Action();
                 }
@@ -101,7 +115,7 @@ public class RobotController : MonoBehaviour
         }
         if (legs.Count > 0)
         {
-            if (canMove && PlayerPos)
+            if (canMove)
             {
                 legs[Random.Range(0, legs.Count)].Action();
             }
@@ -206,5 +220,10 @@ public class RobotController : MonoBehaviour
                 part.Explode();
             }
         }
+    }
+
+    public Vector2 GenerateRandomPosition()
+    {
+        return new Vector2(Random.Range(-10, 10), Random.Range(-10, 10));
     }
 }

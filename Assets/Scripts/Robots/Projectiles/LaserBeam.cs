@@ -11,7 +11,7 @@ public class LaserBeam : BulletController
         PlayerController player;
         if (collision.TryGetComponent(out player))
         {
-            player.TakeDamage(1);
+            player.Die();
         }
 
         Instantiate(deathParticle, transform.position, Quaternion.identity);

@@ -35,14 +35,22 @@ public class Hand_Projectile : Hand
     {
         base.Update();
 
-        Debug.DrawLine(Controller.PlayerPos.position, transform.position);
+        //Debug.DrawLine(Controller.PlayerPos.position, transform.position);
     }
 
     IEnumerator AimTowardsPlayer()
     {
         //Debug.Log(gameObject.name + " is aiming");
 
-        Vector2 dir = Controller.PlayerPos.transform.position - transform.position;
+        Vector2 dir;
+        if (Controller.PlayerPos)
+        {
+            dir = Controller.PlayerPos.transform.position - transform.position;
+        }
+        else
+        {
+            dir = Controller.GenerateRandomPosition() - (Vector2)transform.position;
+        }
         float targetAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + angleOffset;
         //Debug.Log($"target angle: {targetAngle}");
         Quaternion targetQuaternion = Quaternion.Euler(0, 0, targetAngle);
@@ -120,6 +128,9 @@ public class Hand_Projectile : Hand
         AudioManager.PlayAudioAtPosition(shootSFX, bulletSpawnPos.position, AudioManager.sfxMixerGroup);
 
         BulletController bul = Instantiate(bulletPrefab, bulletSpawnPos.position, transform.rotation).GetComponent<BulletController>();
-        bul.target = Controller.PlayerPos;
+        if (Controller.PlayerPos)
+        {
+            bul.target = Controller.PlayerPos;
+        }
     }
 }

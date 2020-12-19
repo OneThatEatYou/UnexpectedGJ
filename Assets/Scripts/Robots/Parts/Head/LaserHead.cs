@@ -34,7 +34,15 @@ public class LaserHead : Head
 
         foreach (Vector2 pos in laserSpawnPos)
         {
-            Vector2 dir = (Vector2)Controller.PlayerPos.transform.position - ((Vector2)transform.position + pos);
+            Vector2 dir;
+            if (Controller.PlayerPos)
+            {
+                dir = (Vector2)Controller.PlayerPos.transform.position - ((Vector2)transform.position + pos);
+            }
+            else
+            {
+                dir = Controller.GenerateRandomPosition() - ((Vector2)transform.position + pos);
+            }
             float targetAngle = Mathf.Atan2(dir.y, dir.x);
             targetAngle *= Mathf.Rad2Deg;
             Instantiate(laserPrefab, (Vector2)transform.position + pos, Quaternion.Euler(0, 0, targetAngle + aimAngleOffset));

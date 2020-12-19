@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: 7b4054c36a4c06841bf15d4844ce5c4a
+guid: 0a8643a2b7d775d43bb8d77a52b22762
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1670660276820739667
-    second: Dust_0
-  - first:
-      213: -5929832237704200204
-    second: Dust_1
-  - first:
-      213: 3207967757382678166
-    second: Dust_2
-  - first:
-      213: -2696115198898644070
-    second: Dust_3
+      213: 1535325516486818496
+    second: Magnet_0
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -111,85 +102,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Dust_0
+      name: Magnet_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 12
         y: 0
-        width: 32
+        width: 40
         height: 32
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15625}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 35681449ba06f2710800000000000000
-      internalID: 1670660276820739667
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Dust_1
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 32
-        height: 32
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4ff3bf55ff005bda0800000000000000
-      internalID: -5929832237704200204
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Dust_2
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 0
-        width: 32
-        height: 32
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 69673b5cdadf48c20800000000000000
-      internalID: 3207967757382678166
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Dust_3
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 0
-        width: 32
-        height: 32
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a9b5d10e289759ad0800000000000000
-      internalID: -2696115198898644070
+      spriteID: 0ca3ac83c629e4510800000000000000
+      internalID: 1535325516486818496
       vertices: []
       indices: 
       edges: []

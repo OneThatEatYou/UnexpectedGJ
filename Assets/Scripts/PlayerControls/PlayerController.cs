@@ -9,12 +9,22 @@ public class PlayerController : MonoBehaviour
     [Header("General settings")]
     public int maxHealth;
     int currentHealth;
+    public int CurrentHealth
+    {
+        get { return currentHealth; }
+
+        set
+        {
+            currentHealth = value;
+            UpdateHealth();
+        }
+    }
+
     [Space]
     public float speed;
     public float maxSpeed;
-    
     float inputWeight = 1f;
-    float envWeight;
+
     [Space]
     public float flipTime = 1f;
     public float inviTime = 1f;
@@ -29,17 +39,6 @@ public class PlayerController : MonoBehaviour
     public Sprite emptyHealth;
     public AudioClip hurtSFX;
 
-    public int CurrentHealth
-    {
-        get { return currentHealth; }
-
-        set
-        {
-            currentHealth = value;
-            UpdateHealth();
-        }
-    }
-
     [Header("Jump settings")]
     public float jumpVel;
     public Vector2 groundBoxOffset;
@@ -47,8 +46,8 @@ public class PlayerController : MonoBehaviour
     public float groundedTime = 0.1f;
     float curGroundedTime;
     public LayerMask groundLayer;
-    public AudioClip jumpSFX;
     public GameObject dustAnimation;
+    public AudioClip jumpSFX;
 
     [Header("Shoot settings")]
     public float shootCooldown = 1f;
@@ -96,10 +95,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        lastShootTime = -shootCooldown;
-        currentHealth = maxHealth;
-
-        RegisterHealthPanel();
+        Initialize();
     }
 
     void Update()
@@ -140,9 +136,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void Initialize()
+    {
+        lastShootTime = -shootCooldown;
+        currentHealth = maxHealth;
+
+        RegisterHealthPanel();
+    }
+
     private void Move(float movement)
     {
-        rb.AddForce(movement * speed * Vector2.right);
+        rb.AddForce(movement * speed * Vector2.right * inputWeight);
         rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -maxSpeed, maxSpeed), rb.velocity.y);
 
         anim.SetFloat(movementParam, rb.velocity.x);
@@ -339,22 +343,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int dmg)
+    public void TakeDamage(int dmg = 1)
     {
-        if (isInvi)
-        { return; }
+        //if (isInvi)
+        //{ return; }
 
-        TriggerInvisibility(inviTime);
-
-        //Debug.Log("Player took " + dmg + " damage!");
+        //TriggerInvisibility(inviTime);
 
         CurrentHealth -= dmg;
-
-        //update health ui
+        Respawn();
 
         if (CurrentHealth <= 0)
         {
-            Die();
+            GameOver();
         }
         else
         {
@@ -362,7 +363,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void Die()
+    void Respawn()
+    {
+        transform.position = Vector2.zero;
+    }
+
+    void GameOver()
     {
         Debug.Log("Player is dead");
 
@@ -409,7 +415,6 @@ public class PlayerController : MonoBehaviour
 
             rb.velocity = new Vector2(0, rb.velocity.y);
             inputWeight = 0;
-            envWeight = 1;
 
             yield return new WaitForSeconds(noInputTime);
 
@@ -417,7 +422,6 @@ public class PlayerController : MonoBehaviour
             while (inputWeight != 1)
             {
                 inputWeight = Mathf.Lerp(0, 1, t / time);
-                envWeight = 1 - inputWeight;
                 t += Time.deltaTime;
                 //Debug.Log(inputWeight);
                 yield return null;

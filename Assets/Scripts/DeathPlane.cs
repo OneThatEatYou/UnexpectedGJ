@@ -15,7 +15,7 @@ public class DeathPlane : MonoBehaviour
     {
         if (collision.TryGetComponent(out player))
         {
-            LaunchPlayerBack();
+            DamagePlayer();
         }
         else
         {
@@ -47,26 +47,8 @@ public class DeathPlane : MonoBehaviour
     //    //Debug.Log($"displacement: {displacement}, a: {a}, u: {u}");
     //}
 
-    public void LaunchPlayerBack()
+    public void DamagePlayer()
     {
         player.TakeDamage(damage);
-
-        Vector2 target = RobotBuilder.Instance.spawnPos;
-        Vector2 t = time;
-        player.TriggerStun(noInputTime, stunRecoverTime);
-
-        Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
-        Vector2 displacement = target - (Vector2)player.transform.position;
-        Vector2 u = Vector2.zero;
-        Vector2 a = new Vector2(0, Physics2D.gravity.y * rb.gravityScale);
-
-        u.y = (displacement.y / t.y) - (0.5f * a.y * t.y);
-        u.x = displacement.x / t.x;
-
-        //directly add to y velocity
-        //smooths x velocity
-        rb.AddForce(new Vector2(rb.velocity.x, u.y), ForceMode2D.Impulse);
-
-        //Debug.Log($"displacement: {displacement}, a: {a}, u: {u}");
     }
 }

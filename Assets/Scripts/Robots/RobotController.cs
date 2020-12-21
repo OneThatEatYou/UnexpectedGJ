@@ -37,36 +37,11 @@ public class RobotController : MonoBehaviour
     [HideInInspector] public List<Leg> legs = new List<Leg>();
     List<BasePart> nonDetachables = new List<BasePart>();
 
-    int maxHealth;
-    int currentHealth;
+    [ReadOnly][SerializeField] int maxHealth;
+    [ReadOnly][SerializeField] int currentHealth;
     float spawnInTime;
 
     [HideInInspector] public bool canMove = true;
-
-    void Start()
-    {
-        maxHealth = GetMaxHealth();
-        currentHealth = maxHealth;
-        //Debug.Log(currentHealth);
-
-        //set health for each parts
-        foreach (BasePart part in parts.ToList())
-        {
-            if (part)
-            {
-                part.CurrentHealth = part.maxHealth;
-                part.GenerateCooldown();
-                AssignPartToPartList(part);
-            }
-            else
-            {
-                Debug.LogWarning("Part is missing when calculating max health");
-                parts.Remove(part);
-            }
-        }
-
-        spawnInTime = Time.time;
-    }
 
     void Update()
     {
@@ -122,8 +97,34 @@ public class RobotController : MonoBehaviour
         }
     }
 
-    void AssignPartToPartList(BasePart part)
+    public void Initialize()
     {
+        maxHealth = GetMaxHealth();
+        currentHealth = maxHealth;
+        //Debug.Log(currentHealth);
+
+        //set health for each parts
+        foreach (BasePart part in parts.ToList())
+        {
+            if (part)
+            {
+                part.CurrentHealth = part.maxHealth;
+                part.GenerateCooldown();
+            }
+            else
+            {
+                Debug.LogWarning("Part is missing when calculating max health");
+                parts.Remove(part);
+            }
+        }
+
+        spawnInTime = Time.time;
+    }
+
+    public void AssignPartToPartList(BasePart part)
+    {
+        parts.Add(part);
+
         if (part is Body)
         {
             if (body == null)
@@ -190,12 +191,9 @@ public class RobotController : MonoBehaviour
     {
         int maxHp = 0;
 
-        for (int i = 0; i < parts.Count; i++)
+        foreach (BasePart part in parts)
         {
-            if (parts[i] != null)
-            {
-                maxHp += parts[i].maxHealth;
-            }
+            maxHp += part.maxHealth;
         }
 
         return maxHp;

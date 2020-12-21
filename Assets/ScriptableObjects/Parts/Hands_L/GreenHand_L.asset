@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe6fb244102074845bf19bfa5ac42af5, type: 3}
+  m_Name: GreenHand_L
+  m_EditorClassIdentifier: 
+  partPrefab: {fileID: 8346458050041929711, guid: 5d1c2929f60552147bc2ef94d738fdaa,
+    type: 3}
+  size: {x: 1.625, y: 5.75}
+  extents: {x: 0.8125, y: 2.875}
+  partType: 2

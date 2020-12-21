@@ -150,4 +150,17 @@ public class BattleManager : MonoBehaviour
             isDead = false;
         }
     }
+
+    /*
+    public void SpawnRobot()
+    {
+        RobotController robot = RobotBuilder.Instance.GenerateRobot();
+
+        Vector2 pos;
+        foreach (Head head in robot.heads)
+        {
+            head.
+        }
+    }
+    */
 }

@@ -15,11 +15,13 @@ public class RobotBuilder : MonoBehaviour
 
     [Space]
 
-    public GameObject[] heads;
-    public GameObject[] bodies;
-    public GameObject[] hands_L;
-    public GameObject[] hands_R;
-    public GameObject[] legs;
+    public List<SpawnablePart> spawnableParts = new List<SpawnablePart>();
+    [ReadOnly] public List<SpawnablePart> heads = new List<SpawnablePart>();
+    [ReadOnly] public List<SpawnablePart> bodies = new List<SpawnablePart>();
+    [ReadOnly] public List<SpawnablePart> l_Hands = new List<SpawnablePart>();
+    [ReadOnly] public List<SpawnablePart> r_Hands = new List<SpawnablePart>();
+    [ReadOnly] public List<SpawnablePart> legs = new List<SpawnablePart>();
+
 
     [Space]
     
@@ -64,7 +66,7 @@ public class RobotBuilder : MonoBehaviour
     }
 
     [ContextMenu("Generate Robot")]
-    public virtual void GenerateRobot()
+    public virtual RobotController GenerateRobot()
     {
         Debug.Log("Generating a robot.");
 
@@ -73,119 +75,120 @@ public class RobotBuilder : MonoBehaviour
         float groundHeight = hit.point.y;
 
         //declare what to generate
-        GameObject newHead;
-        GameObject newBody;
-        GameObject[] newHands_L = new GameObject[1];
-        GameObject[] newHands_R = new GameObject[1];
-        GameObject[] newLegs = new GameObject[2];
+        SpawnablePart newHead;
+        SpawnablePart newBody;
+        SpawnablePart[] newHands_L = new SpawnablePart[1];
+        SpawnablePart[] newHands_R = new SpawnablePart[1];
+        SpawnablePart[] newLegs = new SpawnablePart[2];
 
         //instantiate base
         GameObject newRobot = new GameObject("NewRobot");
         RobotController newController = newRobot.AddComponent<RobotController>();
 
-        //generate parts
-        newHead = Instantiate(heads[Random.Range(0, heads.Length)], newRobot.transform);
-        newBody = Instantiate(bodies[Random.Range(0, bodies.Length)], newRobot.transform);
-        AddBasePart(newHead, newController);
-        AddBasePart(newBody, newController);
-
+        //select spawnablePart to be used
+        newHead = heads[Random.Range(0, heads.Count)];
+        newBody = bodies[Random.Range(0, bodies.Count)];
         for (int i = 0; i < newHands_L.Length; i++)
         {
-            newHands_L[i] = Instantiate(hands_L[Random.Range(0, hands_L.Length)], newRobot.transform);
-            AddBasePart(newHands_L[i], newController);
+            newHands_L[i] = l_Hands[Random.Range(0, l_Hands.Count)];
         }
         for (int i = 0; i < newHands_R.Length; i++)
         {
-            newHands_R[i] = Instantiate(hands_R[Random.Range(0, hands_R.Length)], newRobot.transform);
-            AddBasePart(newHands_R[i], newController);
-        }
-
-        for (int i = 0; i < newLegs.Length; i++)
-        {
-            newLegs[i] = Instantiate(legs[Random.Range(0, legs.Length)], newRobot.transform);
-            AddBasePart(newLegs[i], newController);
-        }
-
-        //assign sprites
-        Sprite newHeadSprite = newHead.GetComponent<SpriteRenderer>().sprite;
-        Sprite newBodySprite = newBody.GetComponent<SpriteRenderer>().sprite;
-        Sprite[] newHand_LSprites = new Sprite[newHands_L.Length];
-        Sprite[] newHand_RSprites = new Sprite[newHands_R.Length];
-        Sprite[] newLegSprites = new Sprite[newLegs.Length];
-        for (int i = 0; i < newHands_L.Length; i++)
-        {
-            newHand_LSprites[i] = newHands_L[i].GetComponent<SpriteRenderer>().sprite;
-        }
-        for (int i = 0; i < newHands_R.Length; i++)
-        {
-            newHand_RSprites[i] = newHands_R[i].GetComponent<SpriteRenderer>().sprite;
+            newHands_R[i] = r_Hands[Random.Range(0, r_Hands.Count)];
         }
         for (int i = 0; i < newLegs.Length; i++)
         {
-            newLegSprites[i] = newLegs[i].GetComponent<SpriteRenderer>().sprite;
+            newLegs[i] = legs[Random.Range(0, legs.Count)];
         }
 
-        //get body x range
-        float bodyXRange = newBodySprite.bounds.extents.x;
+        //width of body
+        float bodyXRange = newBody.Extents.x;
 
         //place legs based on width of body
         for (int i = 0; i < newLegs.Length; i++)
         {
             Vector3 legPos;
-            legPos.x = Random.Range(spawnPos.x + bodyXRange - newLegSprites[i].bounds.extents.x, spawnPos.x - bodyXRange + newLegSprites[i].bounds.extents.x);
-            //legPos.y = groundHeight + newLegSprites[i].bounds.size.y;
-            legPos.y = groundHeight + newLegSprites[i].pivot.y / newLegSprites[i].pixelsPerUnit;
-            legPos.z = newLegs[i].transform.position.z;
-            newLegs[i].transform.position = legPos;
+            legPos.x = Random.Range(spawnPos.x + bodyXRange - newLegs[i].ILocalPivot.x, spawnPos.x - bodyXRange + newLegs[i].LocalPivot.x);
+            legPos.y = groundHeight + newLegs[i].LocalPivot.y;
+            legPos.z = 0;
+            SpawnPart(newLegs[i], newController, legPos);
         }
 
-        //get the lowest leg
-        float lowestLegPos = groundHeight;
+        //get the highest leg
+        float legHeight = 0;
         for (int i = 0; i < newLegs.Length; i++)
         {
-            if (newLegs[i].transform.position.y > lowestLegPos)
+            if (newLegs[i].Size.y > legHeight)
             {
-                lowestLegPos = newLegs[i].transform.position.y;
+                legHeight = newLegs[i].Size.y;
             }
         }
 
-        //place body based on height of legs
+        //place body based on top of highest leg
         Vector3 bodyPos;
         bodyPos.x = spawnPos.x;
-        bodyPos.y = lowestLegPos + newBodySprite.bounds.extents.y;
-        bodyPos.z = newBody.transform.position.z;
-        newBody.transform.position = bodyPos;
-        SpawnScrews(newBody.GetComponent<BasePart>());
+        bodyPos.y = groundHeight + legHeight + newBody.LocalPivot.y;
+        bodyPos.z = 0;
+        BasePart bodyPart = SpawnPart(newBody, newController, bodyPos);
+        SpawnScrews(bodyPart);
 
         //place head based on position and width of body
         Vector3 headPos;
-        headPos.x = Random.Range(spawnPos.x + bodyXRange - newHeadSprite.bounds.extents.x, spawnPos.x - bodyXRange + newHeadSprite.bounds.extents.x);
-        headPos.y = newBodySprite.bounds.extents.y + newHeadSprite.bounds.extents.y + bodyPos.y;
-        headPos.z = newHead.transform.position.z;
-        newHead.transform.position = headPos;
-        newHead.transform.parent = newBody.transform;
-        SpawnScrews(newHead.GetComponent<BasePart>());
+        headPos.x = Random.Range(spawnPos.x - bodyXRange + newHead.Extents.x, spawnPos.x + bodyXRange - newHead.Extents.x);
+        headPos.y = groundHeight + legHeight + newBody.Size.y + newHead.LocalPivot.y;
+        headPos.z = 0;
+        BasePart headPart = SpawnPart(newHead, newController, headPos, true);
+        SpawnScrews(headPart);
 
         //place hands
         Vector3 handPos;
         for (int i = 0; i < newHands_L.Length; i++)
         {
-            handPos.x = spawnPos.x - newBodySprite.bounds.extents.x - newHand_LSprites[i].bounds.extents.x;
-            handPos.y = Random.Range(bodyPos.y - newBodySprite.bounds.extents.y, bodyPos.y + newBodySprite.bounds.extents.y);
-            handPos.z = newHands_L[i].transform.position.z;
-            newHands_L[i].transform.position = handPos;
-            newHands_L[i].transform.parent = newBody.transform;
-            SpawnScrews(newHands_L[i].GetComponent<BasePart>());
+            handPos.x = spawnPos.x + newBody.Extents.x + newHands_L[i].LocalPivot.x;
+            handPos.y = Random.Range(groundHeight + legHeight, groundHeight + legHeight + newBody.Size.y);
+            handPos.z = 0;
+            BasePart handPart_L = SpawnPart(newHands_L[i], newController, handPos, true);
+            SpawnScrews(handPart_L);
         }
-        for (int i = 0; i < newHands_L.Length; i++)
+        for (int i = 0; i < newHands_R.Length; i++)
         {
-            handPos.x = spawnPos.x + newBodySprite.bounds.extents.x + newHand_LSprites[i].bounds.extents.x;
-            handPos.y = Random.Range(bodyPos.y - newBodySprite.bounds.extents.y, bodyPos.y + newBodySprite.bounds.extents.y);
-            handPos.z = newHands_R[i].transform.position.z;
-            newHands_R[i].transform.position = handPos;
-            newHands_R[i].transform.parent = newBody.transform;
-            SpawnScrews(newHands_R[i].GetComponent<BasePart>());
+            handPos.x = spawnPos.x - newBody.Extents.x - newHands_R[i].ILocalPivot.x;
+            handPos.y = Random.Range(groundHeight + legHeight, groundHeight + legHeight + newBody.Size.y);
+            handPos.z = 0;
+            BasePart handPart_R = SpawnPart(newHands_R[i], newController, handPos, true);
+            SpawnScrews(handPart_R);
         }
+
+        newController.Initialize();
+
+        return newController;
+    }
+
+    [ContextMenu("Sort Parts")]
+    public void SortParts()
+    {
+        foreach (SpawnablePart part in spawnableParts.ToList())
+        {
+            switch(part.partType)
+            {
+                case PartType.Head:
+                    heads.Add(part);
+                    break;
+                case PartType.Body:
+                    bodies.Add(part);
+                    break;
+                case PartType.LHand:
+                    l_Hands.Add(part);
+                    break;
+                case PartType.RHand:
+                    r_Hands.Add(part);
+                    break;
+                case PartType.Leg:
+                    legs.Add(part);
+                    break;
+            }
+        }
+        spawnableParts = new List<SpawnablePart>();
     }
 
     void SpawnScrews(BasePart part)
@@ -195,8 +198,9 @@ public class RobotBuilder : MonoBehaviour
         Screw screwScript = screwPrefab.GetComponent<Screw>();
         int numberOfScrews = Mathf.CeilToInt(part.maxHealth / screwScript.maxHealth);
         int numberOfFakes = numberOfScrews;
-        string spriteSortingLayer = part.GetComponent<SpriteRenderer>().sortingLayerName;
-        int spriteSortingOrder = part.GetComponent<SpriteRenderer>().sortingOrder - 1;
+        //the first sprite renderer found in child will be used in rendering queue
+        string spriteSortingLayer = part.GetComponentInChildren<SpriteRenderer>().sortingLayerName;
+        int spriteSortingOrder = part.GetComponentInChildren<SpriteRenderer>().sortingOrder - 1;
 
         //List<int> spawnedScrewPos = new List<int>();
         var screwSpawnPosList = part.screwSpawnPos.ToList();
@@ -277,11 +281,34 @@ public class RobotBuilder : MonoBehaviour
         }
     }
 
-    void AddBasePart(GameObject obj, RobotController controller)
+    //instantiate the part into the scene and assign it in RobotController
+    BasePart SpawnPart(SpawnablePart obj, RobotController controller, Vector3 pos, bool childOfBody = false)
     {
-        BasePart part = obj.GetComponent<BasePart>();
-        //Debug.Log(part.name + " added to list");
-        controller.parts.Add(part);
+        Debug.Log($"Spawning {obj.name}");
+
+        GameObject go;
+        if (childOfBody)
+        {
+            if (controller.body)
+            {
+                go = Instantiate(obj.partPrefab, controller.body.transform);
+            }
+            else
+            {
+                Debug.LogWarning("Body not found in controller");
+                go = Instantiate(obj.partPrefab, controller.transform);
+            }
+        }
+        else
+        {
+            go = Instantiate(obj.partPrefab, controller.transform);
+        }
+        go.transform.position = pos;
+
+        BasePart part = go.GetComponent<BasePart>();
+        controller.AssignPartToPartList(part);
+
+        return part;
     }
 
     private void OnDrawGizmosSelected()

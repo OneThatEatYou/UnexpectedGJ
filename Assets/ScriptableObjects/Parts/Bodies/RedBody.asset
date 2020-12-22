@@ -14,6 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partPrefab: {fileID: 2187245724895662610, guid: a155f15dd58a01245844141f9279a43b,
     type: 3}
-  size: {x: 8, y: 6}
-  extents: {x: 4, y: 3}
+  sprite: {fileID: 1489691898405041870, guid: 6ccb71e26546cc747805463e6a4515a9, type: 3}
   partType: 1

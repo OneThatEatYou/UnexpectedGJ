@@ -14,16 +14,6 @@ public class SpawnablePart : ScriptableObject
     public Vector2 Extents { get { return sprite.bounds.extents; } }
     public Vector2 Size { get { return sprite.bounds.size; } }
     public PartType partType;
-
-    public void AutoSet()
-    {
-        SpriteRenderer spriteRenderer = partPrefab.GetComponentInChildren<SpriteRenderer>();
-
-        if (!spriteRenderer)
-        { return; }
-
-        sprite = spriteRenderer.sprite;
-    }
 }
 
 public enum PartType

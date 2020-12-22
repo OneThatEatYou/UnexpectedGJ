@@ -27,6 +27,9 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
     public GameObject dustAnimation;
     public AudioClip jumpSFX;
+    [Space]
+    public float fallMultiplier = 3f;
+    public float lowJumpMultiplier = 2f;
 
     [Header("Shoot settings")]
     public float shootCooldown = 1f;
@@ -55,18 +58,17 @@ public class PlayerController : MonoBehaviour
     public AudioClip deathSFX;
 
     bool isFacingLeft = false;
+    bool canSlowFall = true;
     Coroutine flippingCr;
     Rigidbody2D rb;
     SpriteRenderer rend;
     Animator anim;
-    BetterJump betterJumpScript;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         rend = GetComponentInChildren<SpriteRenderer>();
         anim = GetComponent<Animator>();
-        betterJumpScript = GetComponent<BetterJump>();
     }
 
     void Start()
@@ -92,6 +94,7 @@ public class PlayerController : MonoBehaviour
         }
 
         CheckGrounded();
+        ControlJumpHeight();
 
         if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
         {
@@ -156,6 +159,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void ForceUnground()
+    {
+        curGroundedTime -= groundedTime;
+    }
+
     private void Jump()
     {
         //can jump when recently grounded
@@ -166,6 +174,24 @@ public class PlayerController : MonoBehaviour
             AudioManager.PlayAudioAtPosition(jumpSFX, transform.position, AudioManager.sfxMixerGroup);
             anim.SetTrigger(jumpParam);
             curGroundedTime = 0;
+        }
+    }
+
+    private void ControlJumpHeight()
+    {
+        if (rb.velocity.y < 0)
+        {
+            //add to downwards velocity
+            rb.velocity += Vector2.up * Physics2D.gravity * rb.gravityScale * (fallMultiplier - 1) * Time.deltaTime;
+        }
+        else if (rb.velocity.y > 0)
+        {
+            //player is moving upwards
+            if ((!Input.GetKey(KeyCode.UpArrow) && !Input.GetKey(KeyCode.Space) && !Input.GetKey(KeyCode.W)) && canSlowFall)
+            {
+                //add to downwards velocity
+                rb.velocity += Vector2.up * Physics2D.gravity * rb.gravityScale * (lowJumpMultiplier - 1) * Time.deltaTime;
+            }
         }
     }
 
@@ -318,7 +344,7 @@ public class PlayerController : MonoBehaviour
         {
             isStunned = true;
 
-            DisableBetterJump(time + noInputTime);
+            DisableSlowFall(time + noInputTime);
 
             rb.velocity = new Vector2(0, rb.velocity.y);
             inputWeight = 0;
@@ -339,21 +365,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    Coroutine disablingBetterJump;
-    public void DisableBetterJump(float time)
+    Coroutine slowFallCR;
+    public void DisableSlowFall(float time)
     {
-        if (betterJumpScript.isDisabled)
+        if (!canSlowFall)
         {
-            StopCoroutine(disablingBetterJump);
+            StopCoroutine(slowFallCR);
         }
 
-        disablingBetterJump = StartCoroutine(Trigger());
+        slowFallCR = StartCoroutine(Trigger());
 
         IEnumerator Trigger()
         {
-            betterJumpScript.isDisabled = true;
+            canSlowFall = false;
             yield return new WaitForSeconds(time);
-            betterJumpScript.isDisabled = false;
+            canSlowFall = true;
         }
     }
 

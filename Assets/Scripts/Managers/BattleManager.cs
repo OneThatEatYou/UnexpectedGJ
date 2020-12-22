@@ -139,6 +139,11 @@ public class BattleManager : MonoBehaviour
     //public reference needs to be removed after debugging
     public void RespawnPlayer()
     {
+        if (!isDead)
+        {
+            Debug.Log("Player is not dead");
+            return; 
+        }
         Debug.Log("Respawning");
 
         StartCoroutine(Respawn());

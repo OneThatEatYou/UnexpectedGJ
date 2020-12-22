@@ -31,13 +31,17 @@ public class Spring : MonoBehaviour
     {
         Rigidbody2D rb = col.gameObject.GetComponent<Rigidbody2D>();
 
-        if (rb && rb.bodyType == RigidbodyType2D.Dynamic)
+        if (!rb || rb.velocity.y > 0.1f)
+        { return; }
+
+        if (rb.bodyType == RigidbodyType2D.Dynamic)
         {
             //check if col is player
             PlayerController playerCon;
             if (col.gameObject.TryGetComponent(out playerCon))
             {
-                playerCon.DisableBetterJump(1);
+                playerCon.DisableSlowFall(1);
+                playerCon.ForceUnground();
                 playerCon.GetComponent<Animator>().SetTrigger(playerCon.jumpParam);
             }
 

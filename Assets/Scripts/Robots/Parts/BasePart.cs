@@ -112,7 +112,10 @@ public class BasePart : MonoBehaviour
         {
             if (collision.gameObject.CompareTag("Ground"))
             {
-                Explode();
+                if (rb.velocity.y < 0.5f)
+                {
+                    Explode();
+                }
             }
         }
     }

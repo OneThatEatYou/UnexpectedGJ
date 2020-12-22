@@ -195,97 +195,71 @@ public class RobotBuilder : MonoBehaviour
     {
         //spawn screws based on max hp of each parts
 
-        Screw screwScript = screwPrefab.GetComponent<Screw>();
-        int numberOfScrews = Mathf.CeilToInt(part.maxHealth / screwScript.maxHealth);
+        //Screw screwScript = screwPrefab.GetComponent<Screw>();
+        int numberOfScrews = part.maxHealth;
         int numberOfFakes = numberOfScrews;
         //the first sprite renderer found in child will be used in rendering queue
         string spriteSortingLayer = part.GetComponentInChildren<SpriteRenderer>().sortingLayerName;
         int spriteSortingOrder = part.GetComponentInChildren<SpriteRenderer>().sortingOrder - 1;
-
-        //List<int> spawnedScrewPos = new List<int>();
         var screwSpawnPosList = part.screwSpawnPos.ToList();
         BasePart.ScrewSpawnPos spawnPos;
 
-        for (int i = 0; i < numberOfScrews; i++)
+        void SpawnScrew(bool isReal)
         {
-            GameObject screw = Instantiate(screwPrefab, part.transform);
+            GameObject screw;
+            if (isReal)
+            {
+                screw = Instantiate(screwPrefab, part.transform);
+            }
+            else
+            {
+                screw = Instantiate(fakeScrewPrefab, part.transform);
+            }
             Screw thisScrew = screw.GetComponent<Screw>();
             SpriteRenderer[] rend = screw.GetComponentsInChildren<SpriteRenderer>();
 
+            //set the sorting queue for shining and normal screw sprites
             for (int k = 0; k < rend.Length; k++)
             {
                 rend[k].sortingLayerName = spriteSortingLayer;
                 rend[k].sortingOrder = spriteSortingOrder - k;
             }
 
+            //place the screw in correct position
             int j = Random.Range(0, screwSpawnPosList.Count);
             spawnPos = screwSpawnPosList[j];
             screwSpawnPosList.RemoveAt(j);
-
-            //Debug.Log($"{part.name} generated j of {j}");
             thisScrew.connectedPart = part;
             thisScrew.unscrewDir = spawnPos.unscrewDir;
-            Vector2 localPos = spawnPos.screwPos;
+            screw.transform.localPosition = spawnPos.screwPos;
 
+            //set orientation of screw
             switch (thisScrew.unscrewDir)
             {
                 case UnscrewDirection.Left:
-                    localPos.x += thisScrew.threadLength;
+                    //default orientation
                     break;
                 case UnscrewDirection.Right:
-                    localPos.x -= thisScrew.threadLength;
-                    Vector3 angle = screw.transform.eulerAngles + new Vector3(0, 0, 180);
-                    screw.transform.rotation = Quaternion.Euler(angle);
+                    //flip horizontally
+                    screw.transform.localScale = new Vector2(-1, 1);
                     break;
             }
+        }
 
-            screw.transform.localPosition = localPos;
-            thisScrew.startXPos = localPos.x;
+        for (int i = 0; i < numberOfScrews; i++)
+        {
+            SpawnScrew(true);
         }
 
         for (int i = 0; i < numberOfFakes; i++)
         {
-            GameObject screw = Instantiate(fakeScrewPrefab, part.transform);
-            Screw thisScrew = screw.GetComponent<Screw>();
-            SpriteRenderer[] rend = screw.GetComponentsInChildren<SpriteRenderer>();
-
-            for (int k = 0; k < rend.Length; k++)
-            {
-                rend[k].sortingLayerName = spriteSortingLayer;
-                rend[k].sortingOrder = spriteSortingOrder - k;
-            }
-
-            int j = Random.Range(0, screwSpawnPosList.Count);
-            spawnPos = screwSpawnPosList[j];
-            screwSpawnPosList.RemoveAt(j);
-
-            //Debug.Log($"{part.name} generated j of {j}");
-            thisScrew.connectedPart = part;
-            thisScrew.unscrewDir = spawnPos.unscrewDir;
-            Vector2 localPos = spawnPos.screwPos;
-
-            switch (thisScrew.unscrewDir)
-            {
-                case UnscrewDirection.Left:
-                    localPos.x += thisScrew.threadLength;
-                    break;
-                case UnscrewDirection.Right:
-                    localPos.x -= thisScrew.threadLength;
-                    Vector3 angle = screw.transform.eulerAngles + new Vector3(0, 0, 180);
-                    screw.transform.rotation = Quaternion.Euler(angle);
-                    break;
-            }
-
-            screw.transform.localPosition = localPos;
-            thisScrew.startXPos = localPos.x;
+            SpawnScrew(false);
         }
     }
 
     //instantiate the part into the scene and assign it in RobotController
     BasePart SpawnPart(SpawnablePart obj, RobotController controller, Vector3 pos, bool childOfBody = false)
     {
-        Debug.Log($"Spawning {obj.name}");
-
         GameObject go;
         if (childOfBody)
         {

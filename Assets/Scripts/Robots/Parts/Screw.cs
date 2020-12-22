@@ -4,24 +4,23 @@ using UnityEngine;
 
 public class Screw : MonoBehaviour
 {
-    [HideInInspector] public BasePart connectedPart;
+    [ReadOnly] public BasePart connectedPart;
     public bool isFake = false;
-
+    [Tooltip("Number of hits to detatch")]
+    public int maxHealth;
     [Tooltip("Time taken to move screw to target pos")]
     public float unscrewTime;
     public float threadLength;
     public UnscrewDirection unscrewDir;
-    [HideInInspector] public float startXPos;
     public string unscrewedLayer;
     public string unscrewedSortingLayer = "Middleground";
-
-    public int maxHealth;
-    int currentHealth;
-
     public AudioClip detachSFX;
 
     Rigidbody2D rb;
     SpriteRenderer[] sprites;
+    float startXPos;
+    int currentHealth;
+
 
     private void Awake()
     {
@@ -32,11 +31,7 @@ public class Screw : MonoBehaviour
     private void Start()
     {
         currentHealth = maxHealth;
-
-        if (!connectedPart)
-        {
-            startXPos = transform.localPosition.x;
-        }
+        startXPos = transform.localPosition.x;
     }
 
     public void Unscrew()
@@ -73,8 +68,6 @@ public class Screw : MonoBehaviour
         Vector2 currentPos = startPos;
         float t = 0;
 
-        //Debug.Log($"healthPrecent: {damagePercent}, startPos: {startPos}, targetPos: {targetPos}");
-        //Debug.Log($"transform.position.x: {transform.position.x}, startXPos: {startXPos}, moveDistance: {moveDistance}");
         //lerp to target
         while (transform.localPosition.x != targetPos)
         {
@@ -115,7 +108,7 @@ public class Screw : MonoBehaviour
 
             if (!isFake)
             {
-                connectedPart.TakeDamage(maxHealth);
+                connectedPart.TakeDamage(1);
             }
         }
         else
@@ -129,7 +122,7 @@ public class Screw : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.black;
-        Gizmos.DrawLine(transform.position, transform.position - new Vector3(threadLength, 0));
+        Gizmos.DrawLine(transform.position, transform.position + new Vector3(threadLength, 0));
     }
 }
 public enum UnscrewDirection

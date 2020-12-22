@@ -151,6 +151,47 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    public void PlaySlowMo(float slowIn, float slowStay, float slowOut, float slowTimeScale)
+    {
+        if (Time.timeScale != 1)
+        { return; }
+
+        StartCoroutine(StartSlowMo());
+
+        IEnumerator StartSlowMo()
+        {
+            float t = 0;
+            float tScale = Time.timeScale;
+
+            while (t < slowIn)
+            {
+                //decrease time scale
+                float p = Mathf.Sin(Mathf.PI / 2 * t / slowIn);
+                Time.timeScale = Mathf.Lerp(tScale, slowTimeScale, p);
+                t += Time.unscaledDeltaTime;
+                t = Mathf.Clamp(t, 0, slowIn);
+
+                yield return null;
+            }
+            Time.timeScale = slowTimeScale;
+
+            yield return new WaitForSecondsRealtime(slowStay);
+
+            t = 0;
+            while (t < slowOut)
+            {
+                //increase time scale
+                float p = Mathf.Sin(Mathf.PI / 2 * t / slowOut);
+                Time.timeScale = Mathf.Lerp(slowTimeScale, 1, p);
+                t += Time.unscaledDeltaTime;
+                t = Mathf.Clamp(t, 0, slowOut);
+
+                yield return null;
+            }
+            Time.timeScale = 1;
+        }
+    }
+
     /*
     public void SpawnRobot()
     {

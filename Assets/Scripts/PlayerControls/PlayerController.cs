@@ -176,8 +176,7 @@ public class PlayerController : MonoBehaviour
 
         lastShootTime = Time.time;
         CameraAimController.instance.Shoot();
-        StartCoroutine(StartSlowMo());
-
+        BattleManager.Instance.PlaySlowMo(slowIn, slowStay, slowOut, slowTimeScale);
         AudioManager.PlayAudioAtPosition(shootSFX, transform.position, AudioManager.sfxMixerGroup);
 
         //StartCoroutine(DisplayShootCooldown());
@@ -195,37 +194,6 @@ public class PlayerController : MonoBehaviour
         //        yield return null;
         //    }
         //}
-
-        IEnumerator StartSlowMo()
-        {
-            float t = 0;
-            float tScale = Time.timeScale;
-
-            while (t < slowIn)
-            {
-                //decrease time scale
-                float p = Mathf.Sin(Mathf.PI/2 * t / slowIn);
-                Time.timeScale = Mathf.Lerp(tScale, slowTimeScale, t);
-                t += Time.unscaledDeltaTime;
-
-                yield return null;
-            }
-            Time.timeScale = slowTimeScale;
-
-            yield return new WaitForSecondsRealtime(slowStay);
-
-            t = 0;
-            while (t < slowOut)
-            {
-                //increase time scale
-                float p = Mathf.Cos(Mathf.PI / 2 * t / slowOut);
-                Time.timeScale = Mathf.Lerp(slowTimeScale, 1, t);
-                t += Time.unscaledDeltaTime;
-
-                yield return null;
-            }
-            Time.timeScale = 1;
-        }
     }   
     
     private void Slap()

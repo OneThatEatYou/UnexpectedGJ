@@ -7,6 +7,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 462794464359906907, guid: 77d7ac8370de5354fa9c440473d498a0,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: -0.06
+      objectReference: {fileID: 0}
     - target: {fileID: 1168801146837862457, guid: 77d7ac8370de5354fa9c440473d498a0,
         type: 3}
       propertyPath: m_Sprite
@@ -46,12 +51,12 @@ PrefabInstance:
     - target: {fileID: 2134507218196524059, guid: 77d7ac8370de5354fa9c440473d498a0,
         type: 3}
       propertyPath: screwSpawnPos.Array.data[2].screwPos.x
-      value: 0.75
+      value: 0.65
       objectReference: {fileID: 0}
     - target: {fileID: 2134507218196524059, guid: 77d7ac8370de5354fa9c440473d498a0,
         type: 3}
       propertyPath: screwSpawnPos.Array.data[3].screwPos.x
-      value: 0.75
+      value: 0.65
       objectReference: {fileID: 0}
     - target: {fileID: 2134507218196524059, guid: 77d7ac8370de5354fa9c440473d498a0,
         type: 3}
@@ -61,7 +66,7 @@ PrefabInstance:
     - target: {fileID: 2134507218196524059, guid: 77d7ac8370de5354fa9c440473d498a0,
         type: 3}
       propertyPath: screwSpawnPos.Array.data[4].screwPos.x
-      value: 0.75
+      value: 0.65
       objectReference: {fileID: 0}
     - target: {fileID: 2134507218196524059, guid: 77d7ac8370de5354fa9c440473d498a0,
         type: 3}
@@ -137,7 +142,7 @@ PrefabInstance:
     - target: {fileID: 7817702771048333004, guid: 77d7ac8370de5354fa9c440473d498a0,
         type: 3}
       propertyPath: m_Name
-      value: Redhand_R
+      value: Redhand_L
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77d7ac8370de5354fa9c440473d498a0, type: 3}

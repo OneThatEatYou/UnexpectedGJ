@@ -106,7 +106,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6548121903135414926}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -5, z: 0}
+  m_LocalPosition: {x: 0, y: -4.48, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7128142428386208474}
@@ -121,7 +121,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7128142428386208474}
-  - component: {fileID: 462794464359906907}
+  - component: {fileID: 633042406985597981}
   - component: {fileID: 1311023977767816534}
   - component: {fileID: 2134507218196524059}
   m_Layer: 12
@@ -147,8 +147,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &462794464359906907
-BoxCollider2D:
+--- !u!60 &633042406985597981
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -160,19 +160,23 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -2.125}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.86956525}
-    oldSize: {x: 1.5, y: 5.75}
-    newSize: {x: 3, y: 4}
-    adaptiveTilingThreshold: 0.5
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.5, y: 5.75}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.37, y: 0.54}
+      - {x: -0.67, y: 0}
+      - {x: -0.67, y: -4.44}
+      - {x: 0.8, y: -4.44}
+      - {x: 0.8, y: 0.54}
 --- !u!50 &1311023977767816534
 Rigidbody2D:
   serializedVersion: 4
@@ -206,7 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ac9af1d4583e4b42a3b56b13c195ac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 6
+  maxHealth: 2
   cooldownRange: {x: 3, y: 8}
   initialCooldownRange: {x: 1, y: 3}
   deathParticle: {fileID: 4917040865964609858, guid: 682b2b53a2a58e7429554084ec1cdccb,
@@ -214,15 +218,15 @@ MonoBehaviour:
   explosionSFX: {fileID: 8300000, guid: 8e62989d797442340aa4f6bf0032c4d7, type: 3}
   screwSpawnPos:
   - unscrewDir: 0
-    screwPos: {x: -0.75, y: -0.12}
+    screwPos: {x: -0.74, y: -0.02}
   - unscrewDir: 0
-    screwPos: {x: -0.75, y: -0.82}
+    screwPos: {x: -0.68, y: -0.7}
   - unscrewDir: 0
-    screwPos: {x: -0.75, y: -1.52}
+    screwPos: {x: -0.68, y: -1.4}
   - unscrewDir: 0
-    screwPos: {x: -0.75, y: -2.22}
+    screwPos: {x: -0.68, y: -2.1}
   - unscrewDir: 0
-    screwPos: {x: -0.75, y: -2.92}
+    screwPos: {x: -0.68, y: -2.8}
   angleOffset: 90
   unreachableRad: 4.6
   targetLayer:

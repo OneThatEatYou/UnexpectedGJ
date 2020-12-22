@@ -7,6 +7,56 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 633042406985597981, guid: e0abbc0613928fc4bb52bda05d639ee3,
+        type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 633042406985597981, guid: e0abbc0613928fc4bb52bda05d639ee3,
+        type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[1].x
+      value: -0.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 633042406985597981, guid: e0abbc0613928fc4bb52bda05d639ee3,
+        type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[1].y
+      value: -4.44
+      objectReference: {fileID: 0}
+    - target: {fileID: 633042406985597981, guid: e0abbc0613928fc4bb52bda05d639ee3,
+        type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[2].x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 633042406985597981, guid: e0abbc0613928fc4bb52bda05d639ee3,
+        type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[3].y
+      value: 0.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 633042406985597981, guid: e0abbc0613928fc4bb52bda05d639ee3,
+        type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].x
+      value: -0.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 633042406985597981, guid: e0abbc0613928fc4bb52bda05d639ee3,
+        type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].y
+      value: 0.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 633042406985597981, guid: e0abbc0613928fc4bb52bda05d639ee3,
+        type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[3].x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 633042406985597981, guid: e0abbc0613928fc4bb52bda05d639ee3,
+        type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[4].x
+      value: 0.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 633042406985597981, guid: e0abbc0613928fc4bb52bda05d639ee3,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: -0.13
+      objectReference: {fileID: 0}
     - target: {fileID: 1168801146837862457, guid: e0abbc0613928fc4bb52bda05d639ee3,
         type: 3}
       propertyPath: m_Sprite
@@ -26,22 +76,22 @@ PrefabInstance:
     - target: {fileID: 2134507218196524059, guid: e0abbc0613928fc4bb52bda05d639ee3,
         type: 3}
       propertyPath: screwSpawnPos.Array.data[1].screwPos.x
-      value: 0.75
+      value: 0.68
       objectReference: {fileID: 0}
     - target: {fileID: 2134507218196524059, guid: e0abbc0613928fc4bb52bda05d639ee3,
         type: 3}
       propertyPath: screwSpawnPos.Array.data[2].screwPos.x
-      value: 0.75
+      value: 0.68
       objectReference: {fileID: 0}
     - target: {fileID: 2134507218196524059, guid: e0abbc0613928fc4bb52bda05d639ee3,
         type: 3}
       propertyPath: screwSpawnPos.Array.data[4].screwPos.x
-      value: 0.75
+      value: 0.68
       objectReference: {fileID: 0}
     - target: {fileID: 2134507218196524059, guid: e0abbc0613928fc4bb52bda05d639ee3,
         type: 3}
       propertyPath: screwSpawnPos.Array.data[3].screwPos.x
-      value: 0.75
+      value: 0.68
       objectReference: {fileID: 0}
     - target: {fileID: 2134507218196524059, guid: e0abbc0613928fc4bb52bda05d639ee3,
         type: 3}
@@ -77,6 +127,11 @@ PrefabInstance:
         type: 3}
       propertyPath: redAngleEnd.z
       value: -70
+      objectReference: {fileID: 0}
+    - target: {fileID: 2134507218196524059, guid: e0abbc0613928fc4bb52bda05d639ee3,
+        type: 3}
+      propertyPath: screwSpawnPos.Array.data[0].screwPos.y
+      value: -0.03
       objectReference: {fileID: 0}
     - target: {fileID: 7128142428386208474, guid: e0abbc0613928fc4bb52bda05d639ee3,
         type: 3}

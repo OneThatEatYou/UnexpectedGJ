@@ -40,7 +40,7 @@ public class Spring : MonoBehaviour
             PlayerController playerCon;
             if (col.gameObject.TryGetComponent(out playerCon))
             {
-                playerCon.DisableSlowFall(1);
+                playerCon.DisableSlowFall(0.5f);
                 playerCon.ForceUnground();
                 playerCon.GetComponent<Animator>().SetTrigger(playerCon.jumpParam);
             }

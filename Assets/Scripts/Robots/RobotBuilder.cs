@@ -5,31 +5,6 @@ using UnityEngine;
 
 public class RobotBuilder : MonoBehaviour
 {
-    public LayerMask groundLayer;
-    public Vector2 playGroundXRange;
-
-    [Space]
-
-    public GameObject screwPrefab;
-    public GameObject fakeScrewPrefab;
-
-    [Space]
-
-    public List<SpawnablePart> spawnableParts = new List<SpawnablePart>();
-    [ReadOnly] public List<SpawnablePart> heads = new List<SpawnablePart>();
-    [ReadOnly] public List<SpawnablePart> bodies = new List<SpawnablePart>();
-    [ReadOnly] public List<SpawnablePart> l_Hands = new List<SpawnablePart>();
-    [ReadOnly] public List<SpawnablePart> r_Hands = new List<SpawnablePart>();
-    [ReadOnly] public List<SpawnablePart> legs = new List<SpawnablePart>();
-
-
-    [Space]
-    
-    public Vector2 spawnPos = Vector2.zero;
-
-    [Header("Debugging")]
-    public bool spawnOnStart = false;
-
     #region Singleton
     private static RobotBuilder instance;
     public static RobotBuilder Instance
@@ -57,16 +32,23 @@ public class RobotBuilder : MonoBehaviour
     }
     #endregion
 
-    private void Start()
-    {
-        if (spawnOnStart)
-        {
-            GenerateRobot();
-        }
-    }
+    public LayerMask groundLayer;
+    public Vector2 playGroundXRange;
+    [Space]
+    public GameObject screwPrefab;
+    public GameObject fakeScrewPrefab;
+    [Space]
+    public List<SpawnablePart> spawnableParts = new List<SpawnablePart>();
+    [ReadOnly] public List<SpawnablePart> heads = new List<SpawnablePart>();
+    [ReadOnly] public List<SpawnablePart> bodies = new List<SpawnablePart>();
+    [ReadOnly] public List<SpawnablePart> l_Hands = new List<SpawnablePart>();
+    [ReadOnly] public List<SpawnablePart> r_Hands = new List<SpawnablePart>();
+    [ReadOnly] public List<SpawnablePart> legs = new List<SpawnablePart>();
+    [Space]
+    public Vector2 spawnPos = Vector2.zero;
 
     [ContextMenu("Generate Robot")]
-    public virtual RobotController GenerateRobot()
+    public virtual RobotController GenerateRobot(float initDelay)
     {
         Debug.Log("Generating a robot.");
 
@@ -159,7 +141,7 @@ public class RobotBuilder : MonoBehaviour
             SpawnScrews(handPart_R);
         }
 
-        newController.Initialize();
+        newController.DelayInit(initDelay);
 
         return newController;
     }

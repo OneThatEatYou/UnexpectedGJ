@@ -13,6 +13,6 @@ public class Debugger : MonoBehaviour
             Destroy(curRobot.gameObject);
         }
 
-        RobotBuilder.Instance.GenerateRobot();
+        BattleManager.Instance.SpawnRobot();
     }
 }

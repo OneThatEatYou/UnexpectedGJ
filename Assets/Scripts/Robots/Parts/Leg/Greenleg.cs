@@ -10,11 +10,13 @@ public class Greenleg : Leg
     public float minDistance = 3f;
     public LayerMask playerLayer;
 
-    //[Header("Animation settings")]
+    [Header("Animation settings")]
     //public float angle;
     //public float variation;
     //public float startDuration = 0.5f;
     //public float halfPeriod = 0.1f;
+    public string directionParam = "Dir";
+    public string strollSpeedParam = "Speed";
 
     public override void Action()
     {
@@ -38,9 +40,10 @@ public class Greenleg : Leg
         Vector2 dir = (target - startPos).normalized;
         ShakeScreen(dir, localMoveTime);
 
-        //Debug.Log($"Distance: {distance}, LocalMoveTime: {localMoveTime}");
+        anim.SetFloat(strollSpeedParam, 1);
+        anim.SetFloat(directionParam, dir.x);
 
-        //Controller.body.PlayBodyShake(angle, variation, localMoveTime, startDuration, halfPeriod);
+        //Debug.Log($"Distance: {distance}, LocalMoveTime: {localMoveTime}");
 
         while (t != localMoveTime)
         {
@@ -49,10 +52,10 @@ public class Greenleg : Leg
             t += Time.deltaTime;
             t = Mathf.Clamp(t, 0, localMoveTime);
 
-            //Debug.Log(t);
-
             yield return null;
         }
+
+        anim.SetFloat(strollSpeedParam, 0);
 
         StartCoroutine(ReadyLegAfterCooldown());
     }

@@ -13,7 +13,7 @@ public class ExplosiveBullet : BulletController
     float elapsedTime;
     bool isActivated;
 
-    public override void OnCollide(Collision2D collision)
+    public override void OnCollision(Collider2D collision)
     {
         Collider2D col = Physics2D.OverlapCircle(rb.position, explosionRad, effectLayer);
 
@@ -23,7 +23,9 @@ public class ExplosiveBullet : BulletController
             player.Die();
         }
 
-        base.OnCollide(collision);
+        base.OnCollision(collision);
+
+        Destroy(gameObject);
     }
 
     public override void Move()

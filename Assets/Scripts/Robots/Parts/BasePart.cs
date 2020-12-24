@@ -49,10 +49,13 @@ public class BasePart : MonoBehaviour
     bool isReady = true;
     public bool IsReady { get { return isReady; } }
 
+    protected Animator anim;
+
     public virtual void Awake()
     {
         controller = GetComponentInParent<RobotController>();
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     public virtual void Start()

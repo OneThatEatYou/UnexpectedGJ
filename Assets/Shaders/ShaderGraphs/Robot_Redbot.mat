@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Redbot
+  m_Name: Robot_Redbot
   m_Shader: {fileID: -6465566751694194690, guid: 2ad8db13f0c083f46885d82fbb8778f2,
     type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
@@ -21,13 +21,15 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Emission:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: d9db7a4ed9ca3c74fb7ecf890fd607f4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 6ccb71e26546cc747805463e6a4515a9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Floats: []
+    m_Floats:
+    - Vector1_3E0A6DAF: 0.2
+    - Vector1_60AE8A71: 0.5
     m_Colors:
     - Color_1A4E3FA6: {r: 2.1613452, g: 0, b: 0.18755448, a: 1}

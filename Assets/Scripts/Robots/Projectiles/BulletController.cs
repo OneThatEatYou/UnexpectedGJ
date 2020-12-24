@@ -31,8 +31,8 @@ public class BulletController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        
-        OnCollide(collision);
+
+        OnCollision(collision.collider);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -40,7 +40,7 @@ public class BulletController : MonoBehaviour
         if (collision.CompareTag(ignoreTriggerTag))
         { return; }
 
-        OnTrigger(collision);
+        OnCollision(collision);
     }
 
     public virtual void Move()
@@ -48,14 +48,7 @@ public class BulletController : MonoBehaviour
         rb.MovePosition(rb.position - (Vector2)(transform.up * moveSpeed * Time.fixedDeltaTime));
     }
 
-    public virtual void OnCollide(Collision2D collision)
-    {
-        AudioManager.PlayAudioAtPosition(collideTriggerSFX, transform.position, AudioManager.sfxMixerGroup);
-        Instantiate(deathParticle, transform.position, Quaternion.identity);
-        Destroy(gameObject);
-    }
-
-    public virtual void OnTrigger(Collider2D collision)
+    public virtual void OnCollision(Collider2D collision)
     {
         AudioManager.PlayAudioAtPosition(collideTriggerSFX, transform.position, AudioManager.sfxMixerGroup);
         Instantiate(deathParticle, transform.position, Quaternion.identity);

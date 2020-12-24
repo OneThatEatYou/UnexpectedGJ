@@ -32,17 +32,7 @@ public class CameraController : MonoBehaviour
         //}
     }
 
-    public static void GenerateImpulse(Vector2 direction, float amplitudeGain, float frequencyGain)
-    {
-        impulseSource.m_ImpulseDefinition.m_AmplitudeGain = amplitudeGain;
-        impulseSource.m_ImpulseDefinition.m_FrequencyGain = frequencyGain;
-        impulseSource.m_ImpulseDefinition.m_TimeEnvelope.m_AttackTime = 0.1f;
-        impulseSource.m_ImpulseDefinition.m_TimeEnvelope.m_SustainTime = 0.4f;
-        impulseSource.m_ImpulseDefinition.m_TimeEnvelope.m_DecayTime = 0.9f;
-        impulseSource.GenerateImpulse(direction);
-    }
-
-    public static void GenerateImpulse(Vector2 direction, float amplitudeGain, float frequencyGain, float attackTime, float sustainTime, float decayTime)
+    public static void GenerateImpulse(Vector2 direction, float amplitudeGain, float frequencyGain, float attackTime = 0.1f, float sustainTime = 0.4f, float decayTime = 0.9f)
     {
         impulseSource.m_ImpulseDefinition.m_AmplitudeGain = amplitudeGain;
         impulseSource.m_ImpulseDefinition.m_FrequencyGain = frequencyGain;
@@ -52,17 +42,7 @@ public class CameraController : MonoBehaviour
         impulseSource.GenerateImpulse(direction);
     }
 
-    public static void GenerateImpulse(float amplitudeGain, float frequencyGain)
-    {
-        impulseSource.m_ImpulseDefinition.m_AmplitudeGain = amplitudeGain;
-        impulseSource.m_ImpulseDefinition.m_FrequencyGain = frequencyGain;
-        impulseSource.m_ImpulseDefinition.m_TimeEnvelope.m_AttackTime = 0.1f;
-        impulseSource.m_ImpulseDefinition.m_TimeEnvelope.m_SustainTime = 0.4f;
-        impulseSource.m_ImpulseDefinition.m_TimeEnvelope.m_DecayTime = 0.9f;
-        impulseSource.GenerateImpulse(1f);
-    }
-
-    public static void GenerateImpulse(float amplitudeGain, float frequencyGain, float attackTime, float sustainTime, float decayTime)
+    public static void GenerateImpulse(float amplitudeGain, float frequencyGain, float attackTime = 0.1f, float sustainTime = 0.4f, float decayTime = 0.9f)
     {
         impulseSource.m_ImpulseDefinition.m_AmplitudeGain = amplitudeGain;
         impulseSource.m_ImpulseDefinition.m_FrequencyGain = frequencyGain;

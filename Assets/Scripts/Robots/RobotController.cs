@@ -36,15 +36,34 @@ public class RobotController : MonoBehaviour
     [HideInInspector] public List<Head> heads = new List<Head>();
     [HideInInspector] public List<Leg> legs = new List<Leg>();
     List<BasePart> nonDetachables = new List<BasePart>();
+    [ReadOnly] public float height;
 
     [ReadOnly][SerializeField] int maxHealth;
     [ReadOnly][SerializeField] int currentHealth;
     float spawnInTime;
 
     [HideInInspector] public bool canMove = true;
+    bool isInitialized = false;
+    bool queuedInit = false;
+
+    private void Start()
+    {
+        if (!queuedInit)
+        {
+            Debug.Log("Forcing init");
+            Initialize();
+            foreach (BasePart part in parts.ToList())
+            {
+                AssignPartToPartList(part);
+            }
+        }
+    }
 
     void Update()
     {
+        if (!isInitialized)
+        { return; }
+
         foreach (BasePart part in parts)
         {
             //check if part still exists because it may be destroyed while running the loop
@@ -97,11 +116,10 @@ public class RobotController : MonoBehaviour
         }
     }
 
-    public void Initialize()
+    void Initialize()
     {
         maxHealth = GetMaxHealth();
         currentHealth = maxHealth;
-        //Debug.Log(currentHealth);
 
         //set health for each parts
         foreach (BasePart part in parts.ToList())
@@ -119,6 +137,19 @@ public class RobotController : MonoBehaviour
         }
 
         spawnInTime = Time.time;
+        isInitialized = true;
+    }
+
+    public void DelayInit(float initDelay)
+    {
+        queuedInit = true;
+        StartCoroutine(DelayInit());
+
+        IEnumerator DelayInit()
+        {
+            yield return new WaitForSeconds(initDelay);
+            Initialize();
+        }
     }
 
     public void AssignPartToPartList(BasePart part)
@@ -179,7 +210,7 @@ public class RobotController : MonoBehaviour
         {
             yield return new WaitForSeconds(delay);
 
-            RobotBuilder.Instance.GenerateRobot();
+            BattleManager.Instance.SpawnRobot();
 
             DestroyAllParts();
             Destroy(gameObject);

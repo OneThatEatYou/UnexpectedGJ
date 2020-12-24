@@ -26,6 +26,9 @@ TextureImporter:
   - first:
       213: 9077263144127707232
     second: Greenbot_7
+  - first:
+      213: 5733312062847282821
+    second: Greenbot_8
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -127,7 +130,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 24
-        y: 134
+        y: 114
         width: 32
         height: 26
       alignment: 9
@@ -148,7 +151,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 22
-        y: 86
+        y: 66
         width: 36
         height: 48
       alignment: 0
@@ -169,7 +172,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 9
-        y: 93
+        y: 73
         width: 13
         height: 41
       alignment: 9
@@ -190,7 +193,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 58
-        y: 93
+        y: 73
         width: 13
         height: 41
       alignment: 9
@@ -211,11 +214,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 5
-        y: 67
+        y: 50
         width: 70
-        height: 19
+        height: 15
       alignment: 9
-      pivot: {x: 0.5, y: 0.36842105}
+      pivot: {x: 0.5, y: 0.4666667}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -232,11 +235,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 5
-        y: 47
+        y: 34
         width: 70
-        height: 19
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        height: 15
+      alignment: 9
+      pivot: {x: 0.5, y: 0.46666667}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -252,12 +255,12 @@ TextureImporter:
       name: Greenbot_6
       rect:
         serializedVersion: 2
-        x: 4
-        y: 27
+        x: 5
+        y: 18
         width: 70
-        height: 19
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        height: 15
+      alignment: 9
+      pivot: {x: 0.5, y: 0.46666667}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -273,12 +276,12 @@ TextureImporter:
       name: Greenbot_7
       rect:
         serializedVersion: 2
-        x: 4
-        y: 7
+        x: 5
+        y: 2
         width: 70
-        height: 19
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        height: 15
+      alignment: 9
+      pivot: {x: 0.5, y: 0.46666667}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

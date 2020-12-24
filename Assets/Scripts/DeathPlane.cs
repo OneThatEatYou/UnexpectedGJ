@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DeathPlane : MonoBehaviour
 {
+    //game object is tagged with IgnoreTrigger so that bullet does not explode on spawn
+
     PlayerController player;
 
     private void OnTriggerExit2D(Collider2D collision)

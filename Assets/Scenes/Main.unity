@@ -314,6 +314,9 @@ MonoBehaviour:
   healthBeatParam: BeatRate
   maxBeatRate: 1
   deathPanelGO: {fileID: 1746746656}
+  robotSpawnPos: {x: 0, y: 20}
+  initDelay: 1
+  robotFallTime: 0.5
 --- !u!4 &79606423
 Transform:
   m_ObjectHideFlags: 0
@@ -4968,7 +4971,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4a29685380b67264f95cb9f72288a8ba, type: 2}
   - {fileID: 11400000, guid: c3b74b3531885c74dbb9adc03da2a831, type: 2}
   spawnPos: {x: 0, y: 0}
-  spawnOnStart: 0
 --- !u!4 &1531065524
 Transform:
   m_ObjectHideFlags: 0

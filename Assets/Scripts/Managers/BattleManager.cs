@@ -54,6 +54,10 @@ public class BattleManager : MonoBehaviour
     Animator[] healthAnims;
     RectTransform hpPanel;
     public GameObject deathPanelGO;
+    [Space]
+    public Vector2 robotSpawnPos;
+    public float initDelay;
+    public float robotFallTime;
 
     bool isDead = false;
 
@@ -197,16 +201,35 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    /*
     public void SpawnRobot()
     {
-        RobotController robot = RobotBuilder.Instance.GenerateRobot();
+        RobotController robot = RobotBuilder.Instance.GenerateRobot(initDelay);
 
-        Vector2 pos;
-        foreach (Head head in robot.heads)
+        //animate robot spawning
+        StartCoroutine(LandRobot(robotFallTime));
+
+        IEnumerator LandRobot(float fallTime)
         {
-            head.
+            Vector2 startPos = robotSpawnPos;
+            Vector2 endPos = robot.transform.position;
+            robot.transform.position = startPos;
+            float t = 0;
+
+            while ((Vector2)robot.transform.position != endPos)
+            {
+                robot.transform.position = Vector2.Lerp(startPos, endPos, 1 - Mathf.Cos(Mathf.PI / 2 * (t / fallTime)));
+                t += Time.deltaTime;
+                t = Mathf.Clamp(t, 0, fallTime);
+                yield return null;
+            }
+
+            //camera shake
+            CameraController.GenerateImpulse(-Vector2.up, 10, 10, 0, 0.6f, 0.9f);
         }
     }
-    */
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(robotSpawnPos, 1);
+    }
 }

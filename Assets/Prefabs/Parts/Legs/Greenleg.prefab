@@ -92,6 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8021234898818700204}
   - component: {fileID: 4168073638366412887}
+  - component: {fileID: 5669742784907083929}
   - component: {fileID: 8890307227556403889}
   m_Layer: 12
   m_Name: Greenleg
@@ -136,6 +137,25 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &5669742784907083929
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7044498576880928698}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c4d407ea88b830b4f9a8334982ca122f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &8890307227556403889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,3 +180,5 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 8192
+  directionParam: Dir
+  strollSpeedParam: Speed

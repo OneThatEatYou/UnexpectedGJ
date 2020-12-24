@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class LaserBeam : BulletController
 {
-    public override void OnTrigger(Collider2D collision)
+    public override void OnCollision(Collider2D collision)
     {
-        base.OnTrigger(collision);
+        base.OnCollision(collision);
 
         PlayerController player;
         if (collision.TryGetComponent(out player))

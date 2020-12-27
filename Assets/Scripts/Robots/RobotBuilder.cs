@@ -46,9 +46,10 @@ public class RobotBuilder : MonoBehaviour
     [ReadOnly] public List<SpawnablePart> legs = new List<SpawnablePart>();
     [Space]
     public Vector2 spawnPos = Vector2.zero;
+    public float initDelay = 1.5f;
 
     [ContextMenu("Generate Robot")]
-    public virtual RobotController GenerateRobot(float initDelay)
+    public virtual RobotController GenerateRobot()
     {
         Debug.Log("Generating a robot.");
 

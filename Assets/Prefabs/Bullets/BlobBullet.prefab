@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 1137096021906249128}
   - component: {fileID: 8465476564214289726}
   - component: {fileID: 8419964492143414308}
-  - component: {fileID: 9164050780038654441}
+  - component: {fileID: 8296834660436579185}
+  - component: {fileID: 6162735922762480752}
   m_Layer: 12
-  m_Name: GreenBullet
+  m_Name: BlobBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42,15 +43,15 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2347107865142992510}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 3
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_AngularDrag: 0
+  m_GravityScale: 3
+  m_Material: {fileID: 6200000, guid: 88403da56d60cf847bdbd4279cf3aac7, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -70,8 +71,27 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.7
---- !u!114 &9164050780038654441
+  m_Radius: 0.4
+--- !u!95 &8296834660436579185
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2347107865142992510}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 01817f1e409b75442b6859694322fca4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6162735922762480752
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -80,23 +100,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 2347107865142992510}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b16801fb6f7d6e46a84e8a42208d2b1, type: 3}
+  m_Script: {fileID: 11500000, guid: a7f38e4949c43f64ab70bed476fafadd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ignoreTriggerTag: IgnoreTrigger
-  moveSpeed: 10
-  deathParticle: {fileID: 4917040865964609858, guid: 682b2b53a2a58e7429554084ec1cdccb,
+  moveSpeed: 30
+  dir: {x: 0, y: 0}
+  deathParticle: {fileID: 3128619107200759883, guid: 01d20e8c2245ae5408b3fd276b888384,
     type: 3}
+  manualDestroyParticle: 1
   effectLayer:
     serializedVersion: 2
     m_Bits: 8192
   collideTriggerSFX: {fileID: 8300000, guid: 679c3c3cb60b47243b06f6a7f598ca22, type: 3}
   target: {fileID: 0}
-  explosionRad: 1.8
-  maxAngleDelta: 0
-  accel: 100
-  followTime: 3
-  animationStartTime: 0
+  rebounceNum: 3
 --- !u!1 &2534204924968491563
 GameObject:
   m_ObjectHideFlags: 0
@@ -121,13 +139,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2534204924968491563}
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1137096021906249128}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1759922191403967820
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -167,7 +185,7 @@ SpriteRenderer:
   m_SortingLayerID: -50599889
   m_SortingLayer: 7
   m_SortingOrder: 2
-  m_Sprite: {fileID: -7629276125989968675, guid: 315d94a66b6543a46a4111c43ca835d0,
+  m_Sprite: {fileID: 1309489925366895345, guid: 891424204f900d646a7b93ae5e38de38,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

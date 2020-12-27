@@ -8,6 +8,7 @@ public class Hand_Projectile : Hand
 {
     public Transform bulletSpawnPos;
     public GameObject bulletPrefab;
+    public bool rotateBullet = true;
 
     public float aimSpeed = 50f;
     public float maxSpeed = 20f;
@@ -51,6 +52,7 @@ public class Hand_Projectile : Hand
         {
             dir = Controller.GenerateRandomPosition() - (Vector2)transform.position;
         }
+        dir.Normalize();
         float targetAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + angleOffset;
         //Debug.Log($"target angle: {targetAngle}");
         Quaternion targetQuaternion = Quaternion.Euler(0, 0, targetAngle);
@@ -113,7 +115,7 @@ public class Hand_Projectile : Hand
         s1.Insert(shootWait, transform.DOScale(Vector2.one, expandRTime).SetEase(Ease.OutBack));
 
         yield return new WaitForSeconds(shootWait);
-        Shoot();
+        Shoot(dir);
 
         //recoil
         Sequence s2 = DOTween.Sequence();
@@ -123,11 +125,21 @@ public class Hand_Projectile : Hand
         StartCoroutine(StartCooldown(1f));
     }
 
-    void Shoot()
+    void Shoot(Vector2 dir)
     {
         AudioManager.PlayAudioAtPosition(shootSFX, bulletSpawnPos.position, AudioManager.sfxMixerGroup);
 
-        BulletController bul = Instantiate(bulletPrefab, bulletSpawnPos.position, transform.rotation).GetComponent<BulletController>();
+        BulletController bul;
+        if (rotateBullet)
+        {
+            bul = Instantiate(bulletPrefab, bulletSpawnPos.position, transform.rotation).GetComponent<BulletController>();
+        }
+        else
+        {
+            bul = Instantiate(bulletPrefab, bulletSpawnPos.position, Quaternion.identity).GetComponent<BulletController>();
+        }
+        bul.dir = dir;
+
         if (Controller.PlayerPos)
         {
             bul.target = Controller.PlayerPos;

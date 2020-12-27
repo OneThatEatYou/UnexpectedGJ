@@ -15,4 +15,14 @@ public class Debugger : MonoBehaviour
 
         BattleManager.Instance.SpawnRobot();
     }
+
+    public void KillPlayer()
+    {
+        PlayerController con;
+        con = FindObjectOfType<PlayerController>();
+        if (con)
+        {
+            con.Die(true);
+        }
+    }
 }

@@ -31,10 +31,10 @@ public class RobotController : MonoBehaviour
     }
 
     public List<BasePart> parts = new List<BasePart>();
-    [HideInInspector] public Body body;
-    [HideInInspector] public List<Hand> hands = new List<Hand>();
-    [HideInInspector] public List<Head> heads = new List<Head>();
-    [HideInInspector] public List<Leg> legs = new List<Leg>();
+    [ReadOnly] public Body body;
+    [ReadOnly] public List<Hand> hands = new List<Hand>();
+    [ReadOnly] public List<Head> heads = new List<Head>();
+    [ReadOnly] public List<Leg> legs = new List<Leg>();
     List<BasePart> nonDetachables = new List<BasePart>();
     [ReadOnly] public float height;
 
@@ -50,12 +50,7 @@ public class RobotController : MonoBehaviour
     {
         if (!queuedInit)
         {
-            Debug.Log("Forcing init");
-            Initialize();
-            foreach (BasePart part in parts.ToList())
-            {
-                AssignPartToPartList(part);
-            }
+            ForceInit();
         }
     }
 
@@ -152,6 +147,41 @@ public class RobotController : MonoBehaviour
         }
     }
 
+    private void ForceInit()
+    {
+        Debug.Log("Forcing init");
+        //update parts list
+        foreach (BasePart part in parts.ToList())
+        {
+            if (!part)
+            {
+                parts.Remove(part);
+            }
+        }
+        foreach (Hand hand in hands.ToList())
+        {
+            if (!hand)
+            {
+                hands.Remove(hand);
+            }
+        }
+        foreach (Head head in heads.ToList())
+        {
+            if (!head)
+            {
+                heads.Remove(head);
+            }
+        }
+        foreach (Leg leg in legs.ToList())
+        {
+            if (!leg)
+            {
+                legs.Remove(leg);
+            }
+        }
+        Initialize();
+    }
+
     public void AssignPartToPartList(BasePart part)
     {
         parts.Add(part);
@@ -204,7 +234,7 @@ public class RobotController : MonoBehaviour
         }
 
         //spawn new robot
-        StartCoroutine(SpawnNewRobot(3f));
+        StartCoroutine(SpawnNewRobot(5f));
 
         IEnumerator SpawnNewRobot(float delay)
         {

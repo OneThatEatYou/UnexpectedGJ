@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2347107865142992510}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.94, y: 0.84, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3113802554099757812}
@@ -96,8 +96,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ignoreTriggerTag: IgnoreTrigger
   moveSpeed: 8
+  dir: {x: 0, y: 0}
   deathParticle: {fileID: 4917040865964609858, guid: 682b2b53a2a58e7429554084ec1cdccb,
     type: 3}
+  manualDestroyParticle: 0
   effectLayer:
     serializedVersion: 2
     m_Bits: 8192
@@ -108,6 +110,8 @@ MonoBehaviour:
   accel: 7
   followTime: 4
   animationStartTime: 0.3
+  offset: {x: 0, y: -0.16}
+  size: {x: 0.91, y: 1.65}
 --- !u!95 &2841866437180765307
 Animator:
   serializedVersion: 3

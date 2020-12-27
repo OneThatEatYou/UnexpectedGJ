@@ -9,6 +9,9 @@ public class ExplosiveBullet : BulletController
     public float accel;
     public float followTime = 3f;
     public float animationStartTime;
+    [Header("Steppable Area")]
+    public Vector2 offset;
+    public Vector2 size;
 
     float elapsedTime;
     bool isActivated;
@@ -32,11 +35,11 @@ public class ExplosiveBullet : BulletController
     {
         elapsedTime += Time.fixedDeltaTime;
         float v = Mathf.Clamp(accel * elapsedTime, 0, moveSpeed);
-        rb.MovePosition(rb.position - (Vector2)(transform.up * v * Time.fixedDeltaTime));
+        base.Move();
 
         if (elapsedTime < followTime && target)
         {
-            Vector3 dir = target.position - transform.position;
+            dir = target.position - transform.position;
             Quaternion targetRotation = Quaternion.FromToRotation(-Vector2.up, dir);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, maxAngleDelta * Time.fixedDeltaTime * (1 - elapsedTime / followTime));
         }

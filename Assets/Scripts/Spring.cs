@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Spring : MonoBehaviour
 {
-    public float bounceFore = 30;
+    public float bounceForce = 30;
     public float cooldown = 1;
     public AudioClip bounceSFX;
     public string isActivatedParam = "isActivated";
@@ -24,13 +24,17 @@ public class Spring : MonoBehaviour
         }
 
         Launch(collision);
-        StartCoroutine(actAndDeact(cooldown));
+
+        if (cooldown > 0)
+        {
+            StartCoroutine(actAndDeact(cooldown));
+        }
     }
 
     void Launch(Collision2D col)
     {
         Rigidbody2D rb = col.gameObject.GetComponent<Rigidbody2D>();
-
+ 
         if (!rb || rb.velocity.y > 0.1f)
         { return; }
 
@@ -45,7 +49,7 @@ public class Spring : MonoBehaviour
                 playerCon.GetComponent<Animator>().SetTrigger(playerCon.jumpParam);
             }
 
-            rb.AddForce(bounceFore * Vector2.up, ForceMode2D.Impulse);
+            rb.AddForce(bounceForce * Vector2.up, ForceMode2D.Impulse);
             AudioManager.PlayAudioAtPosition(bounceSFX, transform.position, AudioManager.sfxMixerGroup);
         }
     }

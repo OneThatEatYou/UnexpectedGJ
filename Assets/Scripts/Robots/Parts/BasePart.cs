@@ -86,6 +86,7 @@ public class BasePart : MonoBehaviour
         transform.parent = null;
 
         isDisabled = true;
+        StopAllCoroutines();
     }
 
     public virtual void Explode()

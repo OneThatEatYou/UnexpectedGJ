@@ -29,7 +29,7 @@ public class BattleManager : MonoBehaviour
     }
     #endregion
 
-    public GameObject playerPrefab;
+    [Header("Player HP")]
     public int maxHealth;
     int currentHealth;
     public int CurrentHealth
@@ -50,13 +50,23 @@ public class BattleManager : MonoBehaviour
     public string healthBeatParam = "BeatRate";
     public float maxBeatRate = 1f;
 
+    [Header("Respawn")]
+    public GameObject playerPrefab;
+    public GameObject eggPrefab;
+    public Vector2 eggSpawnPos;
+    public Vector2 targetLaunchPos;
+    public float launchDuration;
+    public float launchTorque;
+    public float respawnJumpForce;
+    
+    [Header("Hp UI")]
+    public GameObject deathPanelGO;
     Image[] healthImages;           //left most health has index 0
     Animator[] healthAnims;
     RectTransform hpPanel;
-    public GameObject deathPanelGO;
-    [Space]
+
+    [Header("Robot Respawn")]
     public Vector2 robotSpawnPos;
-    public float initDelay;
     public float robotFallTime;
 
     bool isDead = false;
@@ -127,7 +137,7 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
-            RespawnPlayer();
+            SpawnEgg(3);
         }
     }
 
@@ -140,24 +150,30 @@ public class BattleManager : MonoBehaviour
         GameManager.Instance.canRestart = true;
     }
 
-    //public reference needs to be removed after debugging
-    public void RespawnPlayer()
+    public void SpawnEgg(float delay)
     {
-        if (!isDead)
-        {
-            Debug.Log("Player is not dead");
-            return; 
-        }
-        Debug.Log("Respawning");
+        StartCoroutine(Spawn());
 
-        StartCoroutine(Respawn());
-
-        IEnumerator Respawn()
+        IEnumerator Spawn()
         {
-            yield return new WaitForSeconds(3);
-            Instantiate(playerPrefab, Vector2.zero, Quaternion.identity);
-            isDead = false;
+            yield return new WaitForSeconds(delay);
+            Rigidbody2D eggrb = Instantiate(eggPrefab, eggSpawnPos, Quaternion.identity).GetComponent<Rigidbody2D>();
+            Vector2 vel;
+            Vector2 dis = targetLaunchPos - eggSpawnPos;
+            vel.x = dis.x / launchDuration;
+            vel.y = dis.y / launchDuration - 0.5f * eggrb.gravityScale * Physics2D.gravity.y * launchDuration;
+            eggrb.velocity = vel;
+            eggrb.AddTorque(launchTorque);
+
+            //Debug.Log($"Spawning egg with velocity: {vel}");
         }
+    }
+
+    public void RespawnPlayer(Vector2 spawnPos)
+    {
+        GameObject playerGO = Instantiate(playerPrefab, spawnPos, Quaternion.identity);
+        playerGO.GetComponent<Rigidbody2D>().AddForce(respawnJumpForce * Vector2.up, ForceMode2D.Impulse);
+        isDead = false;
     }
 
     public void PlaySlowMo(float slowIn, float slowStay, float slowOut, float slowTimeScale)
@@ -203,7 +219,7 @@ public class BattleManager : MonoBehaviour
 
     public void SpawnRobot()
     {
-        RobotController robot = RobotBuilder.Instance.GenerateRobot(initDelay);
+        RobotController robot = RobotBuilder.Instance.GenerateRobot();
 
         //animate robot spawning
         StartCoroutine(LandRobot(robotFallTime));
@@ -231,5 +247,10 @@ public class BattleManager : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(robotSpawnPos, 1);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(eggSpawnPos, 1);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(targetLaunchPos, 1);
     }
 }

@@ -74,6 +74,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         lastShootTime = -shootCooldown;
+        TriggerInvisibility(2);
     }
 
     void Update()
@@ -302,10 +303,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void Die()
+    public void Die(bool ignoreInvi = false)
     {
         //dont die if invisible
-        if (isInvi)
+        if (isInvi && !ignoreInvi)
         { return; }
 
         BattleManager.Instance.TakeDamage();

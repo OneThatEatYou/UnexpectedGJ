@@ -10,11 +10,14 @@ public class BulletController : MonoBehaviour
     [Space]
 
     public float moveSpeed;
+    [HideInInspector] public Vector2 dir;
     public GameObject deathParticle;
+    [Tooltip("Input more than 0 to destroy the particle after the input number of seconds.")]
+    public float manualDestroyParticle = 0;
     public LayerMask effectLayer;
     public AudioClip collideTriggerSFX;
 
-    public Transform target;
+    [HideInInspector] public Transform target;
     protected Rigidbody2D rb;
     protected Animator anim;
 
@@ -24,7 +27,12 @@ public class BulletController : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    private void FixedUpdate()
+    public virtual void Start()
+    {
+
+    }
+
+    public virtual void FixedUpdate()
     {
         Move();
     }
@@ -45,12 +53,19 @@ public class BulletController : MonoBehaviour
 
     public virtual void Move()
     {
+        //default movement based on object's rotation
         rb.MovePosition(rb.position - (Vector2)(transform.up * moveSpeed * Time.fixedDeltaTime));
     }
 
     public virtual void OnCollision(Collider2D collision)
     {
+        //play audio and spawn particle
         AudioManager.PlayAudioAtPosition(collideTriggerSFX, transform.position, AudioManager.sfxMixerGroup);
-        Instantiate(deathParticle, transform.position, Quaternion.identity);
+        GameObject obj = Instantiate(deathParticle, transform.position, Quaternion.identity);
+
+        if (manualDestroyParticle > 0)
+        {
+            Destroy(obj, manualDestroyParticle);
+        }
     }
 }

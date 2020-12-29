@@ -317,6 +317,12 @@ public class PlayerController : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public void Squash(Collider2D col)
+    {
+        Die(true);
+        Debug.Log($"Player is squashed by {col.name}");
+    }
+
     public void TriggerInvisibility(float recoverTime)
     {
         if (isInvi)

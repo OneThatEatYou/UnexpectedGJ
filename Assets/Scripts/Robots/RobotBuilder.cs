@@ -36,7 +36,6 @@ public class RobotBuilder : MonoBehaviour
     public Vector2 playGroundXRange;
     [Space]
     public GameObject screwPrefab;
-    public GameObject fakeScrewPrefab;
     [Space]
     public List<SpawnablePart> spawnableParts = new List<SpawnablePart>();
     [ReadOnly] public List<SpawnablePart> heads = new List<SpawnablePart>();
@@ -189,16 +188,17 @@ public class RobotBuilder : MonoBehaviour
 
         void SpawnScrew(bool isReal)
         {
-            GameObject screw;
-            if (isReal)
-            {
-                screw = Instantiate(screwPrefab, part.transform);
-            }
-            else
-            {
-                screw = Instantiate(fakeScrewPrefab, part.transform);
-            }
+            GameObject screw = Instantiate(screwPrefab, part.transform);
             Screw thisScrew = screw.GetComponent<Screw>();
+            if (!isReal)
+            {
+                thisScrew.isFake = true;
+
+                //destroy the first child object with sprite renderer
+                SpriteRenderer shine = screw.GetComponentInChildren<SpriteRenderer>();
+                Destroy(shine.gameObject);
+            }
+
             SpriteRenderer[] rend = screw.GetComponentsInChildren<SpriteRenderer>();
 
             //set the sorting queue for shining and normal screw sprites
@@ -209,6 +209,16 @@ public class RobotBuilder : MonoBehaviour
             }
 
             //place the screw in correct position
+            if (screwSpawnPosList.Count == 0)
+            {
+                Debug.LogWarning($"No available screw slot found in {part.name}. Returning.");
+                if (isReal)
+                { 
+                    part.maxHealth--; 
+                }
+                return;
+            }
+
             int j = Random.Range(0, screwSpawnPosList.Count);
             spawnPos = screwSpawnPosList[j];
             screwSpawnPosList.RemoveAt(j);

@@ -17,15 +17,12 @@ public class Screw : MonoBehaviour
     public AudioClip detachSFX;
 
     Rigidbody2D rb;
-    SpriteRenderer[] sprites;
     float startXPos;
     int currentHealth;
-
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        sprites = GetComponentsInChildren<SpriteRenderer>();
     }
 
     private void Start()
@@ -90,12 +87,12 @@ public class Screw : MonoBehaviour
     private void Detach()
     {
         //Debug.Log("Detached a screw");
-
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
         //sets collision layer
         gameObject.layer = LayerMask.NameToLayer(unscrewedLayer);
         //set sprite layer
+        SpriteRenderer[] sprites = GetComponentsInChildren<SpriteRenderer>();
         foreach (SpriteRenderer rend in sprites)
         {
             rend.sortingLayerName = unscrewedSortingLayer;

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1209384589119735300}
   - component: {fileID: 7586038544227236770}
   - component: {fileID: 2757769322538539119}
-  - component: {fileID: 3442732923324522611}
+  - component: {fileID: 563216021835187411}
   m_Layer: 12
   m_Name: Greenbody
   m_TagString: Untagged
@@ -81,7 +81,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &3442732923324522611
+--- !u!114 &563216021835187411
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -90,7 +90,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2187245724895662610}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d524bee9ad303743a592a38bb661b5b, type: 3}
+  m_Script: {fileID: 11500000, guid: 8943de9fbe432e04a854ac294e0406a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 3
@@ -136,6 +136,7 @@ MonoBehaviour:
     screwPos: {x: 2.25, y: -1.9}
   - unscrewDir: 1
     screwPos: {x: 2.25, y: -2.55}
+  cooldownMultiplier: 0.8
 --- !u!1 &4683259877750308492
 GameObject:
   m_ObjectHideFlags: 0

@@ -51,6 +51,9 @@ public class BasePart : MonoBehaviour
 
     protected Animator anim;
 
+    public delegate float OnGenerateCooldown(float input);
+    public OnGenerateCooldown onGenerateCooldown;
+
     public virtual void Awake()
     {
         controller = GetComponentInParent<RobotController>();
@@ -108,6 +111,11 @@ public class BasePart : MonoBehaviour
     public virtual void GenerateCooldown()
     {
         cooldown = Random.Range(cooldownRange.x, cooldownRange.y);
+
+        if (onGenerateCooldown != null)
+        {
+            cooldown = onGenerateCooldown(cooldown);
+        }
     }
 
     public virtual void OnCollisionEnter2D(Collision2D collision)
@@ -116,10 +124,7 @@ public class BasePart : MonoBehaviour
         {
             if (collision.gameObject.CompareTag("Ground"))
             {
-                if (rb.velocity.y < 0.5f)
-                {
-                    Explode();
-                }
+                Explode();
             }
         }
     }

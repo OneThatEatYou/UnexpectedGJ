@@ -1,25 +1,22 @@
 fileFormatVersion: 2
-guid: 2ed9964f82ffbee4c8f2acc706356d14
+guid: 64017cc515f7ab54aa848187407c97b3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5306501987304934638
-    second: BackgroundTileset_0
+      213: -7133821286624349490
+    second: GasStream_0
   - first:
-      213: -289038533832729146
-    second: BackgroundTileset_1
+      213: -4687968808792698710
+    second: GasStream_1
   - first:
-      213: 8589662592058232969
-    second: BackgroundTileset_2
+      213: 1768682652541073799
+    second: GasStream_2
   - first:
-      213: -3678565376124798810
-    second: BackgroundTileset_3
+      213: -2236589470479215995
+    second: GasStream_3
   - first:
-      213: 3688205950161616019
-    second: BackgroundTileset_4
-  - first:
-      213: -2974319747403318798
-    second: BackgroundTileset_5
+      213: -2072209356022602035
+    second: GasStream_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -117,11 +114,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BackgroundTileset_0
+      name: GasStream_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 80
+        y: 0
         width: 16
         height: 16
       alignment: 0
@@ -131,18 +128,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eec0731417b74a940800000000000000
-      internalID: 5306501987304934638
+      spriteID: ec2b2af16539ffc90800000000000000
+      internalID: -7133821286624349490
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackgroundTileset_1
+      name: GasStream_1
       rect:
         serializedVersion: 2
         x: 16
-        y: 80
+        y: 0
         width: 16
         height: 16
       alignment: 0
@@ -152,18 +149,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6cd10802cf02dfbf0800000000000000
-      internalID: -289038533832729146
+      spriteID: aa0dcc1d43df0feb0800000000000000
+      internalID: -4687968808792698710
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackgroundTileset_2
+      name: GasStream_2
       rect:
         serializedVersion: 2
         x: 32
-        y: 80
+        y: 0
         width: 16
         height: 16
       alignment: 0
@@ -173,18 +170,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 98097141e9c943770800000000000000
-      internalID: 8589662592058232969
+      spriteID: 7893b19608f9b8810800000000000000
+      internalID: 1768682652541073799
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackgroundTileset_3
+      name: GasStream_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 64
+        x: 48
+        y: 0
         width: 16
         height: 16
       alignment: 0
@@ -194,18 +191,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6a8b701c74c13fcc0800000000000000
-      internalID: -3678565376124798810
+      spriteID: 58215bff9b906f0e0800000000000000
+      internalID: -2236589470479215995
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackgroundTileset_4
+      name: GasStream_4
       rect:
         serializedVersion: 2
-        x: 16
-        y: 64
+        x: 64
+        y: 0
         width: 16
         height: 16
       alignment: 0
@@ -215,29 +212,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 39c7ddd45c32f2330800000000000000
-      internalID: 3688205950161616019
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BackgroundTileset_5
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 64
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2f97897c2f719b6d0800000000000000
-      internalID: -2974319747403318798
+      spriteID: dc6280ad1980e33e0800000000000000
+      internalID: -2072209356022602035
       vertices: []
       indices: 
       edges: []

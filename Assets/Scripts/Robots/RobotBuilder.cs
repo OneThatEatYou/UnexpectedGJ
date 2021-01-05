@@ -196,7 +196,7 @@ public class RobotBuilder : MonoBehaviour
 
                 //destroy the first child object with sprite renderer
                 SpriteRenderer shine = screw.GetComponentInChildren<SpriteRenderer>();
-                Destroy(shine.gameObject);
+                DestroyImmediate(shine.gameObject);
             }
 
             SpriteRenderer[] rend = screw.GetComponentsInChildren<SpriteRenderer>();

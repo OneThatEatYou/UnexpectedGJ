@@ -12,21 +12,33 @@ public class ExplosiveBullet : BulletController
     [Header("Steppable Area")]
     public Vector2 offset;
     public Vector2 size;
+    [Header("Particle")]
+    public ParticleSystem exhaustPS;
 
     float elapsedTime;
     bool isActivated;
 
     public override void OnCollision(Collider2D collision)
     {
-        Collider2D col = Physics2D.OverlapCircle(rb.position, explosionRad, effectLayer);
+        Collider2D[] colls = Physics2D.OverlapCircleAll(rb.position, explosionRad, effectLayer);
 
         PlayerController player;
-        if (col && col.TryGetComponent(out player))
+        foreach (var col in colls)
         {
-            player.Die();
+            //check if player
+            if (col.TryGetComponent(out player))
+            {
+                player.Die();
+                break;
+            }
         }
 
         base.OnCollision(collision);
+
+        //destroy smoke particle after its lifetime
+        exhaustPS.transform.parent = null;
+        exhaustPS.Stop();
+        Destroy(exhaustPS.gameObject, exhaustPS.main.startLifetime.constantMax);
 
         Destroy(gameObject);
     }
@@ -47,6 +59,7 @@ public class ExplosiveBullet : BulletController
         if (elapsedTime > animationStartTime && !isActivated && anim)
         {
             anim.SetBool("isActive", true);
+            exhaustPS.Play();
             isActivated = true;
         }
     }

@@ -57,49 +57,7 @@ public class Hand_Projectile : Hand
         //Debug.Log($"target angle: {targetAngle}");
         Quaternion targetQuaternion = Quaternion.Euler(0, 0, targetAngle);
 
-        //check if player is in unreachable range
-        //if currently in red range, can only rotate within red range
-        //if (Physics2D.OverlapCircle(transform.position, unreachableRad, targetLayer))
-        //{
-        //    if (Mathf.DeltaAngle(transform.localEulerAngles.z, redAngleEnd.z) < 0 && Mathf.DeltaAngle(transform.localEulerAngles.z, redAngleStart.z) > 0)
-        //    {
-        //        //currently in minor arc
-        //        //Debug.Log($"Player in minor arc. Angle difference: {Mathf.DeltaAngle(transform.localEulerAngles.z, redAngleEnd.z)}");
-
-        //        if (arcType == RedArcType.Minor)
-        //        {
-        //            if (Mathf.DeltaAngle(targetAngle, redAngleEnd.z) > 0 || Mathf.DeltaAngle(targetAngle, redAngleStart.z) < 0)
-        //            {
-        //                //target is in major arc
-        //                //abort
-        //                //Debug.Log("Target is in major arc. Aborting.");
-        //                StartCoroutine(StartCooldown(0.5f));
-        //                yield break;
-        //            }
-        //        }
-        //    }
-        //    else
-        //    {
-        //        //currently in major arc
-        //        //Debug.Log($"Player in major arc. Angle difference: {Mathf.DeltaAngle(transform.localEulerAngles.z, redAngleEnd.z)}");
-
-        //        if (arcType == RedArcType.Major)
-        //        {
-        //            if (Mathf.DeltaAngle(targetAngle, redAngleEnd.z) < 0 && Mathf.DeltaAngle(targetAngle, redAngleStart.z) > 0)
-        //            {
-        //                //target is in minor arc
-        //                //abort
-        //                //Debug.Log("Target is in minor arc. Aborting.");
-        //                StartCoroutine(StartCooldown(0.5f));
-        //                yield break;
-        //            }
-        //        }
-        //    }
-        //}
-
         //play looping sfx
-
-        //Debug.Log("start rotating");
 
         //linear
         float t = Quaternion.Angle(transform.rotation, targetQuaternion) / 180 * aimSpeed;
@@ -122,7 +80,7 @@ public class Hand_Projectile : Hand
         s2.Append(transform.DOLocalMove(transform.up * recoil, recoilTime).SetRelative());
         s2.Append(transform.DOLocalMove(transform.up * -recoil, recoilRTime).SetRelative().SetEase(Ease.InQuad));
 
-        StartCoroutine(StartCooldown(1f));
+        GenerateCooldown();
     }
 
     void Shoot(Vector2 dir)

@@ -73,7 +73,6 @@ public class BasePart : MonoBehaviour
 
     public virtual void Action()
     {
-        GenerateCooldown();
         isReady = false;
     }
 
@@ -108,6 +107,9 @@ public class BasePart : MonoBehaviour
         Destroy(gameObject);
     }
 
+    /// <summary>
+    /// this needs to be called manually after every action to set isReady to true after cooldown
+    /// </summary>
     public virtual void GenerateCooldown()
     {
         cooldown = Random.Range(cooldownRange.x, cooldownRange.y);
@@ -116,6 +118,18 @@ public class BasePart : MonoBehaviour
         {
             cooldown = onGenerateCooldown(cooldown);
         }
+
+        StartCoroutine(StartCooldown());
+    }
+
+    /// <summary>
+    /// Makes isReady to true after waiting for cooldown
+    /// </summary>
+    public IEnumerator StartCooldown()
+    {
+        yield return new WaitForSeconds(Cooldown);
+
+        isReady = true;
     }
 
     public virtual void OnCollisionEnter2D(Collision2D collision)
@@ -127,13 +141,6 @@ public class BasePart : MonoBehaviour
                 Explode();
             }
         }
-    }
-
-    public IEnumerator StartCooldown(float multiplier)
-    {
-        yield return new WaitForSeconds(Cooldown * multiplier);
-
-        isReady = true;
     }
 
     public void PlayCrouchSeq(float crouchAmount, float crouchTime, float holdTime, float releaseTime)

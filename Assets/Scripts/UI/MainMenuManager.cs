@@ -7,8 +7,10 @@ public class MainMenuManager : MonoBehaviour
 {
     public Slider masterVolSlider, bgmVolSlider, sfxVolSlider;
     public AudioClip[] sfxClips;
-
     AudioSource audioSource;
+
+    public GameObject[] catalogPages;
+    int currentPageInt = 0;
 
     private void Awake()
     {
@@ -73,5 +75,33 @@ public class MainMenuManager : MonoBehaviour
     float AttenToVol(float atten)
     {
         return Mathf.Pow(10, atten / 20);
+    }
+
+    public void NextCatalogPage()
+    {
+        //check if next page exist
+        if (currentPageInt + 1 < catalogPages.Length)
+        {
+            catalogPages[currentPageInt].SetActive(false);
+            catalogPages[++currentPageInt].SetActive(true);
+        }
+        else
+        {
+            Debug.LogWarning($"No page after {catalogPages[currentPageInt]} exists.");
+        }
+    }
+
+    public void PrevCatalogPage()
+    {
+        //check if next page exist
+        if (currentPageInt - 1 >= 0)
+        {
+            catalogPages[currentPageInt].SetActive(false);
+            catalogPages[--currentPageInt].SetActive(true);
+        }
+        else
+        {
+            Debug.LogWarning($"No page before {catalogPages[currentPageInt]} exists.");
+        }
     }
 }

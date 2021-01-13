@@ -49,8 +49,7 @@ public class LaserHead : Head
             //Debug.Log(targetAngle);
         }
 
-        StartCoroutine(StartCooldown(1f));
-        //Debug.Log(name + " shot a laser beam");
+        GenerateCooldown();
     }
 
     public override void OnDrawGizmosSelected()

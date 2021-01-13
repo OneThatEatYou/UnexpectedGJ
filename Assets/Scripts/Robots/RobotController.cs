@@ -59,11 +59,14 @@ public class RobotController : MonoBehaviour
         if (!isInitialized)
         { return; }
 
+        //action not called unless controller has been spawned for initial cooldown.
+        //isReady for each part starts true, so the first action will be called immediately after 'initial cooldown'
         foreach (BasePart part in parts)
         {
             //check if part still exists because it may be destroyed while running the loop
             if (part && Time.time < spawnInTime + part.InitialCooldown)
             {
+                //bug: all part's initial cooldown needs to be reached before action.
                 return;
             }
         }
@@ -122,7 +125,6 @@ public class RobotController : MonoBehaviour
             if (part)
             {
                 part.CurrentHealth = part.maxHealth;
-                part.GenerateCooldown();
             }
             else
             {

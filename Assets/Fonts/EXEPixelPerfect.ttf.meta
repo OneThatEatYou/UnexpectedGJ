@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: 1d0e18b120e9e974a9c4efe3433f7ccd
+guid: fe4b668f82c678844a1669d9af6d9f3d
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
-  fontSize: 12
+  fontSize: 16
   forceTextureCase: 0
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: pix PixelFJVerdana12pt
+  fontName: EXEPixelPerfect
   fontNames:
-  - pix PixelFJVerdana12pt
+  - EXEPixelPerfect
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

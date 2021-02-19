@@ -97,6 +97,7 @@ MonoBehaviour:
   maxHealth: 3
   cooldownRange: {x: 10, y: 20}
   initialCooldownRange: {x: 1, y: 3}
+  nutsDropped: 30
   deathParticle: {fileID: 4917040865964609858, guid: 682b2b53a2a58e7429554084ec1cdccb,
     type: 3}
   explosionSFX: {fileID: 8300000, guid: 8e62989d797442340aa4f6bf0032c4d7, type: 3}
@@ -135,15 +136,15 @@ MonoBehaviour:
     screwPos: {x: 4, y: -2.4}
   centerOffset: {x: 0, y: 0}
   knockbackHRad: 5.82
-  knockbackSRad: 7.74
+  knockbackSRad: 10.63
   knockbackForce: 30
   blastRend: {fileID: 2498264186102252900}
   minOuterRad: 0.8
   chargeDur: 8
-  holdDur: 2
+  holdDur: 1
   numOfLoops: 2
-  blastWait: 0.4
-  blastDur: 0.3
+  blastWait: 0.2
+  blastDur: 0.15
   blastColour: {r: 3.9533494, g: 0.6830394, b: 0.6002468, a: 0.8666667}
 --- !u!1 &3533958731392157778
 GameObject:

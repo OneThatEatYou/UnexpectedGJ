@@ -66,7 +66,7 @@ public class Redbody : Body
                     force = Mathf.Lerp(knockbackForce, knockbackForce * 0.5f, Mathf.Sin(Mathf.PI / 2 * ((dis.magnitude - knockbackHRad) / (knockbackSRad - knockbackHRad)))) * dir;
                 }
                 rb.AddForce(force, ForceMode2D.Impulse);
-                Debug.Log($"Knocked back {rb.name} with force: {force}");
+                //Debug.Log($"Knocked back {rb.name} with force: {force}");
             }
         }
         GenerateCooldown();
@@ -89,7 +89,7 @@ public class Redbody : Body
         Sequence s = DOTween.Sequence();
         s.Append(blastMat.DOFloat(minOuterRad, "_OuterRadius", chargeDur).SetEase(Ease.OutSine));
         s.Insert(0, blastMat.DOColor(blastColour, "_Color", chargeDur * 0.9f).SetEase(Ease.InSine));
-        s.Insert(0, blastMat.DOFloat(0, "_InnerRadius", chargeDur).SetEase(Ease.InQuart));
+        s.Insert(0, blastMat.DOFloat(0, "_InnerRadius", chargeDur*0.7f).SetEase(Ease.InQuart));
         s.Append(blastMat.DOFloat(minOuterRad * 1.08f, "_OuterRadius", holdDur / numOfLoops).SetLoops(numOfLoops, LoopType.Yoyo).SetEase(Ease.OutSine));
         s.AppendInterval(blastWait);
         s.Append(blastMat.DOFloat(knockbackSRad, "_OuterRadius", blastDur).SetEase(Ease.OutCubic));

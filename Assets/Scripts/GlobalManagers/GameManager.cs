@@ -29,14 +29,18 @@ public class GameManager : MonoBehaviour
     }
 
     public AudioManager audioManager;
+    public InventoryManager inventoryManager;
 
     public bool canRestart = false;
     public static bool isPaused = false;
 
     private void Awake()
     {
+        //initialize audio manager
         audioManager = new AudioManager();
         audioManager.OnInit();
+        inventoryManager = new InventoryManager();
+        inventoryManager.OnInit();
     }
 
     private void Update()

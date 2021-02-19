@@ -69,6 +69,10 @@ public class BattleManager : MonoBehaviour
     public Vector2 robotSpawnPos;
     public float robotFallTime;
 
+    [Header("Nut")]
+    public GameObject nutPrefab;
+    public int nutCache;
+
     bool isDead = false;
 
     private void Awake()
@@ -133,7 +137,7 @@ public class BattleManager : MonoBehaviour
 
         if (CurrentHealth <= 0)
         {
-            GameOver();
+            EndBattle();
         }
         else
         {
@@ -141,13 +145,15 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    void GameOver()
+    void EndBattle()
     {
         Debug.Log("Player is dead");
 
         deathPanelGO.SetActive(true);
-
         GameManager.Instance.canRestart = true;
+
+        Debug.Log($"Ending battle. Player earned {nutCache} nuts!");
+        GameManager.Instance.inventoryManager.nuts += nutCache;
     }
 
     public void SpawnEgg(float delay)
@@ -242,6 +248,27 @@ public class BattleManager : MonoBehaviour
             //camera shake
             CameraController.GenerateImpulse(-Vector2.up, 10, 10, 0, 0.6f, 0.9f);
         }
+    }
+
+    public void DropNuts(Vector2 spawnPos, int nutsDropped)
+    {
+        float maxNutForce = 10;
+
+        if (nutPrefab)
+        {
+            for (int i = 0; i < nutsDropped; i++)
+            {
+                GameObject nut = Instantiate(nutPrefab, spawnPos, Quaternion.identity);
+                Rigidbody2D nutrb = nut.GetComponent<Rigidbody2D>();
+                nutrb.AddForce(new Vector2(Random.Range(-maxNutForce, maxNutForce), Random.Range(0, maxNutForce)), ForceMode2D.Impulse);
+                nut.transform.eulerAngles = new Vector3(0, Random.Range(-180, 180), 0);
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Nut prefab not assigned");
+        }
+
     }
 
     private void OnDrawGizmosSelected()

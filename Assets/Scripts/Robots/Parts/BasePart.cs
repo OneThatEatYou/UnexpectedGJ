@@ -23,6 +23,7 @@ public class BasePart : MonoBehaviour
     public float Cooldown { get { return cooldown; } }
     float initialCooldown;
     public float InitialCooldown { get { return initialCooldown; } }
+    public int nutsDropped = 0;
 
     [Space]
 
@@ -89,6 +90,8 @@ public class BasePart : MonoBehaviour
 
         isDisabled = true;
         StopAllCoroutines();
+
+        BattleManager.Instance.nutCache += nutsDropped;
     }
 
     public virtual void Explode()
@@ -96,13 +99,13 @@ public class BasePart : MonoBehaviour
         //explosion
         AudioManager.PlayAudioAtPosition(explosionSFX, transform.position, AudioManager.sfxMixerGroup);
         Instantiate(deathParticle, rb.worldCenterOfMass, Quaternion.identity);
-
         Controller.parts.Remove(this);
-
         //remove from specific part list?
 
         //screen shake
         CameraController.GenerateImpulse(7, 4);
+
+        BattleManager.Instance.DropNuts(transform.position, nutsDropped);
 
         Destroy(gameObject);
     }

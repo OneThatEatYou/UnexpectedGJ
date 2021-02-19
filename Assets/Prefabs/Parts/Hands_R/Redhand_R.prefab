@@ -127,6 +127,9 @@ MonoBehaviour:
   maxHealth: 2
   cooldownRange: {x: 5, y: 10}
   initialCooldownRange: {x: 1, y: 3}
+  nutsDropped: 10
+  nutPrefab: {fileID: 2808657535769691642, guid: 3275e3ad649358e49b4bae04394d3846,
+    type: 3}
   deathParticle: {fileID: 4917040865964609858, guid: 682b2b53a2a58e7429554084ec1cdccb,
     type: 3}
   explosionSFX: {fileID: 8300000, guid: 8e62989d797442340aa4f6bf0032c4d7, type: 3}
@@ -152,6 +155,7 @@ MonoBehaviour:
   bulletSpawnPos: {fileID: 8922607531605082672}
   bulletPrefab: {fileID: 2347107865142992510, guid: 303eebc0a8916024db208e7e70f52430,
     type: 3}
+  rotateBullet: 1
   aimSpeed: 4
   maxSpeed: 35
   shootWait: 0.8

@@ -31,7 +31,6 @@ public class GameManager : MonoBehaviour
     public AudioManager audioManager;
     public InventoryManager inventoryManager;
 
-    public bool canRestart = false;
     public static bool isPaused = false;
 
     private void Awake()
@@ -41,18 +40,6 @@ public class GameManager : MonoBehaviour
         audioManager.OnInit();
         inventoryManager = new InventoryManager();
         inventoryManager.OnInit();
-    }
-
-    private void Update()
-    {
-        if (canRestart)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-                canRestart = false;
-            }
-        }
     }
 
     public void ChangeScene(int sceneIndex)

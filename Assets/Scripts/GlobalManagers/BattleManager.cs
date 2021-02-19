@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class BattleManager : MonoBehaviour
 {
@@ -72,6 +74,7 @@ public class BattleManager : MonoBehaviour
     [Header("Nut")]
     public GameObject nutPrefab;
     public int nutCache;
+    public TextMeshProUGUI nutText;
 
     bool isDead = false;
 
@@ -150,7 +153,7 @@ public class BattleManager : MonoBehaviour
         Debug.Log("Player is dead");
 
         deathPanelGO.SetActive(true);
-        GameManager.Instance.canRestart = true;
+        nutText.text = nutCache.ToString();
 
         Debug.Log($"Ending battle. Player earned {nutCache} nuts!");
         GameManager.Instance.inventoryManager.nuts += nutCache;
@@ -268,7 +271,18 @@ public class BattleManager : MonoBehaviour
         {
             Debug.LogWarning("Nut prefab not assigned");
         }
+    }
 
+    //used by retry button
+    public void ReloadScene()
+    {
+        GameManager.Instance.ChangeScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    //used by return button
+    public void ReturnToMainMenu()
+    {
+        GameManager.Instance.ChangeScene(0);
     }
 
     private void OnDrawGizmosSelected()

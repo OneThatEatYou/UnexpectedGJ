@@ -56,6 +56,6 @@ public class Redleg : Leg
         Controller.body.PlayImpactSeq(Vector2.down * impactMagnitude, impactMagnitude, easeBackDuration);
 
         CameraController.GenerateImpulse(Vector2.down, 5, 5, 0, 0.3f, 0.5f);
-        StartCoroutine(ReadyLegAfterCooldown());
+        GenerateCooldown(cooldownRange);
     }
 }

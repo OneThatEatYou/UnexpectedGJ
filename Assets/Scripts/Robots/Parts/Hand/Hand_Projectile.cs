@@ -80,12 +80,12 @@ public class Hand_Projectile : Hand
         s2.Append(transform.DOLocalMove(transform.up * recoil, recoilTime).SetRelative());
         s2.Append(transform.DOLocalMove(transform.up * -recoil, recoilRTime).SetRelative().SetEase(Ease.InQuad));
 
-        GenerateCooldown();
+        GenerateCooldown(cooldownRange);
     }
 
     void Shoot(Vector2 dir)
     {
-        AudioManager.PlayAudioAtPosition(shootSFX, bulletSpawnPos.position, AudioManager.sfxMixerGroup);
+        PlayAudio(shootSFX, bulletSpawnPos.position);
 
         BulletController bul;
         if (rotateBullet)

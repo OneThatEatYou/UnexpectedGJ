@@ -37,9 +37,22 @@ public class Leg : BasePart
         Explode();
     }
 
-    public IEnumerator ReadyLegAfterCooldown()
+    //completely overwrite cooldown for leg. set Controller.canMove to true instead of isReady
+    public override void GenerateCooldown(Vector2 cdRange)
     {
-        yield return new WaitForSeconds(Cooldown);
+        float cd = Random.Range(cdRange.x, cdRange.y);
+        if (onGenerateCooldown != null)
+        {
+            cd = onGenerateCooldown(cd);
+        }
+
+        StartCoroutine(ReadyLegAfterCooldown(cd));
+    }
+
+    //let the robotController know that it can move after cooldown
+    public IEnumerator ReadyLegAfterCooldown(float cd)
+    {
+        yield return new WaitForSeconds(cd);
 
         Controller.canMove = true;
     }

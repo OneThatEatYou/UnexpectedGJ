@@ -21,8 +21,6 @@ public class BasePart : MonoBehaviour
     public Vector2 initialCooldownRange = new Vector2(1f, 3f);
     float cooldown;
     public float Cooldown { get { return cooldown; } }
-    float initialCooldown;
-    public float InitialCooldown { get { return initialCooldown; } }
     public int nutsDropped = 0;
 
     [Space]
@@ -47,7 +45,7 @@ public class BasePart : MonoBehaviour
     protected Rigidbody2D rb;
     bool isDisabled = false;
     public bool IsDisabled { get { return isDisabled; } }
-    bool isReady = true;
+    bool isReady = false;
     public bool IsReady { get { return isReady; } }
 
     protected Animator anim;
@@ -64,7 +62,7 @@ public class BasePart : MonoBehaviour
 
     public virtual void Start()
     {
-        initialCooldown = Random.Range(initialCooldownRange.x, initialCooldownRange.y);
+        
     }
 
     public virtual void Update()
@@ -97,7 +95,7 @@ public class BasePart : MonoBehaviour
     public virtual void Explode()
     {
         //explosion
-        AudioManager.PlayAudioAtPosition(explosionSFX, transform.position, AudioManager.sfxMixerGroup);
+        PlayAudio(explosionSFX, transform.position);
         Instantiate(deathParticle, rb.worldCenterOfMass, Quaternion.identity);
         Controller.parts.Remove(this);
         //remove from specific part list?
@@ -113,24 +111,24 @@ public class BasePart : MonoBehaviour
     /// <summary>
     /// this needs to be called manually after every action to set isReady to true after cooldown
     /// </summary>
-    public virtual void GenerateCooldown()
+    public virtual void GenerateCooldown(Vector2 cdRange)
     {
-        cooldown = Random.Range(cooldownRange.x, cooldownRange.y);
+        cooldown = Random.Range(cdRange.x, cdRange.y);
 
         if (onGenerateCooldown != null)
         {
             cooldown = onGenerateCooldown(cooldown);
         }
 
-        StartCoroutine(StartCooldown());
+        StartCoroutine(StartCooldown(cooldown));
     }
 
     /// <summary>
     /// Makes isReady to true after waiting for cooldown
     /// </summary>
-    public IEnumerator StartCooldown()
+    IEnumerator StartCooldown(float cd)
     {
-        yield return new WaitForSeconds(Cooldown);
+        yield return new WaitForSeconds(cd);
 
         isReady = true;
     }
@@ -160,6 +158,11 @@ public class BasePart : MonoBehaviour
         Sequence s = DOTween.Sequence();
         s.Append(transform.DOMove(impact, duration).SetRelative().SetEase(Ease.OutExpo));
         s.Append(transform.DOMove(-impact, returnDuration).SetRelative().SetEase(Ease.InOutQuad));
+    }
+
+    public void PlayAudio(AudioClip clip, Vector2 pos)
+    {
+        AudioManager.PlayAudioAtPosition(clip, pos, AudioManager.battleSfxMixerGroup);
     }
 
     //difficult to be used when there is another leg

@@ -42,8 +42,9 @@ public class RobotController : MonoBehaviour
     [ReadOnly][SerializeField] int currentHealth;
     float spawnInTime;
 
-    [HideInInspector] public bool canMove = true;
+    [HideInInspector] public bool canMove = false;
     bool isInitialized = false;
+    bool generatedInitCd = false;
     bool queuedInit = false;
 
     private void Start()
@@ -59,16 +60,25 @@ public class RobotController : MonoBehaviour
         if (!isInitialized)
         { return; }
 
-        //action not called unless controller has been spawned for initial cooldown.
-        //isReady for each part starts true, so the first action will be called immediately after 'initial cooldown'
-        foreach (BasePart part in parts)
+        if (!generatedInitCd)
         {
-            //check if part still exists because it may be destroyed while running the loop
-            if (part && Time.time < spawnInTime + part.InitialCooldown)
+            //the first cooldown duration is set by initialCooldownRange
+            foreach (BasePart part in parts)
             {
-                //bug: all part's initial cooldown needs to be reached before action.
-                return;
+                //generate the initial cooldown of each part except for legs
+                if (part && !(part is Leg))
+                {
+                    part.GenerateCooldown(part.initialCooldownRange);
+                }
             }
+
+            if (legs.Count > 0)
+            {
+                int index = Random.Range(0, legs.Count);
+                legs[index].GenerateCooldown(legs[index].initialCooldownRange);
+            }
+
+            generatedInitCd = true;
         }
 
         // PROCESS:      
@@ -110,6 +120,7 @@ public class RobotController : MonoBehaviour
             if (canMove)
             {
                 legs[Random.Range(0, legs.Count)].Action();
+                Debug.Log("Moving");
             }
         }
     }

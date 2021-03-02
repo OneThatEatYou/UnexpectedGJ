@@ -5,7 +5,6 @@ using DG.Tweening;
 
 public class NutDrop : MonoBehaviour
 {
-    public float rotSpeed;
     public Vector2 lifetimeRange;
     public float fadeTime;
     public SpriteRenderer spriteRend;
@@ -21,12 +20,13 @@ public class NutDrop : MonoBehaviour
 
     private void Update()
     {
-        transform.Rotate(new Vector3(0, rotSpeed * Time.deltaTime, 0));
-        elapsed += Time.deltaTime;
-
         if (elapsed > lifetime && !isFading)
         {
             StartCoroutine(FadeOut()); 
+        }
+        else
+        {
+            elapsed += Time.deltaTime;
         }
     }
 

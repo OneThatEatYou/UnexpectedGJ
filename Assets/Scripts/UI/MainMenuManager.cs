@@ -34,7 +34,7 @@ public class MainMenuManager : MonoBehaviour
     {
         float vol;
         GameManager.Instance.audioManager.mainMixer.GetFloat(paramName, out vol);
-        vol = AttenToVol(vol);
+        vol = GameManager.Instance.audioManager.AttenToVol(vol);
         return vol;
     }
 
@@ -45,17 +45,17 @@ public class MainMenuManager : MonoBehaviour
 
     public void ChangeMasterVolume(float value)
     {
-        GameManager.Instance.audioManager.mainMixer.SetFloat("Vol_Master", VolumeToAtten(value));
+        GameManager.Instance.audioManager.mainMixer.SetFloat("Vol_Master", GameManager.Instance.audioManager.VolumeToAtten(value));
     }
     
     public void ChangeBGMVolume(float value)
     {
-        GameManager.Instance.audioManager.mainMixer.SetFloat("Vol_BGM", VolumeToAtten(value));
+        GameManager.Instance.audioManager.mainMixer.SetFloat("Vol_BGM", GameManager.Instance.audioManager.VolumeToAtten(value));
     }
 
     public void ChangeSFXVolume(float value)
     {
-        GameManager.Instance.audioManager.mainMixer.SetFloat("Vol_SFX", VolumeToAtten(value));
+        GameManager.Instance.audioManager.mainMixer.SetFloat("Vol_SFX", GameManager.Instance.audioManager.VolumeToAtten(value));
     }
 
     public void PlayRandomSFX()
@@ -63,18 +63,6 @@ public class MainMenuManager : MonoBehaviour
         AudioClip clip = sfxClips[Random.Range(0, sfxClips.Length)];
         audioSource.clip = clip;
         audioSource.Play();
-    }
-
-    //convert vol percent to value in mixer group
-    float VolumeToAtten(float volume)
-    {
-        return Mathf.Log10(Mathf.Clamp(volume, 0.0001f, 1)) * 20;
-    }
-    
-    //convert value in mixer group to vol percent
-    float AttenToVol(float atten)
-    {
-        return Mathf.Pow(10, atten / 20);
     }
 
     public void NextCatalogPage()

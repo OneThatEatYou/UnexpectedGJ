@@ -60,7 +60,7 @@ public class BulletController : MonoBehaviour
     public virtual void OnCollision(Collider2D collision)
     {
         //play audio and spawn particle
-        AudioManager.PlayAudioAtPosition(collideTriggerSFX, transform.position, AudioManager.sfxMixerGroup);
+        AudioManager.PlayAudioAtPosition(collideTriggerSFX, transform.position, AudioManager.battleSfxMixerGroup);
         GameObject obj = Instantiate(deathParticle, transform.position, Quaternion.identity);
 
         if (manualDestroyParticle > 0)

@@ -30,6 +30,23 @@ public class GameManager : MonoBehaviour
 
     public AudioManager audioManager;
     public InventoryManager inventoryManager;
+    
+    //screen size in pixels
+    public Vector2 ScreenSizePixel
+    {
+        get { return new Vector2(Screen.width, Screen.height); }
+    }
+
+    //screen size in world units
+    public Vector2 ScreenSizeWorld
+    {
+        get 
+        {
+            float height = Camera.main.orthographicSize * 2.0f;
+            float width = height * Screen.width / Screen.height;
+            return new Vector2(width, height); 
+        }
+    }
 
     public static bool isPaused = false;
 
@@ -40,6 +57,24 @@ public class GameManager : MonoBehaviour
         audioManager.OnInit();
         inventoryManager = new InventoryManager();
         inventoryManager.OnInit();
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnLoadScene;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnLoadScene;
+    }
+
+    void OnLoadScene(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Main")
+        {
+            audioManager.mainMixer.SetFloat("Vol_Battle", 0);
+        }
     }
 
     public void ChangeScene(int sceneIndex)

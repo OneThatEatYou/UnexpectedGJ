@@ -30,7 +30,7 @@ public class LaserHead : Head
 
         yield return new WaitForSeconds(chargeTime);
 
-        AudioManager.PlayAudioAtPosition(shootSFX, laserSpawnPos[0], AudioManager.sfxMixerGroup);
+        PlayAudio(shootSFX, laserSpawnPos[0]);
 
         foreach (Vector2 pos in laserSpawnPos)
         {
@@ -49,7 +49,7 @@ public class LaserHead : Head
             //Debug.Log(targetAngle);
         }
 
-        GenerateCooldown();
+        GenerateCooldown(cooldownRange);
     }
 
     public override void OnDrawGizmosSelected()

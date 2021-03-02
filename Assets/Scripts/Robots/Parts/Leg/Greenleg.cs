@@ -22,6 +22,7 @@ public class Greenleg : Leg
     {
         base.Action();
 
+
         //Debug.Log("Moving");
 
         Vector2 target = GenerateTarget(minDistance);
@@ -56,8 +57,7 @@ public class Greenleg : Leg
         }
 
         anim.SetFloat(strollSpeedParam, 0);
-
-        StartCoroutine(ReadyLegAfterCooldown());
+        GenerateCooldown(cooldownRange);
     }
 
     void ShakeScreen(Vector2 dir, float localMoveTime)

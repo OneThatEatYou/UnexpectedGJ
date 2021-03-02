@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2808657535769691640}
   - component: {fileID: 2808657535769691643}
   - component: {fileID: 2808657535769691641}
+  - component: {fileID: 7822680567385227317}
   m_Layer: 14
   m_Name: Nut
   m_TagString: Untagged
@@ -70,7 +71,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.96
+  m_Radius: 0.45
 --- !u!114 &2808657535769691641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,10 +84,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2063340aead98a41a09beafdb046357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotSpeed: 300
   lifetimeRange: {x: 2.5, y: 3}
   fadeTime: 0.5
   spriteRend: {fileID: 2808657536250145471}
+--- !u!95 &7822680567385227317
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2808657535769691642}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 41a97d913db0ac749838475f13e988a1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2808657536250145457
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,7 +176,8 @@ SpriteRenderer:
   m_SortingLayerID: -799359811
   m_SortingLayer: 8
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 04f9c46ff2f4e67408143085e88d532f, type: 3}
+  m_Sprite: {fileID: -8443914518070001086, guid: ab271a956b26e9943a8f1e0d6afa0cce,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

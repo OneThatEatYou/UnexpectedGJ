@@ -172,7 +172,7 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(jumpVel * Vector2.up, ForceMode2D.Impulse);
 
-            AudioManager.PlayAudioAtPosition(jumpSFX, transform.position, AudioManager.sfxMixerGroup);
+            AudioManager.PlayAudioAtPosition(jumpSFX, transform.position, AudioManager.battleSfxMixerGroup);
             anim.SetTrigger(jumpParam);
             curGroundedTime = 0;
         }
@@ -204,7 +204,7 @@ public class PlayerController : MonoBehaviour
         lastShootTime = Time.time;
         CameraAimController.instance.Shoot();
         BattleManager.Instance.PlaySlowMo(slowIn, slowStay, slowOut, slowTimeScale);
-        AudioManager.PlayAudioAtPosition(shootSFX, transform.position, AudioManager.sfxMixerGroup);
+        AudioManager.PlayAudioAtPosition(shootSFX, transform.position, AudioManager.battleSfxMixerGroup);
 
         //StartCoroutine(DisplayShootCooldown());
 
@@ -246,7 +246,7 @@ public class PlayerController : MonoBehaviour
         }
 
         anim.SetTrigger(slapParam);
-        AudioManager.PlayAudioAtPosition(slapSFX, transform.position, AudioManager.sfxMixerGroup);
+        AudioManager.PlayAudioAtPosition(slapSFX, transform.position, AudioManager.battleSfxMixerGroup);
     }
 
     private void Flip()
@@ -312,7 +312,7 @@ public class PlayerController : MonoBehaviour
         BattleManager.Instance.TakeDamage();
 
         Instantiate(deathParticle, transform.position, Quaternion.identity);
-        AudioManager.PlayAudioAtPosition(deathSFX, transform.position, AudioManager.sfxMixerGroup);
+        AudioManager.PlayAudioAtPosition(deathSFX, transform.position, AudioManager.battleSfxMixerGroup);
 
         Destroy(gameObject);
     }

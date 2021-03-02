@@ -69,7 +69,7 @@ public class Redbody : Body
                 //Debug.Log($"Knocked back {rb.name} with force: {force}");
             }
         }
-        GenerateCooldown();
+        GenerateCooldown(cooldownRange);
     }
 
     void AnimateBlast()

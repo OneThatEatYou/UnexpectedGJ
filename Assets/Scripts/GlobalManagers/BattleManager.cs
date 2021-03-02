@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 using TMPro;
 
 public class BattleManager : MonoBehaviour
@@ -44,11 +45,9 @@ public class BattleManager : MonoBehaviour
             UpdateHealth();
         }
     }
-    public string hpPanelTag = "HpPanel";
-    public string deathPanelTag = "DeathPanel";
-    public Sprite fullHealth;
-    public Sprite emptyHealth;
-    [Space]
+    public Sprite fullHealthSprite;
+    public Sprite emptyHealthSprite;
+    public GameObject heartPrefab;
     public string healthBeatParam = "BeatRate";
     public float maxBeatRate = 1f;
 
@@ -62,10 +61,9 @@ public class BattleManager : MonoBehaviour
     public float respawnJumpForce;
     
     [Header("Hp UI")]
-    public GameObject deathPanelGO;
+    public RectTransform hpPanel;
     Image[] healthImages;           //left most health has index 0
     Animator[] healthAnims;
-    RectTransform hpPanel;
 
     [Header("Robot Respawn")]
     public Vector2 robotSpawnPos;
@@ -75,6 +73,18 @@ public class BattleManager : MonoBehaviour
     public GameObject nutPrefab;
     public int nutCache;
     public TextMeshProUGUI nutText;
+
+    [Header("Death UI")]
+    public GameObject deathPanelGO;
+    public Animator deathPanelAnim;
+    public string deathPanelShowParam = "Show";
+    public Image imageOverlay;
+    public Color fadeColor;
+
+    [Header("Death UI animation")]
+    public float dropdownDelay;
+    public float dropdownDur;
+
 
     bool isDead = false;
 
@@ -90,23 +100,26 @@ public class BattleManager : MonoBehaviour
 
     void RegisterHealthPanel()
     {
-        hpPanel = GameObject.FindGameObjectWithTag(hpPanelTag).GetComponent<RectTransform>();
+        if (!heartPrefab)
+        {
+            Debug.LogWarning("No heart prefab found! Please check the hp panel.");
+            return;
+        }
 
         healthImages = new Image[maxHealth];
         healthAnims = new Animator[maxHealth];
 
         for (int i = 0; i < maxHealth; i++)
         {
-            Image img = hpPanel.GetChild(i).GetComponent<Image>();
+            GameObject obj;
+            Image img;
+            Animator anim;
 
-            if (!img)
-            { Debug.LogWarning("Health image not found"); }
+            obj = Instantiate(heartPrefab, hpPanel);
+            img = obj.GetComponent<Image>();
+            anim = obj.GetComponent<Animator>();
 
             healthImages[i] = img;
-
-            Animator anim = hpPanel.GetChild(i).GetComponent<Animator>();
-            if (!anim)
-            { Debug.LogWarning("Health animator not found"); }
             healthAnims[i] = anim;
         }
     }
@@ -118,14 +131,14 @@ public class BattleManager : MonoBehaviour
         //set fullHealth
         for (int i = 0; i < CurrentHealth; i++)
         {
-            healthImages[i].sprite = fullHealth;
+            healthImages[i].sprite = fullHealthSprite;
             healthAnims[i].SetFloat(healthBeatParam, 1f + beatRate);
         }
 
         //set emptyHealth
         for (int i = CurrentHealth; i < maxHealth; i++)
         {
-            healthImages[i].sprite = emptyHealth;
+            healthImages[i].sprite = emptyHealthSprite;
             healthAnims[i].enabled = false;
         }
     }
@@ -152,11 +165,24 @@ public class BattleManager : MonoBehaviour
     {
         Debug.Log("Player is dead");
 
-        deathPanelGO.SetActive(true);
-        nutText.text = nutCache.ToString();
+        StartCoroutine(ShowDeathPanel(dropdownDelay));
+        //fade out background
+        imageOverlay.DOColor(fadeColor, 5);
+        //fade out battle sfx
+        GameManager.Instance.audioManager.mainMixer.DOSetFloat("Vol_Battle", -80, 3).SetEase(Ease.InExpo);
 
         Debug.Log($"Ending battle. Player earned {nutCache} nuts!");
         GameManager.Instance.inventoryManager.nuts += nutCache;
+    }
+
+    //drops down death panel and set the nut earned
+    IEnumerator ShowDeathPanel(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        deathPanelGO.SetActive(true);
+        deathPanelGO.GetComponent<RectTransform>().DOMoveY(GameManager.Instance.ScreenSizePixel.y * 1.5f, dropdownDur).From().SetRelative().SetEase(Ease.OutBounce);
+        nutText.text = nutCache.ToString();
     }
 
     public void SpawnEgg(float delay)
@@ -173,8 +199,6 @@ public class BattleManager : MonoBehaviour
             vel.y = dis.y / launchDuration - 0.5f * eggrb.gravityScale * Physics2D.gravity.y * launchDuration;
             eggrb.velocity = vel;
             eggrb.AddTorque(launchTorque);
-
-            //Debug.Log($"Spawning egg with velocity: {vel}");
         }
     }
 
@@ -264,7 +288,6 @@ public class BattleManager : MonoBehaviour
                 GameObject nut = Instantiate(nutPrefab, spawnPos, Quaternion.identity);
                 Rigidbody2D nutrb = nut.GetComponent<Rigidbody2D>();
                 nutrb.AddForce(new Vector2(Random.Range(-maxNutForce, maxNutForce), Random.Range(0, maxNutForce)), ForceMode2D.Impulse);
-                nut.transform.eulerAngles = new Vector3(0, Random.Range(-180, 180), 0);
             }
         }
         else

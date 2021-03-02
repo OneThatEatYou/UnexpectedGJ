@@ -50,7 +50,7 @@ public class Spring : MonoBehaviour
             }
 
             rb.AddForce(bounceForce * Vector2.up, ForceMode2D.Impulse);
-            AudioManager.PlayAudioAtPosition(bounceSFX, transform.position, AudioManager.sfxMixerGroup);
+            AudioManager.PlayAudioAtPosition(bounceSFX, transform.position, AudioManager.battleSfxMixerGroup);
         }
     }
 

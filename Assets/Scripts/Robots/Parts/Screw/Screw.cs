@@ -113,7 +113,7 @@ public class Screw : MonoBehaviour
             Debug.LogWarning($"Controller for {name} not found.");
         }
 
-        AudioManager.PlayAudioAtPosition(detachSFX, transform.position, AudioManager.sfxMixerGroup);
+        AudioManager.PlayAudioAtPosition(detachSFX, transform.position, AudioManager.battleSfxMixerGroup);
     }
 
     private void OnDrawGizmosSelected()

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Spring : MonoBehaviour
 {
     public float bounceForce = 30;
+    public float bounceTorque;
     public float cooldown = 1;
     public AudioClip bounceSFX;
     public string isActivatedParam = "isActivated";
@@ -50,6 +51,7 @@ public class Spring : MonoBehaviour
             }
 
             rb.AddForce(bounceForce * Vector2.up, ForceMode2D.Impulse);
+            rb.AddTorque(bounceTorque);
             AudioManager.PlayAudioAtPosition(bounceSFX, transform.position, AudioManager.battleSfxMixerGroup);
         }
     }

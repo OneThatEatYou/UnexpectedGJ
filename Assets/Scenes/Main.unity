@@ -7108,9 +7108,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 894619095}
-  - component: {fileID: 894619094}
-  - component: {fileID: 894619093}
   - component: {fileID: 894619096}
+  - component: {fileID: 894619093}
   m_Layer: 0
   m_Name: DeathPlane
   m_TagString: IgnoreTrigger
@@ -7130,32 +7129,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77aecf4f078a48d4ab380e97322cc121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!61 &894619094
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 894619092}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 5.8139763}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 45, y: 34.17205}
-  m_EdgeRadius: 0
 --- !u!4 &894619095
 Transform:
   m_ObjectHideFlags: 0
@@ -7180,7 +7153,7 @@ EdgeCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -7188,8 +7161,8 @@ EdgeCollider2D:
   m_Points:
   - {x: 23, y: -15}
   - {x: -23, y: -15}
-  - {x: -23, y: 18}
-  - {x: 23, y: 18}
+  - {x: -23, y: 32}
+  - {x: 23, y: 32}
   - {x: 23, y: -15}
 --- !u!1 &898575082
 GameObject:
@@ -10878,7 +10851,7 @@ PrefabInstance:
     - target: {fileID: 9004270391750930435, guid: c5922e13aebe07d4d97c48631bc14ef3,
         type: 3}
       propertyPath: m_Name
-      value: Spring (1)
+      value: Spring_R
       objectReference: {fileID: 0}
     - target: {fileID: 9004270391750930460, guid: c5922e13aebe07d4d97c48631bc14ef3,
         type: 3}
@@ -17070,7 +17043,7 @@ PrefabInstance:
     - target: {fileID: 9004270391750930435, guid: c5922e13aebe07d4d97c48631bc14ef3,
         type: 3}
       propertyPath: m_Name
-      value: Spring
+      value: Spring_L
       objectReference: {fileID: 0}
     - target: {fileID: 9004270391750930460, guid: c5922e13aebe07d4d97c48631bc14ef3,
         type: 3}

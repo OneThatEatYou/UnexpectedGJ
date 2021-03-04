@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     [Header("General settings")]
-    public float speed;
     public float maxSpeed;
+    public float maxAccel;
 
     [Space]
     public float flipTime = 1f;
@@ -113,9 +113,12 @@ public class PlayerController : MonoBehaviour
 
     private void Move(float movement)
     {
-        float targetVelocityX = movement * speed;
+        if (movement == 0)
+        { return; }
+
+        float targetVelocityX = movement * maxSpeed;
         float velocityChangeX = targetVelocityX - rb.velocity.x;
-        velocityChangeX = Mathf.Clamp(velocityChangeX, -maxSpeed, maxSpeed);
+        velocityChangeX = Mathf.Clamp(velocityChangeX, -maxAccel, maxAccel);
         rb.AddForce(new Vector2 (velocityChangeX, 0), ForceMode2D.Impulse);
 
         anim.SetFloat(movementParam, rb.velocity.x);

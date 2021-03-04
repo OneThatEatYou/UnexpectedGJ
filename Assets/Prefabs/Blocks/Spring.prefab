@@ -153,7 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fe2e283fa0b4f048b9d693c42f54091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounceForce: 30
+  bounceForce: 26
+  bounceTorque: 5
   cooldown: 0.1
   bounceSFX: {fileID: 8300000, guid: 4038e06992c6a65449803e7c4f592e2f, type: 3}
   isActivatedParam: isActivated

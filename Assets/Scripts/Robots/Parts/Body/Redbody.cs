@@ -10,6 +10,7 @@ public class Redbody : Body
     public float knockbackHRad;
     public float knockbackSRad;
     public float knockbackForce;
+    public float knockbackUpProportion; //the amount of upward force multiplied to y displacement
     public SpriteRenderer blastRend;
     Material blastMat;
     public float minOuterRad;
@@ -54,7 +55,9 @@ public class Redbody : Body
 
                 Vector2 dis = rb.position - (Vector2)transform.position;
                 Vector2 dir = dis.normalized;
-                //rb.AddForce(dir * knockbackForce);
+                dir.y = Mathf.Clamp(dir.y, -0.5f, 0.5f);
+                //dir.y += knockbackUpProportion;
+                dir.Normalize();
                 Vector2 force;
 
                 if (dis.magnitude < knockbackHRad)
@@ -66,7 +69,7 @@ public class Redbody : Body
                     force = Mathf.Lerp(knockbackForce, knockbackForce * 0.5f, Mathf.Sin(Mathf.PI / 2 * ((dis.magnitude - knockbackHRad) / (knockbackSRad - knockbackHRad)))) * dir;
                 }
                 rb.AddForce(force, ForceMode2D.Impulse);
-                //Debug.Log($"Knocked back {rb.name} with force: {force}");
+                Debug.Log($"Knocked back {rb.name} with force: {force}");
             }
         }
         GenerateCooldown(cooldownRange);
@@ -74,24 +77,20 @@ public class Redbody : Body
 
     void AnimateBlast()
     {
-        //charge and fade in
-        //hold
-        //blast and fade out
-
         //reset
         blastMat.SetFloat("_OuterRadius", knockbackSRad);
         blastMat.SetFloat("_InnerRadius", 1.8f);
         blastMat.SetColor("_Color", new Vector4(1, 1, 1, 0));
 
-        //float holdLoopDur = 0.5f;
-        //int holdLoops = holdDur / holdLoopDur;
-
         Sequence s = DOTween.Sequence();
+        //charge and fade in
         s.Append(blastMat.DOFloat(minOuterRad, "_OuterRadius", chargeDur).SetEase(Ease.OutSine));
         s.Insert(0, blastMat.DOColor(blastColour, "_Color", chargeDur * 0.9f).SetEase(Ease.InSine));
         s.Insert(0, blastMat.DOFloat(0, "_InnerRadius", chargeDur*0.7f).SetEase(Ease.InQuart));
+        //hold
         s.Append(blastMat.DOFloat(minOuterRad * 1.08f, "_OuterRadius", holdDur / numOfLoops).SetLoops(numOfLoops, LoopType.Yoyo).SetEase(Ease.OutSine));
         s.AppendInterval(blastWait);
+        //blast and fade out
         s.Append(blastMat.DOFloat(knockbackSRad, "_OuterRadius", blastDur).SetEase(Ease.OutCubic));
         s.Insert(chargeDur + holdDur + blastWait + blastDur * 0.1f, blastMat.DOColor(Color.clear, "_Color", blastDur * 0.9f));
         s.Insert(chargeDur + holdDur + blastWait + blastDur, blastMat.DOFloat(2, "_InnerRadius", blastDur).SetEase(Ease.OutCubic));

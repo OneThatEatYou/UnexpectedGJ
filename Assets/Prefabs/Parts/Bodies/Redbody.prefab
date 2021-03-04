@@ -138,6 +138,7 @@ MonoBehaviour:
   knockbackHRad: 5.82
   knockbackSRad: 10.63
   knockbackForce: 30
+  knockbackUpProportion: 0.1
   blastRend: {fileID: 2498264186102252900}
   minOuterRad: 0.8
   chargeDur: 8

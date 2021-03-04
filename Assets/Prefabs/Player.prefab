@@ -234,8 +234,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2835c2ddae510a04fb17c17eaa83b4ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
-  maxSpeed: 8
+  maxSpeed: 15
+  maxAccel: 5
   flipTime: 0.15
   inviTime: 2
   hurtSFX: {fileID: 8300000, guid: f86c24a49c89dde429aceb5f6a2d7779, type: 3}

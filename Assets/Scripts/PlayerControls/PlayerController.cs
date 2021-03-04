@@ -9,13 +9,12 @@ public class PlayerController : MonoBehaviour
     [Header("General settings")]
     public float speed;
     public float maxSpeed;
-    float inputWeight = 1f;
 
     [Space]
     public float flipTime = 1f;
     public float inviTime = 1f;
     bool isInvi = false;
-    bool isStunned = false;
+    //bool isStunned = false;
     public AudioClip hurtSFX;
 
     [Header("Jump settings")]
@@ -74,7 +73,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         lastShootTime = -shootCooldown;
-        TriggerInvisibility(2);
     }
 
     void Update()
@@ -115,8 +113,10 @@ public class PlayerController : MonoBehaviour
 
     private void Move(float movement)
     {
-        rb.AddForce(movement * speed * Vector2.right * inputWeight);
-        rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -maxSpeed, maxSpeed), rb.velocity.y);
+        float targetVelocityX = movement * speed;
+        float velocityChangeX = targetVelocityX - rb.velocity.x;
+        velocityChangeX = Mathf.Clamp(velocityChangeX, -maxSpeed, maxSpeed);
+        rb.AddForce(new Vector2 (velocityChangeX, 0), ForceMode2D.Impulse);
 
         anim.SetFloat(movementParam, rb.velocity.x);
     }
@@ -323,54 +323,54 @@ public class PlayerController : MonoBehaviour
         Debug.Log($"Player is squashed by {col.name}");
     }
 
-    public void TriggerInvisibility(float recoverTime)
-    {
-        if (isInvi)
-        { return; }
+    //public void TriggerInvisibility(float recoverTime)
+    //{
+    //    if (isInvi)
+    //    { return; }
 
-        StartCoroutine(InviTimer(recoverTime));
+    //    StartCoroutine(InviTimer(recoverTime));
 
-        IEnumerator InviTimer(float time)
-        {
-            isInvi = true;
-            anim.SetBool(invicibleParam, isInvi);
-            yield return new WaitForSeconds(inviTime);
-            isInvi = false;
-            anim.SetBool(invicibleParam, isInvi);
-        }
-    }
+    //    IEnumerator InviTimer(float time)
+    //    {
+    //        isInvi = true;
+    //        anim.SetBool(invicibleParam, isInvi);
+    //        yield return new WaitForSeconds(inviTime);
+    //        isInvi = false;
+    //        anim.SetBool(invicibleParam, isInvi);
+    //    }
+    //}
 
-    public void TriggerStun(float noInputTime, float recoverTime)
-    {
-        if (isStunned)
-        { return; }
+    //public void TriggerStun(float noInputTime, float recoverTime)
+    //{
+    //    if (isStunned)
+    //    { return; }
 
-        StartCoroutine(StunTimer(recoverTime));
+    //    StartCoroutine(StunTimer(recoverTime));
 
-        IEnumerator StunTimer(float time)
-        {
-            isStunned = true;
+    //    IEnumerator StunTimer(float time)
+    //    {
+    //        isStunned = true;
 
-            DisableSlowFall(time + noInputTime);
+    //        DisableSlowFall(time + noInputTime);
 
-            rb.velocity = new Vector2(0, rb.velocity.y);
-            inputWeight = 0;
+    //        rb.velocity = new Vector2(0, rb.velocity.y);
+    //        inputWeight = 0;
 
-            yield return new WaitForSeconds(noInputTime);
+    //        yield return new WaitForSeconds(noInputTime);
 
-            float t = 0;
-            while (inputWeight != 1)
-            {
-                inputWeight = Mathf.Lerp(0, 1, t / time);
-                t += Time.deltaTime;
-                //Debug.Log(inputWeight);
-                yield return null;
-            }
+    //        float t = 0;
+    //        while (inputWeight != 1)
+    //        {
+    //            inputWeight = Mathf.Lerp(0, 1, t / time);
+    //            t += Time.deltaTime;
+    //            //Debug.Log(inputWeight);
+    //            yield return null;
+    //        }
 
-            isStunned = false;
-            //Debug.Log("No longer stunned");
-        }
-    }
+    //        isStunned = false;
+    //        //Debug.Log("No longer stunned");
+    //    }
+    //}
 
     Coroutine slowFallCR;
     public void DisableSlowFall(float time)

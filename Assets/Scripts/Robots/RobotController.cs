@@ -120,7 +120,6 @@ public class RobotController : MonoBehaviour
             if (canMove)
             {
                 legs[Random.Range(0, legs.Count)].Action();
-                Debug.Log("Moving");
             }
         }
     }

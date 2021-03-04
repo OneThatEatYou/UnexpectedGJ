@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerSquashRelay : MonoBehaviour
 {
-    public int robotLayerInt;
     public float squashTime;
 
     PlayerController playerCon;
@@ -17,16 +16,19 @@ public class PlayerSquashRelay : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == robotLayerInt)
-        {
-            time += Time.fixedDeltaTime;
+        time += Time.fixedDeltaTime;
 
-            //only get squashed when squash box is triggered for some time
-            if (time > squashTime)
-            {
-                playerCon.Squash(collision);
-            }
+        //only get squashed when squash box is triggered for some time
+        if (time > squashTime)
+        {
+            playerCon.Squash(collision);
         }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        Debug.Log("Exited squash trigger");
+        time = 0;
     }
 
     private void OnTriggerExit2D(Collider2D collision)

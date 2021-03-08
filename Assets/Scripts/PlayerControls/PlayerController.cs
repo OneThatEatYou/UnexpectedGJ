@@ -121,7 +121,7 @@ public class PlayerController : MonoBehaviour
         velocityChangeX = Mathf.Clamp(velocityChangeX, -maxAccel, maxAccel);
         rb.AddForce(new Vector2 (velocityChangeX, 0), ForceMode2D.Impulse);
 
-        anim.SetFloat(movementParam, rb.velocity.x);
+        anim.SetFloat(movementParam, movement);
     }
 
     private void CheckGrounded()
@@ -276,9 +276,6 @@ public class PlayerController : MonoBehaviour
             //flip to right
             targetAngle = 0f;
             t = ((180f - startingAngle) / 180f) * fullFlipTime;
-
-            //Debug.Log("startingAngle: " + startingAngle);
-            //Debug.Log("t: " + t);
         }
         else
         {

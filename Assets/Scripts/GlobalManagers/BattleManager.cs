@@ -181,7 +181,7 @@ public class BattleManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
 
         deathPanelGO.SetActive(true);
-        deathPanelGO.GetComponent<RectTransform>().DOMoveY(GameManager.Instance.ScreenSizePixel.y * 1.5f, dropdownDur).From().SetRelative().SetEase(Ease.OutBounce);
+        deathPanelGO.GetComponent<RectTransform>().DOMoveY(GameManager.ScreenSizePixel.y * 1.5f, dropdownDur).From().SetRelative().SetEase(Ease.OutBounce);
         nutText.text = nutCache.ToString();
     }
 

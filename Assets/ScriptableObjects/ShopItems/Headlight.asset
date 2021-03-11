@@ -18,3 +18,4 @@ MonoBehaviour:
   itemPrice: 200
   itemDescription: Lights up the your front and reveal any vital screws in front
     of you. Vital screws appears brighter than normal ones.
+  animationClip: {fileID: 7400000, guid: 9da3a99ce33f2bb49a84469b8bdffa00, type: 2}

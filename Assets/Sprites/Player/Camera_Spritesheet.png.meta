@@ -7,7 +7,7 @@ TextureImporter:
     second: Camera_Spritesheet_0
   - first:
       213: 4122012630897330297
-    second: Camera_Spritesheet_1
+    second: Camera_Spritesheet_0
   - first:
       213: 4139112200125169135
     second: Camera_Spritesheet_2
@@ -28,7 +28,7 @@ TextureImporter:
     second: Camera_Spritesheet_0
   - first:
       213: 2206791834856222294
-    second: Camera_Spritesheet_1
+    second: Camera_Spritesheet_0
   - first:
       213: 420254594088261258
     second: Camera_Spritesheet_2
@@ -147,7 +147,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Camera_Spritesheet_0
+      name: Camera_Spritesheet_1
       rect:
         serializedVersion: 2
         x: 0
@@ -168,7 +168,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Camera_Spritesheet_1
+      name: Camera_Spritesheet_0
       rect:
         serializedVersion: 2
         x: 22

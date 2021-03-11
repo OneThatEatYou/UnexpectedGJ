@@ -10,4 +10,5 @@ public class ShopItem : ScriptableObject
     public int itemPrice;
     [TextArea]
     public string itemDescription;
+    public AnimationClip animationClip;
 }

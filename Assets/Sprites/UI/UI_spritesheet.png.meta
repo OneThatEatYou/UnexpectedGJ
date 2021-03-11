@@ -23,6 +23,12 @@ TextureImporter:
   - first:
       213: -568997776667475330
     second: UI_spritesheet_6
+  - first:
+      213: 2597341207634641767
+    second: UI_spritesheet_7
+  - first:
+      213: -5063014447371568924
+    second: UI_spritesheet_8
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -262,6 +268,48 @@ TextureImporter:
       bones: []
       spriteID: e728fbb69838a18f0800000000000000
       internalID: -568997776667475330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_spritesheet_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 3, y: 3, z: 3, w: 3}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7630c89211c9b0420800000000000000
+      internalID: 2597341207634641767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_spritesheet_8
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 3, y: 2, z: 3, w: 4}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e83fb36f2f8cb9b0800000000000000
+      internalID: -5063014447371568924
       vertices: []
       indices: 
       edges: []

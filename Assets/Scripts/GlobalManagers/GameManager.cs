@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
@@ -30,15 +32,17 @@ public class GameManager : MonoBehaviour
 
     public AudioManager audioManager;
     public InventoryManager inventoryManager;
+
+    Image fadeImage;
     
     //screen size in pixels
-    public Vector2 ScreenSizePixel
+    public static Vector2 ScreenSizePixel
     {
         get { return new Vector2(Screen.width, Screen.height); }
     }
 
     //screen size in world units
-    public Vector2 ScreenSizeWorld
+    public static Vector2 ScreenSizeWorld
     {
         get 
         {
@@ -52,11 +56,21 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        //initialize audio manager
         audioManager = new AudioManager();
         audioManager.OnInit();
         inventoryManager = new InventoryManager();
         inventoryManager.OnInit();
+
+        //creates image overlay for fading in and out
+        GameObject fadeCanvasGO = new GameObject("FadeCanvas");
+        Canvas fadeCanvas = fadeCanvasGO.AddComponent<Canvas>();
+        fadeCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        fadeCanvas.sortingOrder = 2;
+        fadeCanvasGO.GetComponent<RectTransform>().sizeDelta = ScreenSizePixel;
+        fadeImage = fadeCanvasGO.AddComponent<Image>();
+        fadeImage.raycastTarget = false;
+        fadeImage.color = Color.clear;
+        fadeCanvasGO.transform.SetParent(transform);
     }
 
     private void OnEnable()
@@ -75,10 +89,26 @@ public class GameManager : MonoBehaviour
         {
             audioManager.mainMixer.SetFloat("Vol_Battle", 0);
         }
+
+        //fade in scene
+        Color fadeCol = fadeImage.color;
+        fadeCol.a = 0;
+        fadeImage.DOColor(fadeCol, 1).SetEase(Ease.InOutSine);
     }
 
     public void ChangeScene(int sceneIndex)
     {
+        StartCoroutine(FadeOutAndChangeScene(sceneIndex));
+    }
+
+    IEnumerator FadeOutAndChangeScene(int sceneIndex)
+    {
+        //fade out scene
+        Color fadeCol = fadeImage.color;
+        fadeCol.a = 1;
+        fadeImage.DOColor(fadeCol, 1).SetEase(Ease.InOutSine);
+        yield return new WaitForSeconds(1);
+
         SceneManager.LoadScene(sceneIndex);
     }
 

@@ -27,4 +27,9 @@ public class ShopItemEntry : MonoBehaviour
             }
         }
     }
+
+    public void SelectItem()
+    {
+        ShopManager.Instance.SelectedItem = item;
+    }
 }

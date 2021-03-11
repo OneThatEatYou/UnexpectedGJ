@@ -18,3 +18,4 @@ MonoBehaviour:
   itemPrice: 200
   itemDescription: Slow down the flow of time for a short moment. Use it to dodge
     attacks or unleash a barrage of slaps to the screws.
+  animationClip: {fileID: 7400000, guid: 912f51ff334bbe44087c2ec86993e914, type: 2}

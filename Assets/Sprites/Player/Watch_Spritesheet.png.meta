@@ -7,7 +7,7 @@ TextureImporter:
     second: Watch_Spritesheet_0
   - first:
       213: 3196851469316229920
-    second: Watch_Spritesheet_1
+    second: Watch_Spritesheet_0
   - first:
       213: 3490904705888805624
     second: Watch_Spritesheet_2
@@ -126,7 +126,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Watch_Spritesheet_0
+      name: Watch_Spritesheet_1
       rect:
         serializedVersion: 2
         x: 0
@@ -147,7 +147,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Watch_Spritesheet_1
+      name: Watch_Spritesheet_0
       rect:
         serializedVersion: 2
         x: 22

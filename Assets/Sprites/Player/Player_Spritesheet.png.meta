@@ -7,7 +7,7 @@ TextureImporter:
     second: Player_Spritesheet_0
   - first:
       213: 5308241179222994256
-    second: Player_Spritesheet_1
+    second: Player_Spritesheet_0
   - first:
       213: 6728788751803926285
     second: Player_Spritesheet_2
@@ -126,7 +126,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player_Spritesheet_0
+      name: Player_Spritesheet_1
       rect:
         serializedVersion: 2
         x: 0
@@ -147,7 +147,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Spritesheet_1
+      name: Player_Spritesheet_0
       rect:
         serializedVersion: 2
         x: 22

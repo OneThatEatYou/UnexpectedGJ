@@ -7,7 +7,7 @@ TextureImporter:
     second: Headlight_Spritesheet_0
   - first:
       213: 6798742176186432191
-    second: Headlight_Spritesheet_1
+    second: Headlight_Spritesheet_0
   - first:
       213: 3775997408151484698
     second: Headlight_Spritesheet_2
@@ -126,7 +126,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Headlight_Spritesheet_0
+      name: Headlight_Spritesheet_1
       rect:
         serializedVersion: 2
         x: 0
@@ -147,7 +147,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Headlight_Spritesheet_1
+      name: Headlight_Spritesheet_0
       rect:
         serializedVersion: 2
         x: 22

@@ -11,6 +11,13 @@ public class ShopItemEntry : MonoBehaviour
     public TextMeshProUGUI itemNameText;
     public TextMeshProUGUI itemPriceText;
 
+    ShopManager shopManager;
+
+    private void Awake()
+    {
+        shopManager = FindObjectOfType<ShopManager>();
+    }
+
     private void OnValidate()
     {
         if (item)
@@ -30,6 +37,6 @@ public class ShopItemEntry : MonoBehaviour
 
     public void SelectItem()
     {
-        ShopManager.Instance.SelectedItem = item;
+        shopManager.SelectedItem = item;
     }
 }

@@ -6,6 +6,7 @@ public class InventoryManager
 {
     public int nuts = 0;
     public HashSet<ShopItem> itemHashset = new HashSet<ShopItem>();
+    public ShopItem equippedItem;
 
     public void OnInit()
     {

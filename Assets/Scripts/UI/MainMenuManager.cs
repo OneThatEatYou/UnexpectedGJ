@@ -8,10 +8,10 @@ public class MainMenuManager : MonoBehaviour
 {
     public Slider masterVolSlider, bgmVolSlider, sfxVolSlider;
     public AudioClip[] sfxClips;
+    public Animator startAnimator;
+    public string startAnimatorFadeParam = "ClockIn";
+    public float startDelay = 0.5f;
     AudioSource audioSource;
-
-    public GameObject[] catalogPages;
-    int currentPageInt = 0;
 
     private void Awake()
     {
@@ -66,31 +66,17 @@ public class MainMenuManager : MonoBehaviour
         audioSource.Play();
     }
 
-    public void NextCatalogPage()
+    public void ClockIn()
     {
-        //check if next page exist
-        if (currentPageInt + 1 < catalogPages.Length)
-        {
-            catalogPages[currentPageInt].SetActive(false);
-            catalogPages[++currentPageInt].SetActive(true);
-        }
-        else
-        {
-            Debug.LogWarning($"No page after {catalogPages[currentPageInt]} exists.");
-        }
+        GameManager.clockedIn = true;
+        StartCoroutine(DelayClockIn());
+        //play sfx
     }
 
-    public void PrevCatalogPage()
+    IEnumerator DelayClockIn()
     {
-        //check if next page exist
-        if (currentPageInt - 1 >= 0)
-        {
-            catalogPages[currentPageInt].SetActive(false);
-            catalogPages[--currentPageInt].SetActive(true);
-        }
-        else
-        {
-            Debug.LogWarning($"No page before {catalogPages[currentPageInt]} exists.");
-        }
+        yield return new WaitForSeconds(startDelay);
+        startAnimator.SetTrigger(startAnimatorFadeParam);
+        Destroy(startAnimator.gameObject, startAnimator.GetCurrentAnimatorStateInfo(0).length);
     }
 }

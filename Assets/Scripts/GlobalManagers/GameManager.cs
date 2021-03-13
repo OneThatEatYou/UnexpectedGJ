@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
     }
 
     public static bool isPaused = false;
+    public static bool clockedIn = false;
 
     private void Awake()
     {
@@ -88,6 +89,13 @@ public class GameManager : MonoBehaviour
         if (scene.name == "Main")
         {
             audioManager.mainMixer.SetFloat("Vol_Battle", 0);
+        }
+        else if (scene.name == "MainMenu")
+        {
+            if (clockedIn)
+            {
+                Destroy(FindObjectOfType<MainMenuManager>().startAnimator.gameObject);
+            }
         }
 
         //fade in scene

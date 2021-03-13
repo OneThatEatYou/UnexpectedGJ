@@ -6,24 +6,6 @@ using TMPro;
 
 public class ShopManager : MonoBehaviour
 {
-    private static ShopManager instance;
-    public static ShopManager Instance
-    {
-        get
-        {
-            if (!instance)
-            {
-                instance = FindObjectOfType<ShopManager>();
-
-                if (!instance)
-                {
-                    Debug.LogError("ShopManager not found.");
-                }
-            }
-
-            return instance;
-        }
-    }
     public InventoryManager InventoryManager => GameManager.Instance.inventoryManager;
 
     private ShopItem selectedItem;
@@ -36,8 +18,9 @@ public class ShopManager : MonoBehaviour
         set
         {
             selectedItem = value;
-            UpdateDescription(selectedItem);
-            SwitchPreview(selectedItem);
+            UpdateDescription(SelectedItem);
+            SwitchPreview(SelectedItem);
+            UpdateBuyButton(SelectedItem);
         }
     }
 
@@ -56,12 +39,13 @@ public class ShopManager : MonoBehaviour
 
     public TextMeshProUGUI nutText;
     public TextMeshProUGUI descriptionText;
+    public Button buyButton; 
+    public Button equipButton;
     public Animator itemAnimator;
 
     private void Start()
     {
         UpdatePlayerNut();
-        //update item availability
     }
 
     void UpdatePlayerNut()
@@ -88,9 +72,38 @@ public class ShopManager : MonoBehaviour
         }
     }
 
+    void UpdateBuyButton(ShopItem item)
+    {
+        if (InventoryManager.itemHashset.Contains(item))
+        {
+            buyButton.gameObject.SetActive(false);
+            equipButton.gameObject.SetActive(true);
+
+            if (InventoryManager.equippedItem == item)
+            {
+                //uninteractable
+                //equipped
+                equipButton.interactable = false;
+                equipButton.GetComponentInChildren<TextMeshProUGUI>().text = "Equipped";
+            }
+            else
+            {
+                //interactable
+                //equip
+                equipButton.interactable = true;
+                equipButton.GetComponentInChildren<TextMeshProUGUI>().text = "Equip";
+            }
+        }
+        else
+        {
+            buyButton.gameObject.SetActive(true);
+            equipButton.gameObject.SetActive(false);
+        }
+    }
+
     public void BuyItem()
     {
-        if (SelectedItem)
+        if (SelectedItem && !InventoryManager.itemHashset.Contains(SelectedItem))
         {
             if (Nuts < SelectedItem.itemPrice)
             {
@@ -103,6 +116,14 @@ public class ShopManager : MonoBehaviour
                 Debug.Log($"Bought {SelectedItem.itemName} for {SelectedItem.itemPrice}.");
             }
         }
+
+        UpdateBuyButton(SelectedItem);
+    }
+
+    public void EquipItem()
+    {
+        InventoryManager.equippedItem = SelectedItem;
+        UpdateBuyButton(SelectedItem);
     }
 
     public void ExitShop()

@@ -8,6 +8,8 @@ public class Redleg : Leg
     public float moveTime;
     public float minDistance;
     public float gravityScale = 2f;
+    public AudioClip jumpSFX;
+    public AudioClip landSFX;
 
     [Header("Animation Settings")]
 
@@ -39,6 +41,8 @@ public class Redleg : Leg
 
         yield return new WaitForSeconds(crouchTime + holdTime + releaseTime / 4);
 
+        AudioManager.PlayAudioAtPosition(jumpSFX, transform.position, AudioManager.sfxMixerGroup);
+
         while (t != moveTime)
         {
             t += Time.deltaTime;
@@ -53,6 +57,7 @@ public class Redleg : Leg
             yield return null;
         }
 
+        AudioManager.PlayAudioAtPosition(landSFX, transform.position, AudioManager.sfxMixerGroup);
         Controller.body.PlayImpactSeq(Vector2.down * impactMagnitude, impactMagnitude, easeBackDuration);
 
         CameraController.GenerateImpulse(Vector2.down, 5, 5, 0, 0.3f, 0.5f);

@@ -9,6 +9,7 @@ public class Greenleg : Leg
     public Vector2 moveSpeedRange;
     public float minDistance = 3f;
     public LayerMask playerLayer;
+    public AudioClip strollSFX;
 
     [Header("Animation settings")]
     //public float angle;
@@ -45,6 +46,8 @@ public class Greenleg : Leg
         anim.SetFloat(directionParam, dir.x);
 
         //Debug.Log($"Distance: {distance}, LocalMoveTime: {localMoveTime}");
+        AudioSource source = AudioManager.PlayAudioAtPosition(strollSFX, transform.position, AudioManager.sfxMixerGroup, false);
+        source.loop = true;
 
         while (t != localMoveTime)
         {
@@ -57,6 +60,7 @@ public class Greenleg : Leg
         }
 
         anim.SetFloat(strollSpeedParam, 0);
+        Destroy(source.gameObject);
         GenerateCooldown(cooldownRange);
     }
 

@@ -8,7 +8,7 @@ public class ShopItem : ScriptableObject
     public string itemName;
     public Sprite itemSprite;
     public int itemPrice;
-    [TextArea]
-    public string itemDescription;
-    public AnimationClip animationClip;
+    [TextArea] public string itemDescription;
+    public AnimationClip shopIdleClip;
+    public GameObject itemControllerObj;
 }

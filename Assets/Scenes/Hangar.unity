@@ -2353,7 +2353,7 @@ PrefabInstance:
         type: 3}
       propertyPath: item
       value: 
-      objectReference: {fileID: 11400000, guid: d3c10ee04c522ae4cb17636a954e82d6,
+      objectReference: {fileID: 11400000, guid: 3ccea40e545b1344c922d180fe792397,
         type: 2}
     - target: {fileID: 4318474010665472968, guid: 429222fe44a8f5b4fbf54f2d4553ec50,
         type: 3}
@@ -3385,6 +3385,9 @@ MonoBehaviour:
   buyButton: {fileID: 198970973}
   equipButton: {fileID: 795348285}
   itemAnimator: {fileID: 1138612640}
+  selectSFX: {fileID: 8300000, guid: fd30242e9f036f24ab9cf7afcb45a851, type: 3}
+  buySFX: {fileID: 8300000, guid: 87579939b56edb14db7b0906a06d3c5c, type: 3}
+  exitSFX: {fileID: 8300000, guid: ce8081f550bd63b478628fa1fcf25d02, type: 3}
 --- !u!4 &1938912268
 Transform:
   m_ObjectHideFlags: 0

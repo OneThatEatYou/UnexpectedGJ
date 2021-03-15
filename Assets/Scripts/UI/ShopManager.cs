@@ -42,6 +42,9 @@ public class ShopManager : MonoBehaviour
     public Button buyButton; 
     public Button equipButton;
     public Animator itemAnimator;
+    public AudioClip selectSFX;
+    public AudioClip buySFX;
+    public AudioClip exitSFX;
 
     private void Start()
     {
@@ -63,13 +66,15 @@ public class ShopManager : MonoBehaviour
         if (item)
         {
             AnimatorOverrideController aoc = new AnimatorOverrideController(itemAnimator.runtimeAnimatorController);
-            aoc["PlayerPreview"] = item.animationClip;
+            aoc["PlayerPreview"] = item.shopIdleClip;
             itemAnimator.runtimeAnimatorController = aoc;
         }
         else
         {
             Debug.Log($"Animation clip for {item.itemName} is not assigned.");
         }
+
+        AudioManager.PlayAudioAtPosition(selectSFX, transform.position, AudioManager.sfxMixerGroup);
     }
 
     void UpdateBuyButton(ShopItem item)
@@ -117,17 +122,21 @@ public class ShopManager : MonoBehaviour
             }
         }
 
+        AudioManager.PlayAudioAtPosition(buySFX, transform.position, AudioManager.sfxMixerGroup);
         UpdateBuyButton(SelectedItem);
     }
 
     public void EquipItem()
     {
         InventoryManager.equippedItem = SelectedItem;
+        InventoryManager.equippedItemObj = SelectedItem.itemControllerObj;
+        AudioManager.PlayAudioAtPosition(selectSFX, transform.position, AudioManager.sfxMixerGroup);
         UpdateBuyButton(SelectedItem);
     }
 
     public void ExitShop()
     {
+        AudioManager.PlayAudioAtPosition(exitSFX, transform.position, AudioManager.sfxMixerGroup);
         GameManager.Instance.ChangeScene(0);
     }
 }

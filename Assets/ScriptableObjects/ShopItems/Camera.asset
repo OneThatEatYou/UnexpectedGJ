@@ -18,4 +18,6 @@ MonoBehaviour:
   itemPrice: 200
   itemDescription: Take pictures using this tool to reveal the vital screws of the
     robots. Vital screws appear brighter than the others.
-  animationClip: {fileID: 7400000, guid: 6dd3e2013b394414da16d008090e5a4f, type: 2}
+  shopIdleClip: {fileID: 7400000, guid: 6dd3e2013b394414da16d008090e5a4f, type: 2}
+  itemControllerObj: {fileID: 6766259401008522313, guid: a372740635b1edf499872ed678827ab1,
+    type: 3}

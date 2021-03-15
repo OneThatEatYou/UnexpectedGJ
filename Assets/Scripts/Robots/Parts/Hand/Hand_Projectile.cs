@@ -14,6 +14,7 @@ public class Hand_Projectile : Hand
     public float maxSpeed = 20f;
     public float shootWait = 0.5f;
 
+    public AudioClip rotationSFX;
     public AudioClip shootSFX;
 
     [Header("Tweening settings")]
@@ -57,7 +58,7 @@ public class Hand_Projectile : Hand
         //Debug.Log($"target angle: {targetAngle}");
         Quaternion targetQuaternion = Quaternion.Euler(0, 0, targetAngle);
 
-        //play looping sfx
+        AudioManager.PlayAudioAtPosition(rotationSFX, transform.position, AudioManager.sfxMixerGroup);
 
         //linear
         float t = Quaternion.Angle(transform.rotation, targetQuaternion) / 180 * aimSpeed;

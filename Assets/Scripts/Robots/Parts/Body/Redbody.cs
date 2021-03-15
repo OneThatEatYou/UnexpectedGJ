@@ -21,6 +21,8 @@ public class Redbody : Body
     public float blastDur;
     [ColorUsage(true, true)]
     public Color blastColour;
+    public AudioClip chargeSFX;
+    public AudioClip blastSFX;
 
     public override void Awake()
     {
@@ -39,6 +41,7 @@ public class Redbody : Body
     IEnumerator Knockback()
     {
         AnimateBlast();
+        AudioManager.PlayAudioAtPosition(chargeSFX, transform.position, AudioManager.sfxMixerGroup);
         yield return new WaitForSeconds(chargeDur + holdDur + blastWait);
 
         Collider2D[] cols = Physics2D.OverlapCircleAll((Vector2)transform.position + centerOffset, knockbackSRad);
@@ -72,6 +75,8 @@ public class Redbody : Body
                 Debug.Log($"Knocked back {rb.name} with force: {force}");
             }
         }
+
+        AudioManager.PlayAudioAtPosition(blastSFX, transform.position, AudioManager.sfxMixerGroup);
         GenerateCooldown(cooldownRange);
     }
 

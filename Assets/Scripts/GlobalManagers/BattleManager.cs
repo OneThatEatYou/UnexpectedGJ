@@ -59,6 +59,7 @@ public class BattleManager : MonoBehaviour
     public float launchDuration;
     public float launchTorque;
     public float respawnJumpForce;
+    public AudioClip spawnLandSFX;
     
     [Header("Hp UI")]
     public RectTransform hpPanel;
@@ -76,8 +77,6 @@ public class BattleManager : MonoBehaviour
 
     [Header("Death UI")]
     public GameObject deathPanelGO;
-    public Animator deathPanelAnim;
-    public string deathPanelShowParam = "Show";
     public Image imageOverlay;
     public Color fadeColor;
 
@@ -85,17 +84,30 @@ public class BattleManager : MonoBehaviour
     public float dropdownDelay;
     public float dropdownDur;
 
+    public delegate void BMCallback();
+    public event BMCallback onRegisterHealthPanel;
+
+    [Space]
+    public bool autoSpawnFirst = false;
 
     bool isDead = false;
 
-    private void Awake()
-    {
-        RegisterHealthPanel();
-    }
-
     private void Start()
     {
+        RegisterHealthPanel();
         CurrentHealth = maxHealth;
+
+        if (autoSpawnFirst)
+        {
+            StartCoroutine(SpawnFirstRobot(5));
+        }
+    }
+
+    IEnumerator SpawnFirstRobot(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        SpawnRobot();
     }
 
     void RegisterHealthPanel()
@@ -104,6 +116,11 @@ public class BattleManager : MonoBehaviour
         {
             Debug.LogWarning("No heart prefab found! Please check the hp panel.");
             return;
+        }
+
+        if (onRegisterHealthPanel != null)
+        {
+            onRegisterHealthPanel.Invoke();
         }
 
         healthImages = new Image[maxHealth];
@@ -272,8 +289,8 @@ public class BattleManager : MonoBehaviour
                 yield return null;
             }
 
-            //camera shake
             CameraController.GenerateImpulse(-Vector2.up, 10, 10, 0, 0.6f, 0.9f);
+            AudioManager.PlayAudioAtPosition(spawnLandSFX, transform.position, AudioManager.sfxMixerGroup);
         }
     }
 

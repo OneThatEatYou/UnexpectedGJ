@@ -9,6 +9,7 @@ public class LaserHead : Head
     public GameObject chargeParticles;
     public float chargeTime;
     public float aimAngleOffset = 90f;
+    public AudioClip laserChargeSFX;
     public AudioClip shootSFX;
 
     public override void Action()
@@ -27,6 +28,7 @@ public class LaserHead : Head
         }
 
         //Debug.Log(name + " is charging");
+        PlayAudio(laserChargeSFX, laserSpawnPos[0]);
 
         yield return new WaitForSeconds(chargeTime);
 

@@ -34,7 +34,7 @@ public class PauseController : MainMenuManager
         {
             //unpause
             //what the hell
-            Cursor.visible = !CameraAimController.isHidingCursor;
+            //Cursor.visible = !CameraAimController.isHidingCursor;
             //Cursor.visible = false;
             //Debug.Log("Unpaused with Cursor.visible = " + Cursor.visible);
         }

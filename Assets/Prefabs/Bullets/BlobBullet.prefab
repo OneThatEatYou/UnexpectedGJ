@@ -112,7 +112,7 @@ MonoBehaviour:
   effectLayer:
     serializedVersion: 2
     m_Bits: 8192
-  collideTriggerSFX: {fileID: 8300000, guid: 679c3c3cb60b47243b06f6a7f598ca22, type: 3}
+  collideTriggerSFX: {fileID: 8300000, guid: 3ef959eb8e4b07b48951ecd71991b9d7, type: 3}
   target: {fileID: 0}
   rebounceNum: 2
 --- !u!1 &2534204924968491563

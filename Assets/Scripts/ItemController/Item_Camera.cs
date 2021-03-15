@@ -1,55 +1,39 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
-public class CameraAimController : MonoBehaviour
+public class Item_Camera : ItemController
 {
-    public static CameraAimController instance;
     public static bool isHidingCursor = false;
-
     public int screenshotWidth, screenshotHeight;
     public Vector2 intendedScreenRes = new Vector2(960, 540);
-
     [Space]
-
     public float displayDuration = 3f;
-    public GameObject displayParent;
-    public RawImage display;
-    public Camera cam;
+    public GameObject worldCanvasObj;
+    public GameObject overlayCanvasObj;
+    RawImage displayImage;
+    Camera ssCam;
 
     [Header("Flash")]
-    public Image flashImage;
     public float flashStay;
     public float flashFade;
     public float flashAlpha;
+    Image flashImage;
 
-    public Vector2Int ScreenSize
+    public override void Awake()
     {
-        get 
-        {
-            return new Vector2Int(Screen.width, Screen.height);
-        }
+        base.Awake();
+
+        displayImage = worldCanvasObj.GetComponentInChildren<RawImage>();
+        ssCam = GameObject.FindGameObjectWithTag("SSCamera").GetComponent<Camera>();
+        flashImage = overlayCanvasObj.GetComponentInChildren<Image>();
     }
 
-    private void Awake()
+    public override void Update()
     {
-        #region Singleton
+        base.Update();
 
-        if (instance == null)
-        { instance = this; }
-        else if (instance != this)
-        {
-            Debug.LogWarning("Destroying an extra CameraAimController.");
-            Destroy(gameObject);
-        }
-
-        #endregion
-    }
-
-    void Update()
-    {
         if (GameManager.isPaused)
         { return; }
 
@@ -57,13 +41,17 @@ public class CameraAimController : MonoBehaviour
         transform.position = pos;
     }
 
-    public void Shoot()
+    public override void UseItem()
     {
-        int sizeX = Mathf.RoundToInt(ScreenSize.x * (screenshotWidth / intendedScreenRes.x));
-        int sizeY = Mathf.RoundToInt(ScreenSize.y * (screenshotHeight / intendedScreenRes.y));
+        base.UseItem();
+
+        int sizeX = Mathf.RoundToInt(GameManager.ScreenSizePixel.x * (screenshotWidth / intendedScreenRes.x));
+        int sizeY = Mathf.RoundToInt(GameManager.ScreenSizePixel.y * (screenshotHeight / intendedScreenRes.y));
 
         StartCoroutine(TakeScreenshot(sizeX, sizeY));
         StartCoroutine(FlashScreen());
+
+        //BattleManager.Instance.PlaySlowMo(slowIn, slowStay, slowOut, slowTimeScale);
     }
 
     public IEnumerator TakeScreenshot(int width, int height)
@@ -74,11 +62,11 @@ public class CameraAimController : MonoBehaviour
         isHidingCursor = true;
 
         RenderTexture rendTex = new RenderTexture(Screen.width, Screen.height, 24);
-        cam.targetTexture = rendTex;
+        ssCam.targetTexture = rendTex;
 
         //creates a blank texture
         Texture2D result = new Texture2D(width, height, TextureFormat.RGB24, false);
-        cam.Render();
+        ssCam.Render();
 
         RenderTexture.active = rendTex;
 
@@ -111,16 +99,16 @@ public class CameraAimController : MonoBehaviour
         //Debug.Log("Saved screenshot.");
 
         //apply the result to display
-        displayParent.SetActive(true);
-        display.texture = result;
+        worldCanvasObj.SetActive(true);
+        displayImage.texture = result;
 
         //reset
         RenderTexture.active = null;
-        cam.targetTexture = null;
+        ssCam.targetTexture = null;
         Destroy(rendTex);
 
         yield return new WaitForSeconds(displayDuration);
-        displayParent.SetActive(false);
+        worldCanvasObj.SetActive(false);
 
         Cursor.visible = true;
         isHidingCursor = false;
@@ -128,7 +116,7 @@ public class CameraAimController : MonoBehaviour
 
     IEnumerator FlashScreen()
     {
-        flashImage.gameObject.SetActive(true);
+        overlayCanvasObj.SetActive(true);
         flashImage.color = new Color(1, 1, 1, flashAlpha);
 
         yield return new WaitForSeconds(flashStay);
@@ -145,6 +133,6 @@ public class CameraAimController : MonoBehaviour
             yield return null;
         }
 
-        flashImage.gameObject.SetActive(false);
+        overlayCanvasObj.SetActive(false);
     }
 }

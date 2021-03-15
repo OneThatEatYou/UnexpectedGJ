@@ -7,6 +7,8 @@ public class Egg : MonoBehaviour
     public Vector2 spawnPos;
     public GameObject eggParticle;
     public float force;
+    public AudioClip spawnSFX;
+    public AudioClip hatchSFX;
 
     Rigidbody2D rb;
     [HideInInspector] public bool hatched = false;
@@ -14,6 +16,11 @@ public class Egg : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void Start()
+    {
+        AudioManager.PlayAudioAtPosition(spawnSFX, transform.position, AudioManager.sfxMixerGroup);
     }
 
     private void Update()
@@ -39,6 +46,8 @@ public class Egg : MonoBehaviour
         {
             Instantiate(eggParticle, (Vector2)transform.position + spawnPos, Quaternion.identity);
         }
+
+        AudioManager.PlayAudioAtPosition(hatchSFX, transform.position, AudioManager.sfxMixerGroup);
         Destroy(gameObject);
     }
 

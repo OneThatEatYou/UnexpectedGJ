@@ -152,8 +152,6 @@ MonoBehaviour:
   cooldownRange: {x: 15, y: 25}
   initialCooldownRange: {x: 2, y: 5}
   nutsDropped: 10
-  nutPrefab: {fileID: 2808657535769691642, guid: 3275e3ad649358e49b4bae04394d3846,
-    type: 3}
   deathParticle: {fileID: 4917040865964609858, guid: 682b2b53a2a58e7429554084ec1cdccb,
     type: 3}
   explosionSFX: {fileID: 8300000, guid: 8e62989d797442340aa4f6bf0032c4d7, type: 3}
@@ -161,6 +159,8 @@ MonoBehaviour:
   moveTime: 1.5
   minDistance: 5
   gravityScale: 2
+  jumpSFX: {fileID: 8300000, guid: 8f1ec8f345791cb428f5b397ec47d8bf, type: 3}
+  landSFX: {fileID: 8300000, guid: 3d077d2e118646b4da17ef4a21a146a6, type: 3}
   crouchAmount: 0.4
   crouchTime: 2
   holdTime: 0.8

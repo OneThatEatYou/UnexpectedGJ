@@ -14,7 +14,6 @@ public class PlayerController : MonoBehaviour
     public float flipTime = 1f;
     public float inviTime = 1f;
     bool isInvi = false;
-    //bool isStunned = false;
     public AudioClip hurtSFX;
 
     [Header("Jump settings")]
@@ -30,14 +29,11 @@ public class PlayerController : MonoBehaviour
     public float fallMultiplier = 3f;
     public float lowJumpMultiplier = 2f;
 
-    [Header("Shoot settings")]
-    public float shootCooldown = 1f;
-    float lastShootTime = 0f;
-    public float slowIn;
-    public float slowStay;
-    public float slowOut;
-    public float slowTimeScale;
-    public AudioClip shootSFX;
+    [Header("Item")]
+    public GameObject itemObj;
+    ItemController equippedItem;
+    public Animator itemAnim;
+    float lastUseTime = 0f;
 
     [Header("Slap settings")]
     public Vector2 slapBoxOffset;
@@ -72,7 +68,24 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        lastShootTime = -shootCooldown;
+        if (GameManager.Instance.inventoryManager.equippedItemObj)
+        {
+            itemObj = GameManager.Instance.inventoryManager.equippedItemObj;
+        }
+
+        if (itemObj)
+        {
+            equippedItem = Instantiate(itemObj, transform).GetComponent<ItemController>();
+
+            lastUseTime = -equippedItem.useCooldown;
+
+            //setup item animation
+            AnimatorOverrideController aoc = new AnimatorOverrideController(itemAnim.runtimeAnimatorController);
+            aoc["player_idle"] = equippedItem.idleClip;
+            aoc["player_walk"] = equippedItem.walkClip;
+            aoc["player_slap"] = equippedItem.slapClip;
+            itemAnim.runtimeAnimatorController = aoc;
+        }
     }
 
     void Update()
@@ -102,7 +115,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1))
         {
-            Shoot();
+            UseItem();
         }
 
         if (Input.GetMouseButtonDown(0))
@@ -114,7 +127,11 @@ public class PlayerController : MonoBehaviour
     private void Move(float movement)
     {
         if (movement == 0)
-        { return; }
+        {
+            anim.SetFloat(movementParam, movement);
+            itemAnim.SetFloat(movementParam, movement);
+            return; 
+        }
 
         float targetVelocityX = movement * maxSpeed;
         float velocityChangeX = targetVelocityX - rb.velocity.x;
@@ -122,6 +139,7 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(new Vector2 (velocityChangeX, 0), ForceMode2D.Impulse);
 
         anim.SetFloat(movementParam, movement);
+        itemAnim.SetFloat(movementParam, movement);
     }
 
     private void CheckGrounded()
@@ -151,6 +169,7 @@ public class PlayerController : MonoBehaviour
             {
                 //landed
                 anim.SetTrigger(landedParam);
+                itemAnim.SetTrigger(landedParam);
 
                 GameObject dust = Instantiate(dustAnimation, (Vector2)transform.position + groundBoxOffset, Quaternion.identity);
                 Destroy(dust, 1);
@@ -177,6 +196,7 @@ public class PlayerController : MonoBehaviour
 
             AudioManager.PlayAudioAtPosition(jumpSFX, transform.position, AudioManager.battleSfxMixerGroup);
             anim.SetTrigger(jumpParam);
+            itemAnim.SetTrigger(jumpParam);
             curGroundedTime = 0;
         }
     }
@@ -199,15 +219,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Shoot()
+    private void UseItem()
     {
-        if (Time.time - lastShootTime < shootCooldown)
+        if (!equippedItem || Time.time - lastUseTime < equippedItem.useCooldown)
         { return; }
 
-        lastShootTime = Time.time;
-        CameraAimController.instance.Shoot();
-        BattleManager.Instance.PlaySlowMo(slowIn, slowStay, slowOut, slowTimeScale);
-        AudioManager.PlayAudioAtPosition(shootSFX, transform.position, AudioManager.battleSfxMixerGroup);
+        lastUseTime = Time.time;
+        equippedItem.UseItem();
 
         //StartCoroutine(DisplayShootCooldown());
 
@@ -224,8 +242,8 @@ public class PlayerController : MonoBehaviour
         //        yield return null;
         //    }
         //}
-    }   
-    
+    }
+
     private void Slap()
     {
         Collider2D col;
@@ -248,6 +266,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        itemAnim.SetTrigger(slapParam);
         anim.SetTrigger(slapParam);
         AudioManager.PlayAudioAtPosition(slapSFX, transform.position, AudioManager.battleSfxMixerGroup);
     }
@@ -298,6 +317,7 @@ public class PlayerController : MonoBehaviour
             }
 
             rend.transform.rotation = Quaternion.Euler(0, currentAngle, 0);
+            itemAnim.transform.rotation = Quaternion.Euler(0, currentAngle, 0);
             t += Time.deltaTime;
             yield return null;
         }
@@ -337,38 +357,6 @@ public class PlayerController : MonoBehaviour
     //        yield return new WaitForSeconds(inviTime);
     //        isInvi = false;
     //        anim.SetBool(invicibleParam, isInvi);
-    //    }
-    //}
-
-    //public void TriggerStun(float noInputTime, float recoverTime)
-    //{
-    //    if (isStunned)
-    //    { return; }
-
-    //    StartCoroutine(StunTimer(recoverTime));
-
-    //    IEnumerator StunTimer(float time)
-    //    {
-    //        isStunned = true;
-
-    //        DisableSlowFall(time + noInputTime);
-
-    //        rb.velocity = new Vector2(0, rb.velocity.y);
-    //        inputWeight = 0;
-
-    //        yield return new WaitForSeconds(noInputTime);
-
-    //        float t = 0;
-    //        while (inputWeight != 1)
-    //        {
-    //            inputWeight = Mathf.Lerp(0, 1, t / time);
-    //            t += Time.deltaTime;
-    //            //Debug.Log(inputWeight);
-    //            yield return null;
-    //        }
-
-    //        isStunned = false;
-    //        //Debug.Log("No longer stunned");
     //    }
     //}
 

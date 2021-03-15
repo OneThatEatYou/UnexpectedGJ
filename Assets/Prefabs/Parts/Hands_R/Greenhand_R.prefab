@@ -214,8 +214,6 @@ MonoBehaviour:
   cooldownRange: {x: 3, y: 8}
   initialCooldownRange: {x: 1, y: 3}
   nutsDropped: 10
-  nutPrefab: {fileID: 2808657535769691642, guid: 3275e3ad649358e49b4bae04394d3846,
-    type: 3}
   deathParticle: {fileID: 4917040865964609858, guid: 682b2b53a2a58e7429554084ec1cdccb,
     type: 3}
   explosionSFX: {fileID: 8300000, guid: 8e62989d797442340aa4f6bf0032c4d7, type: 3}
@@ -245,6 +243,7 @@ MonoBehaviour:
   aimSpeed: 4
   maxSpeed: 35
   shootWait: 0.3
+  rotationSFX: {fileID: 8300000, guid: abea4f012c5702346a118624646422bb, type: 3}
   shootSFX: {fileID: 8300000, guid: 4537fb9d01610354fb335c01b5dce027, type: 3}
   rotationCurve:
     serializedVersion: 2

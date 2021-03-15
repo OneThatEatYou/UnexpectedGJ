@@ -147,6 +147,8 @@ MonoBehaviour:
   blastWait: 0.2
   blastDur: 0.15
   blastColour: {r: 3.9533494, g: 0.6830394, b: 0.6002468, a: 0.8666667}
+  chargeSFX: {fileID: 8300000, guid: 26af32b0b89193e429e58ea726ec4975, type: 3}
+  blastSFX: {fileID: 8300000, guid: 9ada032a4293c4c44a78b6a5b093663a, type: 3}
 --- !u!1 &3533958731392157778
 GameObject:
   m_ObjectHideFlags: 0

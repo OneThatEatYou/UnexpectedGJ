@@ -19,7 +19,7 @@ public class AudioManager
         battleSfxMixerGroup = mainMixer.FindMatchingGroups("SFX/Battle")[0];
     }
 
-    public static AudioSource PlayAudioAtPosition(AudioClip audioClip, Vector2 position, AudioMixerGroup mixerGroup)
+    public static AudioSource PlayAudioAtPosition(AudioClip audioClip, Vector2 position, AudioMixerGroup mixerGroup, bool autoDestroy = true)
     {
         GameObject obj = new GameObject("OneShotAudio");
         obj.transform.position = position;
@@ -30,7 +30,10 @@ public class AudioManager
         source.outputAudioMixerGroup = mixerGroup;
         source.Play();
 
-        GameObject.Destroy(obj, audioClip.length);
+        if (autoDestroy)
+        {
+            GameObject.Destroy(obj, audioClip.length);
+        }
 
         return source;
     }

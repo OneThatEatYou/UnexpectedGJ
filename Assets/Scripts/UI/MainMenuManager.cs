@@ -11,6 +11,9 @@ public class MainMenuManager : MonoBehaviour
     public Animator startAnimator;
     public string startAnimatorFadeParam = "ClockIn";
     public float startDelay = 0.5f;
+    public AudioClip clockInSFX;
+    public AudioClip buttonSFX_1;
+    public AudioClip buttonSFX_2;
     AudioSource audioSource;
 
     private void Awake()
@@ -70,7 +73,7 @@ public class MainMenuManager : MonoBehaviour
     {
         GameManager.clockedIn = true;
         StartCoroutine(DelayClockIn());
-        //play sfx
+        AudioManager.PlayAudioAtPosition(clockInSFX, transform.position, AudioManager.sfxMixerGroup);
     }
 
     IEnumerator DelayClockIn()
@@ -78,5 +81,15 @@ public class MainMenuManager : MonoBehaviour
         yield return new WaitForSeconds(startDelay);
         startAnimator.SetTrigger(startAnimatorFadeParam);
         Destroy(startAnimator.gameObject, startAnimator.GetCurrentAnimatorStateInfo(0).length);
+    }
+
+    public void PlayButtonSFX1()
+    {
+        AudioManager.PlayAudioAtPosition(buttonSFX_1, transform.position, AudioManager.sfxMixerGroup);
+    }
+
+    public void PlayButtonSFX2()
+    {
+        AudioManager.PlayAudioAtPosition(buttonSFX_2, transform.position, AudioManager.sfxMixerGroup);
     }
 }

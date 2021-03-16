@@ -113,16 +113,19 @@ public class ShopManager : MonoBehaviour
             if (Nuts < SelectedItem.itemPrice)
             {
                 Debug.Log("Not enough nuts");
+
+                AudioManager.PlayAudioAtPosition(exitSFX, transform.position, AudioManager.sfxMixerGroup);
             }
             else
             {
                 Nuts -= SelectedItem.itemPrice;
                 InventoryManager.itemHashset.Add(SelectedItem);
                 Debug.Log($"Bought {SelectedItem.itemName} for {SelectedItem.itemPrice}.");
+
+                AudioManager.PlayAudioAtPosition(buySFX, transform.position, AudioManager.sfxMixerGroup);
             }
         }
 
-        AudioManager.PlayAudioAtPosition(buySFX, transform.position, AudioManager.sfxMixerGroup);
         UpdateBuyButton(SelectedItem);
     }
 

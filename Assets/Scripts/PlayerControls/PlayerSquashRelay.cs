@@ -16,6 +16,10 @@ public class PlayerSquashRelay : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        //ignore trigger entering the squash zone
+        if (collision.isTrigger)
+        { return; }
+
         time += Time.fixedDeltaTime;
 
         //only get squashed when squash box is triggered for some time

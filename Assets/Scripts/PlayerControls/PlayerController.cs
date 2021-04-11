@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
 
     [Space]
     public float flipTime = 1f;
-    public float inviTime = 1f;
     bool isInvi = false;
     public AudioClip hurtSFX;
 
@@ -54,6 +53,7 @@ public class PlayerController : MonoBehaviour
 
     bool isFacingLeft = false;
     bool canSlowFall = true;
+    float moveWeight = 1;   //multiplied with target velocity
     Coroutine flippingCr;
     Rigidbody2D rb;
     SpriteRenderer rend;
@@ -126,14 +126,14 @@ public class PlayerController : MonoBehaviour
 
     private void Move(float movement)
     {
-        if (movement == 0)
-        {
-            anim.SetFloat(movementParam, movement);
-            itemAnim.SetFloat(movementParam, movement);
-            return; 
-        }
+        //if (movement == 0)
+        //{
+        //    anim.SetFloat(movementParam, movement);
+        //    itemAnim.SetFloat(movementParam, movement);
+        //    return; 
+        //}
 
-        float targetVelocityX = movement * maxSpeed;
+        float targetVelocityX = movement * maxSpeed * moveWeight;
         float velocityChangeX = targetVelocityX - rb.velocity.x;
         velocityChangeX = Mathf.Clamp(velocityChangeX, -maxAccel, maxAccel);
         rb.AddForce(new Vector2 (velocityChangeX, 0), ForceMode2D.Impulse);
@@ -327,7 +327,9 @@ public class PlayerController : MonoBehaviour
     {
         //dont die if invisible
         if (isInvi && !ignoreInvi)
-        { return; }
+        {
+            return; 
+        }
 
         BattleManager.Instance.TakeDamage();
 
@@ -343,22 +345,56 @@ public class PlayerController : MonoBehaviour
         Debug.Log($"Player is squashed by {col.name}");
     }
 
-    //public void TriggerInvisibility(float recoverTime)
-    //{
-    //    if (isInvi)
-    //    { return; }
+    public void TriggerInvisibility(float recoverTime)
+    {
+        if (isInvi)
+        { return; }
 
-    //    StartCoroutine(InviTimer(recoverTime));
+        StartCoroutine(InviTimer(recoverTime));
+    }
 
-    //    IEnumerator InviTimer(float time)
-    //    {
-    //        isInvi = true;
-    //        anim.SetBool(invicibleParam, isInvi);
-    //        yield return new WaitForSeconds(inviTime);
-    //        isInvi = false;
-    //        anim.SetBool(invicibleParam, isInvi);
-    //    }
-    //}
+    IEnumerator InviTimer(float time)
+    {
+        isInvi = true;
+        anim.SetBool(invicibleParam, isInvi);
+        yield return new WaitForSeconds(time);
+        isInvi = false;
+        anim.SetBool(invicibleParam, isInvi);
+    }
+
+    Coroutine movementLockCR;
+    public void TriggerMovementLock(float lockTime)
+    {
+        if (moveWeight != 1)
+        {
+            StopCoroutine(movementLockCR);
+        }
+
+        StartCoroutine(StopTimer(lockTime));
+    }
+
+    IEnumerator StopTimer(float time)
+    {
+        float t = 0;
+
+        moveWeight = 0;
+        yield return new WaitForSeconds(time);
+
+        while (t < time)
+        {
+            t += Time.deltaTime;
+            moveWeight = Mathf.Lerp(0, 1, t / time);
+            yield return null;
+        }
+    }
+
+    public void ForceMove()
+    {
+        Debug.Log("Forced move");
+
+        StopCoroutine(movementLockCR);
+        moveWeight = 1;
+    }
 
     Coroutine slowFallCR;
     public void DisableSlowFall(float time)

@@ -58,6 +58,7 @@ public class BattleManager : MonoBehaviour
     public Vector2 targetLaunchPos;
     public float launchDuration;
     public float launchTorque;
+    public float respawnInviTime = 3;
     public float respawnJumpForce;
     public AudioClip spawnLandSFX;
     
@@ -223,6 +224,7 @@ public class BattleManager : MonoBehaviour
     {
         GameObject playerGO = Instantiate(playerPrefab, spawnPos, Quaternion.identity);
         playerGO.GetComponent<Rigidbody2D>().AddForce(respawnJumpForce * Vector2.up, ForceMode2D.Impulse);
+        playerGO.GetComponent<PlayerController>().TriggerInvisibility(respawnInviTime);
         isDead = false;
     }
 

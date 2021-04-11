@@ -122,20 +122,24 @@ public class PlayerController : MonoBehaviour
         {
             Slap();
         }
+
+
+        if (moveWeight != 1)
+        {
+            if (rb.velocity.x < 0.05f && rb.velocity.x > -0.05f)
+            {
+                //horizontal velocity close to 0
+                ForceMove();
+            }
+        }
     }
 
     private void Move(float movement)
     {
-        //if (movement == 0)
-        //{
-        //    anim.SetFloat(movementParam, movement);
-        //    itemAnim.SetFloat(movementParam, movement);
-        //    return; 
-        //}
-
-        float targetVelocityX = movement * maxSpeed * moveWeight;
+        float targetVelocityX = movement * maxSpeed;
         float velocityChangeX = targetVelocityX - rb.velocity.x;
         velocityChangeX = Mathf.Clamp(velocityChangeX, -maxAccel, maxAccel);
+        velocityChangeX *= moveWeight;
         rb.AddForce(new Vector2 (velocityChangeX, 0), ForceMode2D.Impulse);
 
         anim.SetFloat(movementParam, movement);
@@ -192,7 +196,7 @@ public class PlayerController : MonoBehaviour
         //can jump when recently grounded
         if (curGroundedTime > 0)
         {
-            rb.AddForce(jumpVel * Vector2.up, ForceMode2D.Impulse);
+            rb.velocity = new Vector2(rb.velocity.x, jumpVel);
 
             AudioManager.PlayAudioAtPosition(jumpSFX, transform.position, AudioManager.battleSfxMixerGroup);
             anim.SetTrigger(jumpParam);
@@ -370,7 +374,7 @@ public class PlayerController : MonoBehaviour
             StopCoroutine(movementLockCR);
         }
 
-        StartCoroutine(StopTimer(lockTime));
+        movementLockCR = StartCoroutine(StopTimer(lockTime));
     }
 
     IEnumerator StopTimer(float time)
@@ -380,14 +384,15 @@ public class PlayerController : MonoBehaviour
         moveWeight = 0;
         yield return new WaitForSeconds(time);
 
-        while (t < time)
+        while (t < (time * 0.5f))
         {
             t += Time.deltaTime;
-            moveWeight = Mathf.Lerp(0, 1, t / time);
+            moveWeight = Mathf.Lerp(0, 1, t / (time * 0.5f));
             yield return null;
         }
     }
 
+    //forces move weight to 1 and stop movement lock coroutine
     public void ForceMove()
     {
         Debug.Log("Forced move");

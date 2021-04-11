@@ -34,7 +34,6 @@ public class Redbody : Body
     public override void Action()
     {
         base.Action();
-        //StartCoroutine(StartKnockback());
         StartCoroutine(Knockback());
     }
 
@@ -71,6 +70,12 @@ public class Redbody : Body
                 {
                     force = Mathf.Lerp(knockbackForce, knockbackForce * 0.5f, Mathf.Sin(Mathf.PI / 2 * ((dis.magnitude - knockbackHRad) / (knockbackSRad - knockbackHRad)))) * dir;
                 }
+
+                if (rb.CompareTag("Player"))
+                {
+                    rb.GetComponent<PlayerController>().TriggerMovementLock(0.3f);
+                }
+
                 rb.AddForce(force, ForceMode2D.Impulse);
                 Debug.Log($"Knocked back {rb.name} with force: {force}");
             }

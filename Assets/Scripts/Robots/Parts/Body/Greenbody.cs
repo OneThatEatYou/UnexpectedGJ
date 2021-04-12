@@ -6,8 +6,10 @@ public class Greenbody : Body
 {
     public float cooldownMultiplier;
 
-    private void OnEnable()
+    public override void OnEnable()
     {
+        base.OnEnable();
+
         foreach (var part in Controller.parts)
         {
             if (part)
@@ -22,8 +24,10 @@ public class Greenbody : Body
         return cooldown * cooldownMultiplier;
     }
 
-    private void OnDisable()
+    public override void OnDisable()
     {
+        base.OnDisable();
+
         foreach (var part in Controller.parts)
         {
             if (part)

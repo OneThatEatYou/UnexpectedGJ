@@ -70,6 +70,16 @@ public class BasePart : MonoBehaviour
         
     }
 
+    public virtual void OnEnable()
+    {
+        
+    }
+
+    public virtual void OnDisable()
+    {
+        
+    }
+
     public virtual void Action()
     {
         isReady = false;

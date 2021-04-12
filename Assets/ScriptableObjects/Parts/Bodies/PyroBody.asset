@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe6fb244102074845bf19bfa5ac42af5, type: 3}
+  m_Name: PyroBody
+  m_EditorClassIdentifier: 
+  partPrefab: {fileID: 2187245724895662610, guid: a1c720fce00a48543940e90669581345,
+    type: 3}
+  sprite: {fileID: -3729371546510343851, guid: 97236c30be452434c870a978d6573fdb, type: 3}
+  partType: 1

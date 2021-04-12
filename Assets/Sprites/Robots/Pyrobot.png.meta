@@ -17,6 +17,9 @@ TextureImporter:
   - first:
       213: 7407136539954619917
     second: Pyrobot_4
+  - first:
+      213: -5515158702443829766
+    second: Pyrobot_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -214,6 +217,27 @@ TextureImporter:
       bones: []
       spriteID: d06afca307f6bc660800000000000000
       internalID: 7407136539954619917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pyrobot_5
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 54
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af56ee471683673b0800000000000000
+      internalID: -5515158702443829766
       vertices: []
       indices: 
       edges: []

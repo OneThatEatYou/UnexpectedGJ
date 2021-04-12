@@ -195,7 +195,7 @@ public class BasePart : MonoBehaviour
 
     public virtual void OnDrawGizmosSelected()
     {
-        if (screwSpawnPos.Length < 1)
+        if (screwSpawnPos == null || screwSpawnPos.Length < 1)
         { return; }
 
         Gizmos.color = Color.blue;

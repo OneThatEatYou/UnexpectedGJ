@@ -30,8 +30,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2999475747263655891}
   - {fileID: 147513624410959964}
+  - {fileID: 2999475747263655891}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -95,8 +95,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 3
-  cooldownRange: {x: 10, y: 15}
-  initialCooldownRange: {x: 1, y: 3}
+  cooldownRange: {x: 5, y: 8}
+  initialCooldownRange: {x: 3, y: 5}
   nutsDropped: 20
   deathParticle: {fileID: 4917040865964609858, guid: 682b2b53a2a58e7429554084ec1cdccb,
     type: 3}
@@ -120,6 +120,13 @@ MonoBehaviour:
     screwPos: {x: 1.73, y: -0.57}
   - unscrewDir: 1
     screwPos: {x: 1.73, y: -1.22}
+  bombPrefab: {fileID: 2931373181130591383, guid: 61e25b1840df40f48a37a7984365b90e,
+    type: 3}
+  bombSpawnOffset: {x: 0, y: -1.17}
+  mouth: {fileID: 2999475747263655891}
+  mouthOpenTime: 0.8
+  bombSpawnDelay: 2
+  mouthCloseDelay: 2
 --- !u!1 &6314369440698589420
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,7 +156,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3930060940872489870}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3730140832064054229
 SpriteRenderer:
@@ -231,7 +238,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3930060940872489870}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &9184951771242330072
 SpriteRenderer:
@@ -271,7 +278,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1532947043
   m_SortingLayer: 4
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -5515158702443829766, guid: 97236c30be452434c870a978d6573fdb,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

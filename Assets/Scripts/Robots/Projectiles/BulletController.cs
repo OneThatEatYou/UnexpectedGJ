@@ -6,6 +6,7 @@ using UnityEngine.Audio;
 public class BulletController : MonoBehaviour
 {
     public string ignoreTriggerTag = "IgnoreTrigger";
+    public string ignoreCollisionTag = "Ground";
 
     [Space]
 
@@ -39,6 +40,8 @@ public class BulletController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.collider.CompareTag(ignoreCollisionTag))
+        { return; }
 
         OnCollision(collision.collider);
     }

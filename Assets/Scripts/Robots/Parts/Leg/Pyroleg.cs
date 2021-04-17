@@ -57,11 +57,10 @@ public class Pyroleg : Leg
         seq.AppendInterval(pauseDur);
         //move down
         seq.Append(Controller.transform.DOMoveY(-raiseHeight, raiseTime / 5).SetRelative().SetEase(Ease.InExpo));
-
-        //activate particle
         
         yield return new WaitForSeconds(seq.Duration());
 
+        CameraController.GenerateImpulse(Vector2.down, 5, 5, 0, 0.3f, 0.5f);
         GenerateCooldown(cooldownRange);
     }
 
@@ -94,6 +93,8 @@ public class Pyroleg : Leg
                 player.Die();
             }
         }
+
+        CameraController.GenerateImpulse(Vector2.down, 1, 1, 0, 0.005f, 0.005f);
     }
 
     public override void OnDrawGizmosSelected()

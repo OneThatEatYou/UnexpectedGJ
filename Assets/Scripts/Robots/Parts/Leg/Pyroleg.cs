@@ -17,16 +17,18 @@ public class Pyroleg : Leg
     public Vector2 attackOffset;
     public Vector2 attackSize;
     public LayerMask effectLayer;
+    public AudioClip landClip;
 
     bool hitboxIsActive = false;
-    //bool fireIsPlaying = false;
     ParticleSystem fireParticle;
+    AudioSource aSource;
 
-    public override void Start()
+    public override void Awake()
     {
-        base.Start();
+        base.Awake();
 
         fireParticle = GetComponentInChildren<ParticleSystem>();
+        aSource = GetComponent<AudioSource>();
     }
 
     public override void Update()
@@ -57,6 +59,7 @@ public class Pyroleg : Leg
         seq.AppendInterval(pauseDur);
         //move down
         seq.Append(Controller.transform.DOMoveY(-raiseHeight, raiseTime / 5).SetRelative().SetEase(Ease.InExpo));
+        seq.AppendCallback(PlayLandSound);
         
         yield return new WaitForSeconds(seq.Duration());
 
@@ -70,11 +73,13 @@ public class Pyroleg : Leg
         {
             InvokeRepeating("Attack", 0, 0.1f);
             fireParticle.Play();
+            aSource.Play();
         }
         else
         {
             CancelInvoke();
             fireParticle.Stop();
+            aSource.Stop();
         }
 
         hitboxIsActive = !hitboxIsActive;
@@ -95,6 +100,12 @@ public class Pyroleg : Leg
         }
 
         CameraController.GenerateImpulse(Vector2.down, 1, 1, 0, 0.005f, 0.005f);
+    }
+
+    void PlayLandSound()
+    {
+        AudioSource source = AudioManager.PlayAudioAtPosition(landClip, transform.position, AudioManager.battleSfxMixerGroup);
+        source.pitch = 0.8f;
     }
 
     public override void OnDrawGizmosSelected()

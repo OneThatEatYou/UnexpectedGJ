@@ -5152,7 +5152,7 @@ MonoBehaviour:
   maxHealth: 2
   cooldownRange: {x: 10, y: 15}
   initialCooldownRange: {x: 1, y: 3.21}
-  nutsDropped: 15
+  nutsDropped: 12
   deathParticle: {fileID: 4917040865964609858, guid: 682b2b53a2a58e7429554084ec1cdccb,
     type: 3}
   explosionSFX: {fileID: 8300000, guid: 8e62989d797442340aa4f6bf0032c4d7, type: 3}

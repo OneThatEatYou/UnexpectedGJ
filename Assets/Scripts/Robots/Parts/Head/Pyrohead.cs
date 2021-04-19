@@ -15,6 +15,8 @@ public class Pyrohead : Head
     public float mouthOpenTime = 0.8f;
     public float bombSpawnDelay = 1;
     public float mouthCloseDelay = 1.5f;
+    public AudioClip mouthOpenSFX;
+    public AudioClip bombSpawnSFX;
 
 
     public override void Action()
@@ -27,6 +29,8 @@ public class Pyrohead : Head
     IEnumerator SpawnBombCR()
     {
         Sequence seq = DOTween.Sequence();
+
+        AudioManager.PlayAudioAtPosition(mouthOpenSFX, transform.position, AudioManager.battleSfxMixerGroup);
 
         // open mouth
         seq.Append(mouth.DOLocalMoveY(-0.7f, mouthOpenTime).SetRelative().SetEase(Ease.OutBounce));
@@ -46,6 +50,7 @@ public class Pyrohead : Head
         if (bombPrefab)
         {
             Instantiate(bombPrefab, BombSpawnPos, Quaternion.identity);
+            AudioManager.PlayAudioAtPosition(bombSpawnSFX, transform.position, AudioManager.battleSfxMixerGroup);
         }
         else
         {

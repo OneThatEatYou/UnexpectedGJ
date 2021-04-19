@@ -17,7 +17,7 @@ public class Pyroleg : Leg
     public Vector2 attackOffset;
     public Vector2 attackSize;
     public LayerMask effectLayer;
-    public AudioClip landClip;
+    public AudioClip landSFX;
 
     bool hitboxIsActive = false;
     ParticleSystem fireParticle;
@@ -104,7 +104,7 @@ public class Pyroleg : Leg
 
     void PlayLandSound()
     {
-        AudioSource source = AudioManager.PlayAudioAtPosition(landClip, transform.position, AudioManager.battleSfxMixerGroup);
+        AudioSource source = AudioManager.PlayAudioAtPosition(landSFX, transform.position, AudioManager.battleSfxMixerGroup);
         source.pitch = 0.8f;
     }
 

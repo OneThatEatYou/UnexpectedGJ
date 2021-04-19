@@ -57,6 +57,66 @@ PrefabInstance:
       propertyPath: m_UsedByComposite
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 867620314581403620, guid: 0e0cd4dc558da254ab62b84884ccef98,
+        type: 3}
+      propertyPath: screwSpawnPos.Array.data[0].screwPos.x
+      value: 0.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 867620314581403620, guid: 0e0cd4dc558da254ab62b84884ccef98,
+        type: 3}
+      propertyPath: screwSpawnPos.Array.data[1].screwPos.x
+      value: 0.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 867620314581403620, guid: 0e0cd4dc558da254ab62b84884ccef98,
+        type: 3}
+      propertyPath: screwSpawnPos.Array.data[2].screwPos.x
+      value: 0.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 867620314581403620, guid: 0e0cd4dc558da254ab62b84884ccef98,
+        type: 3}
+      propertyPath: screwSpawnPos.Array.data[3].screwPos.x
+      value: 0.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 867620314581403620, guid: 0e0cd4dc558da254ab62b84884ccef98,
+        type: 3}
+      propertyPath: screwSpawnPos.Array.data[4].screwPos.x
+      value: 0.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 867620314581403620, guid: 0e0cd4dc558da254ab62b84884ccef98,
+        type: 3}
+      propertyPath: screwSpawnPos.Array.data[5].screwPos.x
+      value: 0.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 867620314581403620, guid: 0e0cd4dc558da254ab62b84884ccef98,
+        type: 3}
+      propertyPath: screwSpawnPos.Array.data[5].unscrewDir
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 867620314581403620, guid: 0e0cd4dc558da254ab62b84884ccef98,
+        type: 3}
+      propertyPath: screwSpawnPos.Array.data[4].unscrewDir
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 867620314581403620, guid: 0e0cd4dc558da254ab62b84884ccef98,
+        type: 3}
+      propertyPath: screwSpawnPos.Array.data[3].unscrewDir
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 867620314581403620, guid: 0e0cd4dc558da254ab62b84884ccef98,
+        type: 3}
+      propertyPath: screwSpawnPos.Array.data[2].unscrewDir
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 867620314581403620, guid: 0e0cd4dc558da254ab62b84884ccef98,
+        type: 3}
+      propertyPath: screwSpawnPos.Array.data[1].unscrewDir
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 867620314581403620, guid: 0e0cd4dc558da254ab62b84884ccef98,
+        type: 3}
+      propertyPath: screwSpawnPos.Array.data[0].unscrewDir
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5655678521405830388, guid: 0e0cd4dc558da254ab62b84884ccef98,
         type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.size

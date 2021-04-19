@@ -97,7 +97,7 @@ MonoBehaviour:
   maxHealth: 3
   cooldownRange: {x: 5, y: 8}
   initialCooldownRange: {x: 3, y: 5}
-  nutsDropped: 20
+  nutsDropped: 8
   deathParticle: {fileID: 4917040865964609858, guid: 682b2b53a2a58e7429554084ec1cdccb,
     type: 3}
   explosionSFX: {fileID: 8300000, guid: 8e62989d797442340aa4f6bf0032c4d7, type: 3}
@@ -127,6 +127,8 @@ MonoBehaviour:
   mouthOpenTime: 0.8
   bombSpawnDelay: 2
   mouthCloseDelay: 2
+  mouthOpenSFX: {fileID: 8300000, guid: b75ed899820bf854185a6834d022643e, type: 3}
+  bombSpawnSFX: {fileID: 8300000, guid: 7d654730f90912b4993553ddb418178b, type: 3}
 --- !u!1 &6314369440698589420
 GameObject:
   m_ObjectHideFlags: 0

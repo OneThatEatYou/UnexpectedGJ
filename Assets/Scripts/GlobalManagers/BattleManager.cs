@@ -210,9 +210,19 @@ public class BattleManager : MonoBehaviour
         IEnumerator Spawn()
         {
             yield return new WaitForSeconds(delay);
-            Rigidbody2D eggrb = Instantiate(eggPrefab, eggSpawnPos, Quaternion.identity).GetComponent<Rigidbody2D>();
+
+            Vector2 spawnPos = eggSpawnPos;
+            RobotController robot = FindObjectOfType<RobotController>();
+
+            if (robot && robot.transform.position.x < 0)
+            {
+                //spawn from right
+                spawnPos = new Vector2(-eggSpawnPos.x, eggSpawnPos.y);
+            }
+
+            Rigidbody2D eggrb = Instantiate(eggPrefab, spawnPos, Quaternion.identity).GetComponent<Rigidbody2D>();
             Vector2 vel;
-            Vector2 dis = targetLaunchPos - eggSpawnPos;
+            Vector2 dis = targetLaunchPos - spawnPos;
             vel.x = dis.x / launchDuration;
             vel.y = dis.y / launchDuration - 0.5f * eggrb.gravityScale * Physics2D.gravity.y * launchDuration;
             eggrb.velocity = vel;

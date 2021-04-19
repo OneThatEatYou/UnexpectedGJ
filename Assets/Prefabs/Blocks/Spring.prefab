@@ -155,7 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bounceForce: 26
   bounceTorque: 5
-  cooldown: 0.1
+  cooldown: 0.05
   bounceSFX: {fileID: 8300000, guid: 4038e06992c6a65449803e7c4f592e2f, type: 3}
   isActivatedParam: isActivated
 --- !u!95 &7684032688005931627

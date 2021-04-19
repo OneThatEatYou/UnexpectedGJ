@@ -295,7 +295,7 @@ MonoBehaviour:
   effectLayer:
     serializedVersion: 2
     m_Bits: 8192
-  landClip: {fileID: 8300000, guid: 3d077d2e118646b4da17ef4a21a146a6, type: 3}
+  landSFX: {fileID: 8300000, guid: 3d077d2e118646b4da17ef4a21a146a6, type: 3}
 --- !u!1 &7378022331442889220
 GameObject:
   m_ObjectHideFlags: 0

@@ -205,6 +205,8 @@ public class BattleManager : MonoBehaviour
 
     public void SpawnEgg(float delay)
     {
+        GameManager.Instance.tutorialManager.QueuePopUp(2);
+
         StartCoroutine(Spawn());
 
         IEnumerator Spawn()

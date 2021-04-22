@@ -91,11 +91,10 @@ public class Hand_Pyro : Hand
     {
         PlayerController player;
 
-        Collider2D[] cols = Physics2D.OverlapBoxAll(attackPos.position, attackSize, transform.eulerAngles.z, effectLayer);
+        Collider2D[] cols = Physics2D.OverlapBoxAll(attackPos.position, attackSize, transform.eulerAngles.z, effectLayer.value);
 
         foreach (var col in cols)
         {
-            Debug.Log($"Collided with {col.name}");
             if (col.TryGetComponent(out player))
             {
                 player.Die();

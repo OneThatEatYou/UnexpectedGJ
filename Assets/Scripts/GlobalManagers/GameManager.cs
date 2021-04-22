@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 using DG.Tweening;
 
 public class GameManager : MonoBehaviour
@@ -32,8 +33,9 @@ public class GameManager : MonoBehaviour
 
     public AudioManager audioManager;
     public InventoryManager inventoryManager;
+    public TutorialManager tutorialManager;
 
-    Image fadeImage;
+    public Image fadeImage;
     
     //screen size in pixels
     public static Vector2 ScreenSizePixel
@@ -61,10 +63,13 @@ public class GameManager : MonoBehaviour
         audioManager.OnInit();
         inventoryManager = new InventoryManager();
         inventoryManager.OnInit();
+        tutorialManager = new TutorialManager();
+        tutorialManager.OnInit();
 
         //creates image overlay for fading in and out
         GameObject fadeCanvasGO = new GameObject("FadeCanvas");
         Canvas fadeCanvas = fadeCanvasGO.AddComponent<Canvas>();
+        fadeCanvasGO.AddComponent<GraphicRaycaster>();
         fadeCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
         fadeCanvas.sortingOrder = 2;
         fadeCanvasGO.GetComponent<RectTransform>().sizeDelta = ScreenSizePixel;
@@ -89,6 +94,13 @@ public class GameManager : MonoBehaviour
         if (scene.name == "Main")
         {
             audioManager.mainMixer.SetFloat("Vol_Battle", 0);
+
+            tutorialManager.QueuePopUp(0);
+
+            if (inventoryManager.equippedItem != null)
+            {
+                tutorialManager.QueuePopUp(1);
+            }
         }
         else if (scene.name == "MainMenu")
         {

@@ -40,7 +40,7 @@ public class Redbody : Body
     IEnumerator Knockback()
     {
         AnimateBlast();
-        AudioManager.PlayAudioAtPosition(chargeSFX, transform.position, AudioManager.sfxMixerGroup);
+        AudioManager.PlayAudioAtPosition(chargeSFX, transform.position, AudioManager.sfxMixerGroup).volume = 0.8f;
         yield return new WaitForSeconds(chargeDur + holdDur + blastWait);
 
         Collider2D[] cols = Physics2D.OverlapCircleAll((Vector2)transform.position + centerOffset, knockbackSRad);

@@ -205,13 +205,15 @@ public class BattleManager : MonoBehaviour
 
     public void SpawnEgg(float delay)
     {
-        GameManager.Instance.tutorialManager.QueuePopUp(2);
-
         StartCoroutine(Spawn());
 
         IEnumerator Spawn()
         {
-            yield return new WaitForSeconds(delay);
+            yield return new WaitForSeconds(delay / 2);
+
+            GameManager.Instance.tutorialManager.QueuePopUp(2);
+
+            yield return new WaitForSeconds(delay/2);
 
             Vector2 spawnPos = eggSpawnPos;
             RobotController robot = FindObjectOfType<RobotController>();

@@ -118,9 +118,11 @@ public class ShopManager : MonoBehaviour
             }
             else
             {
+                Debug.Log($"Bought {SelectedItem.itemName} for {SelectedItem.itemPrice}.");
+
                 Nuts -= SelectedItem.itemPrice;
                 InventoryManager.itemHashset.Add(SelectedItem);
-                Debug.Log($"Bought {SelectedItem.itemName} for {SelectedItem.itemPrice}.");
+                EquipItem();
 
                 AudioManager.PlayAudioAtPosition(buySFX, transform.position, AudioManager.sfxMixerGroup);
             }

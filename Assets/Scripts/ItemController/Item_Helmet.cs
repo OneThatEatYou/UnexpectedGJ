@@ -8,12 +8,18 @@ public class Item_Helmet : ItemController
 
     private void OnEnable()
     {
-        BattleManager.Instance.onRegisterHealthPanel += AddMaxHealth;
+        if (BattleManager.Instance)
+        {
+            BattleManager.Instance.onRegisterHealthPanel += AddMaxHealth;
+        }
     }
 
     private void OnDisable()
     {
-        BattleManager.Instance.onRegisterHealthPanel -= AddMaxHealth;
+        if (BattleManager.Instance)
+        {
+            BattleManager.Instance.onRegisterHealthPanel -= AddMaxHealth;
+        }
     }
 
     void AddMaxHealth()

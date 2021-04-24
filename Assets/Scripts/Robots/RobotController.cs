@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 /// <summary>
 /// handles when modules are executed
@@ -257,6 +258,8 @@ public class RobotController : MonoBehaviour
             DestroyAllParts();
             Destroy(gameObject);
         }
+
+        ReportRobotDestroyed();
     }
 
     //returns the sum of all max health of parts
@@ -296,5 +299,10 @@ public class RobotController : MonoBehaviour
     public Vector2 GenerateRandomPosition()
     {
         return new Vector2(Random.Range(-10, 10), Random.Range(-10, 10));
+    }
+
+    public void ReportRobotDestroyed()
+    {
+        AnalyticsEvent.Custom("Robot_Destroyed");
     }
 }

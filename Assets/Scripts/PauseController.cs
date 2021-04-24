@@ -23,25 +23,14 @@ public class PauseController : MainMenuManager
 
     void Pause()
     {
+        if (GameManager.Instance.tutorialManager.IsShowingPopUp)
+        {
+            return;
+        }
+
         Time.timeScale = 1 - Time.timeScale;
         pauseCanvas.SetActive(!pauseCanvas.activeInHierarchy);
 
         GameManager.isPaused = !GameManager.isPaused;
-
-        //Debug.Log("Timescale: " + Time.timeScale + ", isHidingCursor: " + CameraAimController.isHidingCursor);
-
-        if (Time.timeScale == 1)
-        {
-            //unpause
-            //what the hell
-            //Cursor.visible = !CameraAimController.isHidingCursor;
-            //Cursor.visible = false;
-            //Debug.Log("Unpaused with Cursor.visible = " + Cursor.visible);
-        }
-        else
-        {
-            //pause
-            Cursor.visible = true;
-        }
     }
 }

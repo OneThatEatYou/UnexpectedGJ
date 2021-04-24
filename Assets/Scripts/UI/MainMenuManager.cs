@@ -7,6 +7,7 @@ using DG.Tweening;
 public class MainMenuManager : MonoBehaviour
 {
     public Slider masterVolSlider, bgmVolSlider, sfxVolSlider;
+    public Image checkmarkImage;
     public AudioClip[] sfxClips;
     public Animator startAnimator;
     public string startAnimatorFadeParam = "ClockIn";
@@ -26,6 +27,11 @@ public class MainMenuManager : MonoBehaviour
         masterVolSlider.value = GetCurrentVolume("Vol_Master");
         bgmVolSlider.value = GetCurrentVolume("Vol_BGM");
         sfxVolSlider.value = GetCurrentVolume("Vol_SFX");
+
+        if (checkmarkImage)
+        {
+            checkmarkImage.gameObject.SetActive(GlobalSettings.isBloomEnabled);
+        }
     }
 
     public void QuitGame()
@@ -67,6 +73,12 @@ public class MainMenuManager : MonoBehaviour
         AudioClip clip = sfxClips[Random.Range(0, sfxClips.Length)];
         audioSource.clip = clip;
         audioSource.Play();
+    }
+
+    public void ToggleBloom()
+    {
+        GlobalSettings.isBloomEnabled = !GlobalSettings.isBloomEnabled;
+        checkmarkImage.gameObject.SetActive(GlobalSettings.isBloomEnabled);
     }
 
     public void ClockIn()

@@ -209,11 +209,11 @@ public class BattleManager : MonoBehaviour
 
         IEnumerator Spawn()
         {
-            yield return new WaitForSeconds(delay / 2);
+            yield return new WaitForSeconds(1f);
 
             GameManager.Instance.tutorialManager.QueuePopUp(2);
 
-            yield return new WaitForSeconds(delay/2);
+            yield return new WaitForSeconds(delay - 1);
 
             Vector2 spawnPos = eggSpawnPos;
             RobotController robot = FindObjectOfType<RobotController>();

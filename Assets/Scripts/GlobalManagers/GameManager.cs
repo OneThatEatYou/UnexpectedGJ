@@ -1,10 +1,8 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using UnityEngine.EventSystems;
+using UnityEngine.Rendering;
 using DG.Tweening;
 
 public class GameManager : MonoBehaviour
@@ -70,6 +68,14 @@ public class GameManager : MonoBehaviour
         GameObject fadeCanvasGO = new GameObject("FadeCanvas");
         Canvas fadeCanvas = fadeCanvasGO.AddComponent<Canvas>();
         fadeCanvasGO.AddComponent<GraphicRaycaster>();
+
+        CanvasScaler canvasScaler = fadeCanvasGO.AddComponent<CanvasScaler>();
+        canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        canvasScaler.referenceResolution = new Vector2(960, 540);
+        canvasScaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
+        canvasScaler.matchWidthOrHeight = 0.5f;
+        canvasScaler.referencePixelsPerUnit = 8;
+
         fadeCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
         fadeCanvas.sortingOrder = 2;
         fadeCanvasGO.GetComponent<RectTransform>().sizeDelta = ScreenSizePixel;
@@ -95,6 +101,7 @@ public class GameManager : MonoBehaviour
         {
             audioManager.mainMixer.SetFloat("Vol_Battle", 0);
 
+
             tutorialManager.QueuePopUp(0);
 
             if (inventoryManager.equippedItem != null)
@@ -114,6 +121,11 @@ public class GameManager : MonoBehaviour
         Color fadeCol = fadeImage.color;
         fadeCol.a = 0;
         fadeImage.DOColor(fadeCol, 1).SetEase(Ease.InOutSine);
+
+        if (!GlobalSettings.isBloomEnabled)
+        {
+            DisableBloom();
+        }
     }
 
     public void ChangeScene(int sceneIndex)
@@ -130,6 +142,17 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         SceneManager.LoadScene(sceneIndex);
+    }
+
+    public void DisableBloom()
+    {
+        var volumes = FindObjectsOfType<Volume>();
+
+        foreach (var item in volumes)
+        {
+            Debug.Log($"Disabled {item.name}");
+            item.enabled = false;
+        }
     }
 
     public static Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Vector3 angles)

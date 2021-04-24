@@ -64,9 +64,6 @@ public class TutorialManager
         if (!IsShowingPopUp)
         {
             InstantiatePopUp(popUpIndexQueue.Dequeue());
-
-            IsShowingPopUp = true;
-            Time.timeScale = 0;
         }
     }
 
@@ -94,8 +91,17 @@ public class TutorialManager
         {
             Debug.Log("Spawning pop up");
 
+            IsShowingPopUp = true;
+
             GameObject.Instantiate(popUp.popUpPrefab, GameManager.Instance.fadeImage.transform);
             tutorialPopUps[index].seen = true;
+
+            Time.timeScale = 0;
+        }
+        else
+        {
+            // not a valid popup to show
+            IsShowingPopUp = false;
         }
     }
 

@@ -277,6 +277,7 @@ GameObject:
   m_Component:
   - component: {fileID: 79606423}
   - component: {fileID: 79606422}
+  - component: {fileID: 79606424}
   m_Layer: 0
   m_Name: BattleManager
   m_TagString: Untagged
@@ -328,7 +329,7 @@ MonoBehaviour:
   fadeColor: {r: 0, g: 0, b: 0, a: 0.6313726}
   dropdownDelay: 2
   dropdownDur: 1.5
-  autoSpawnFirst: 0
+  autoSpawnFirst: 1
 --- !u!4 &79606423
 Transform:
   m_ObjectHideFlags: 0
@@ -343,6 +344,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &79606424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79606421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -745406591, guid: 220224b43fc464c28bc0e8de8f54a432, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Trigger:
+    m_IsTriggerExpanded: 1
+    m_Type: 0
+    m_LifecycleEvent: 2
+    m_ApplyRules: 0
+    m_Rules:
+      m_Rules: []
+    m_TriggerBool: 0
+    m_InitTime: 5
+    m_RepeatTime: 5
+    m_Repetitions: 0
+    repetitionCount: 0
+  m_EventPayload:
+    m_IsEventExpanded: 1
+    m_StandardEventType: CustomEvent
+    m_Parameters:
+      m_Parameters: []
+    m_Name: Battle_Start
 --- !u!1 &122149892
 GameObject:
   m_ObjectHideFlags: 0
@@ -7137,6 +7168,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 894619095}
+  - component: {fileID: 894619094}
   - component: {fileID: 894619096}
   - component: {fileID: 894619093}
   m_Layer: 0
@@ -7158,6 +7190,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77aecf4f078a48d4ab380e97322cc121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!50 &894619094
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894619092}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!4 &894619095
 Transform:
   m_ObjectHideFlags: 0
@@ -11585,6 +11638,7 @@ MonoBehaviour:
   masterVolSlider: {fileID: 1783755752}
   bgmVolSlider: {fileID: 1193538885}
   sfxVolSlider: {fileID: 367778865}
+  checkmarkImage: {fileID: 0}
   sfxClips:
   - {fileID: 8300000, guid: 6f44857b2906b8b4d83e3893cd57f616, type: 3}
   - {fileID: 8300000, guid: 515f25e1338d9b6449fa026ea9c4c7e1, type: 3}

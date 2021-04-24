@@ -230,22 +230,6 @@ public class PlayerController : MonoBehaviour
 
         lastUseTime = Time.time;
         equippedItem.UseItem();
-
-        //StartCoroutine(DisplayShootCooldown());
-
-        //IEnumerator DisplayShootCooldown()
-        //{
-        //    float t = 0;
-        //    cooldownImage.fillAmount = 1;
-
-        //    while (cooldownImage.fillAmount != 0)
-        //    {
-        //        cooldownImage.fillAmount = Mathf.Lerp(1, 0, t / shootCooldown);
-        //        t += Time.deltaTime;
-
-        //        yield return null;
-        //    }
-        //}
     }
 
     private void Slap()

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class BGMLooper : MonoBehaviour
 {
-    public string bgmLooperTag = "BGM Looper";
-
     public AudioSource source0;         //this source starts with intro
     public AudioSource source1;
     public AudioClip introAudioClip;
@@ -13,24 +11,8 @@ public class BGMLooper : MonoBehaviour
 
     int flip = 1;
 
-    private void Awake()
-    {
-        //make sure that there is only 1 BGM looper in the scene
-        GameObject[] objs = GameObject.FindGameObjectsWithTag(bgmLooperTag);
-
-        for (int i = 0; i < objs.Length; i++)
-        {
-            if (objs[i] != gameObject)
-            {
-                Destroy(gameObject);
-                break;
-            }
-        }
-    }
-
     private void Start()
     {
-        DontDestroyOnLoad(gameObject);
         StartCoroutine(PlayLoopingAudio(introAudioClip, loopableAudioClip, 0f));
     }
 
